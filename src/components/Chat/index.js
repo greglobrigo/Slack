@@ -18,20 +18,17 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Collapse from "@mui/material/Collapse";
 import "./index.css";
+import useHooks from "./hooks";
 
 const drawerWidth = 240;
 
 export default function PermanentDrawerLeft() {
-  const [openChannel, setOpenChannel] = React.useState(true);
-  const [openMessage, setOpenMessage] = React.useState(true);
-
-  const handleClickOpenChannel = () => {
-    setOpenChannel(!openChannel);
-  };
-
-  const handleClickOpenMessage = () => {
-    setOpenMessage(!openMessage);
-  };
+  const {
+    openChannel,
+    openMessage,
+    handleClickOpenChannel,
+    handleClickOpenMessage,
+  } = useHooks();
 
   return (
     <Box sx={{ display: "flex" }}>
