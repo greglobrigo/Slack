@@ -3,6 +3,15 @@ import axios from 'axios';
 
 const Hooks = () => {
 
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    setLoading(true)
+    setTimeout(() => {
+    setLoading(false)
+    }, 3000);
+  }, [])
+
     const [post, setPost] = useState([]);
     const [users, setUsers] = useState([]);
     const [password, setPassword] = useState('')
@@ -86,7 +95,8 @@ const Hooks = () => {
      if(!email.includes("@" && ".")) {            
         setValidInfo({invalidEmailFormat: true})        
       } else { 
-     loginUser()        
+     loginUser()
+
     }
    } 
  
@@ -136,7 +146,8 @@ const Hooks = () => {
         isRegister,
         setIsRegister,
         validInfo,
-        setValidInfo        
+        setValidInfo,
+        loading        
     }   
 }
 

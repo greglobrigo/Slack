@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -13,6 +11,9 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useHooks from './hooks';
 import './styles.css'
+import { PulseLoader } from "react-spinners";
+import { Fade } from 'react-reveal';
+import { CgSlack } from 'react-icons/cg'
 
 function Copyright(props) {
   return (
@@ -29,7 +30,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
+export const SignIn = () =>{ 
 
   const {
     post,        
@@ -50,7 +51,9 @@ export default function SignIn() {
     isRegister,
     setIsRegister,
     setValidInfo,
-    validInfo,   
+    validInfo,
+    loading,
+    setLoading   
 
 } = useHooks()
 
@@ -58,17 +61,33 @@ export default function SignIn() {
  
   console.log(post);
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
+
+    <>
+      { loading ?
+        <>
+      <div className="loader" disabled>
+        <PulseLoader loading={loading} color={"red"} size={40}/> 
+        <p>Loading...</p>
+        </div> 
+        </>
+        :   
+        <>
+        <div className="heading-container">      
+         <span className="heading"><CgSlack/>Avion Slack App</span>
+         <span className="website">avionschool.slack.com</span>
+         </div>
+      <ThemeProvider theme={theme}>      
+      <Container component="main" maxWidth="xs">      
+        <CssBaseline />        
         <Box
           sx={{
-            marginTop: 25,
+            marginTop: 5,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
+          
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>            
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -131,5 +150,10 @@ export default function SignIn() {
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
+    </>                                                    
+    }
+    </>
   );
 }
+
+export default SignIn

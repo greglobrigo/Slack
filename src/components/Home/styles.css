@@ -9,3 +9,28 @@
     display: flex;
     justify-content: center;
 }
+
+.loader {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;    
+    align-items: center;    
+    height: 100vh;     
+}
+
+.heading-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding-top: 10rem;
+    text-align: center;
+    
+}
+
+.heading {
+    font-size: 4rem;    
+}
+
+.website {
+    font-size: 1.5rem;
+}

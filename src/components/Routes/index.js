@@ -17,20 +17,17 @@ const Routes = () => {
     }
 
     return (
-      <Router>
+      <Router>        
         <div onClick= {()=>closeRouter()} style={{display: displayed ? 'block' : 'none'}}>
-          <ul>
+          <ul>                
             <li>
-              <Link to="/home">Home</Link>
-            </li>          
-            <li>
-              <Link to="/chat">Chat App</Link>
+              <Link to="/chat">Chat App</Link> <button onClick= {()=>closeRouter()}>close</button>
             </li>            
           </ul>  
           <hr />    
-           </div>    
-          <Switch>
-            <Route exact path="/home" component={Home}>
+           </div>   
+           <Switch>           
+            <Route exact path="/" component={Home}>
               <Home />
             </Route>            
             <Route exact path="/chat" component={Chat}>
