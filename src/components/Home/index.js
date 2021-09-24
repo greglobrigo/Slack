@@ -55,7 +55,8 @@ export const SignIn = () =>{
     validInfo,
     loading,
     setLoading,
-    transition   
+    transition,
+    route,   
 
 } = useHooks()
 
@@ -65,8 +66,7 @@ export const SignIn = () =>{
   return (
 
     <>
-      {/* {isLogin.successful && transition()} */}
-      {/* {isLogin.successful && <Redirect to="/chat" />}       */}
+      {route && <Redirect to="/chat"/>}
       { loading ?
         <>
       <div className="loader" disabled>

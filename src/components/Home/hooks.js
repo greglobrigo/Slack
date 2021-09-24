@@ -17,7 +17,8 @@ const Hooks = () => {
     const [password, setPassword] = useState('')
     const [secondPassword, setSecondPassword] = useState('')    
     const [email, setEmail] = useState('')    
-    const [isRegistering, setIsRegistering] = useState(false)    
+    const [isRegistering, setIsRegistering] = useState(false)
+    const [route, setRoute] = useState(false)   
     const [validInfo, setValidInfo] = useState({
             passwordsDoNotMatch: false,
             invalidEmailFormat: false,
@@ -31,7 +32,7 @@ const Hooks = () => {
            failed: false
         })
     
-        setTimeout(() => {setLoading(false)}, 3000);
+    
 
     const registerUser = async() => {      
 
@@ -131,7 +132,7 @@ const Hooks = () => {
 
    const transition = () => {
     setLoading(true)
-    setTimeout(() => {setLoading(false)}, 3000)
+    setTimeout(() => {setLoading(false); setRoute(true)}, 3000)
    }
 
     return {
@@ -157,7 +158,9 @@ const Hooks = () => {
         setValidInfo,
         setLoading,
         loading,
-        transition        
+        transition,
+        route,
+        setRoute        
     }   
 }
 
