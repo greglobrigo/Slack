@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Home from '../Home'
 import Chat from '../Chat'
+import Login from '../Login'
 
 const Routes = () => {
 
@@ -26,6 +27,9 @@ const Routes = () => {
             <li>
               <Link to="/chat">Chat App</Link>
             </li>
+            <li>
+              <Link to="/login">Log in</Link>
+            </li>
           </ul>  
           <hr />    
            </div>    
@@ -33,8 +37,11 @@ const Routes = () => {
             <Route exact path="/home" component={Home}>
               <Home />
             </Route>            
-            <Route path="/chat" component={Chat}>
+            <Route exact path="/chat" component={Chat}>
               <Chat />
+            </Route>
+            <Route exact path="/login" component={Login}>
+              <Login />
             </Route>
           </Switch>       
       </Router>
