@@ -14,6 +14,7 @@ import './styles.css'
 import { PulseLoader } from "react-spinners";
 import { Fade } from 'react-reveal';
 import { CgSlack } from 'react-icons/cg'
+import {Redirect} from 'react-router-dom'
 
 function Copyright(props) {
   return (
@@ -53,16 +54,19 @@ export const SignIn = () =>{
     setValidInfo,
     validInfo,
     loading,
-    setLoading   
+    setLoading,
+    transition   
 
 } = useHooks()
 
 
  
-  console.log(post);
+  
   return (
 
     <>
+      {/* {isLogin.successful && transition()} */}
+      {/* {isLogin.successful && <Redirect to="/chat" />}       */}
       { loading ?
         <>
       <div className="loader" disabled>

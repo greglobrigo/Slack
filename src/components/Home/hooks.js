@@ -5,12 +5,12 @@ const Hooks = () => {
 
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    setLoading(true)
-    setTimeout(() => {
-    setLoading(false)
-    }, 3000);
-  }, [])
+  // useEffect(() => {
+  //   setLoading(true)
+  //   setTimeout(() => {
+  //   setLoading(false)
+  //   }, 3000);
+  // }, [])
 
     const [post, setPost] = useState([]);
     const [users, setUsers] = useState([]);
@@ -31,6 +31,7 @@ const Hooks = () => {
            failed: false
         })
     
+        setTimeout(() => {setLoading(false)}, 3000);
 
     const registerUser = async() => {      
 
@@ -43,7 +44,7 @@ const Hooks = () => {
             method: 'POST',
             }).then((res) => {
                 setPost(res)
-                setIsRegister({successful:true})
+                setIsRegister({successful:true})                
                 resetUserInput()
             })
             .catch((error) => {
@@ -76,6 +77,8 @@ const Hooks = () => {
         }).then((res) => {
             setPost(res)
             setIsLogin({successful:true})
+            console.log(res)
+            transition()
             resetUserInput()
         })
         .catch((error) => {
@@ -126,6 +129,11 @@ const Hooks = () => {
      setSecondPassword('')
    }
 
+   const transition = () => {
+    setLoading(true)
+    setTimeout(() => {setLoading(false)}, 3000)
+   }
+
     return {
         post,        
         users,        
@@ -147,7 +155,9 @@ const Hooks = () => {
         setIsRegister,
         validInfo,
         setValidInfo,
-        loading        
+        setLoading,
+        loading,
+        transition        
     }   
 }
 
