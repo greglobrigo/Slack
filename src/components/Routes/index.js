@@ -1,31 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route,  
 } from "react-router-dom";
 import Home from '../Home'
 import Chat from '../Chat'
 
 const Routes = () => {
-
-    const [displayed, setDisplay] = useState(true)
-    const closeRouter = () => {
-        setDisplay(false)
-
-    }
-
     return (
-      <Router>        
-        <div onClick= {()=>closeRouter()} style={{display: displayed ? 'block' : 'none'}}>
-          <ul>                
-            <li>
-              <Link to="/chat">Chat App</Link> <button onClick= {()=>closeRouter()}>close</button>
-            </li>            
-          </ul>  
-          <hr />    
-           </div>   
+      <Router>              
            <Switch>           
             <Route exact path="/" component={Home}>
               <Home />

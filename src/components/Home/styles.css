@@ -21,10 +21,9 @@
 .heading-container {
     display: flex;
     flex-direction: column;
-    text-align: center;
-    padding-top: 10rem;
-    text-align: center;
     
+    padding-top: 10rem;
+    align-items: center;  
 }
 
 .heading {
@@ -34,3 +33,10 @@
 .website {
     font-size: 1.5rem;
 }
+
+@media screen and (max-width: 480px) {
+    .heading-container {
+        padding-top: 2.5rem;
+    }
+}
+

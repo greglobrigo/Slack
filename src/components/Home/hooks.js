@@ -5,12 +5,12 @@ const Hooks = () => {
 
   const [loading, setLoading] = useState(false)
 
-  // useEffect(() => {
-  //   setLoading(true)
-  //   setTimeout(() => {
-  //   setLoading(false)
-  //   }, 3000);
-  // }, [])
+  useEffect(() => {
+    setLoading(true)
+    setTimeout(() => {
+    setLoading(false)
+    }, 3000);
+  }, [])
 
     const [post, setPost] = useState([]);
     const [users, setUsers] = useState([]);
@@ -22,6 +22,8 @@ const Hooks = () => {
     const [validInfo, setValidInfo] = useState({
             passwordsDoNotMatch: false,
             invalidEmailFormat: false,
+            emailIsEmpty: false,
+            passwordIsEmpty: false
         })
     const [isRegister, setIsRegister] = useState({
            successful: false,
@@ -58,9 +60,11 @@ const Hooks = () => {
     const register = (e) => {
         e.preventDefault()
         if(!email.includes("@" && ".")) {            
-            setValidInfo({invalidEmailFormat: true})        
-          } else if (password !== secondPassword) {
-              setValidInfo({passwordsDoNotMatch: true})
+        setValidInfo({invalidEmailFormat: true})}   
+            else if (!password || !secondPassword){
+            setValidInfo({passwordIsEmpty: true})}     
+                 else if (password !== secondPassword) {
+                setValidInfo({passwordsDoNotMatch: true})
           } else {         
            registerUser()
          }
@@ -96,11 +100,14 @@ const Hooks = () => {
  
    const logIn = (e) =>{   
      e.preventDefault()  
-     if(!email.includes("@" && ".")) {            
-        setValidInfo({invalidEmailFormat: true})        
-      } else { 
-     loginUser()
-
+        if(!email) {
+        setValidInfo({emailIsEmpty: true})
+        } else if (!password){
+            setValidInfo({passwordIsEmpty: true}) 
+            } else if(!email.includes("@" && ".")) {            
+             setValidInfo({invalidEmailFormat: true})                
+                } else { 
+             loginUser()
     }
    } 
  
