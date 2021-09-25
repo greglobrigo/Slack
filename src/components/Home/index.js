@@ -17,19 +17,6 @@ import { CgSlack } from 'react-icons/cg'
 import {Redirect} from 'react-router-dom'
 import {Link as ReactLink} from 'react-router-dom'
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <span color="inherit">
-        Avion School Slack App
-      </span>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 const theme = createTheme();
 
 export const SignIn = () =>{ 
@@ -58,9 +45,10 @@ export const SignIn = () =>{
   return (
 
     <>
+      <div className="background"></div> 
       {route && <Redirect to="/chat"/>}
       { loading ?
-        <>
+        <>       
       <div className="loader">
         <HashLoader loading={loading} color={"purple"} size={80}/> 
         <h3>Loading...</h3>
@@ -68,7 +56,8 @@ export const SignIn = () =>{
         </>
         :   
         <>
-        <Fade up>
+        
+        <Fade up>        
         <div className="heading-container">      
          <span className="heading"><CgSlack/>Avion Slack App</span>
          <span className="website">avionschool.slack.com</span>
@@ -143,11 +132,17 @@ export const SignIn = () =>{
               </Grid>
             </Grid>  
 
-            <ReactLink to='/chat' style={{marginTop: "3rem", cursor: "pointer", color: "#2C82D5"}}>Go to Chat App</ReactLink>
+            <ReactLink to='/chat' style={{marginTop: "1rem", cursor: "pointer", color: "#2C82D5"}}>Go to Chat App</ReactLink>
             
-         </Box>   
-        
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+         </Box>  
+                <Typography className="copyright" variant="body2" color="text.secondary" align="center" sx={{ mt: 3, mb: 2}}>
+                 {'Copyright © '}
+                 <span color="inherit">
+                  Avion School Slack App
+                  </span>{' '}
+                  {new Date().getFullYear()}
+                   {'.'}
+                </Typography>
       </Container>
     </ThemeProvider>
     </Fade>
