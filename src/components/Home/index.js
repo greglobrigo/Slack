@@ -17,22 +17,6 @@ import { CgSlack } from "react-icons/cg";
 import { Redirect } from "react-router-dom";
 import { Link as ReactLink } from "react-router-dom";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <span color="inherit">Avion School Slack App</span>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
 const theme = createTheme();
 
 export const SignIn = () => {
@@ -59,6 +43,7 @@ export const SignIn = () => {
 
   return (
     <>
+      <div className="background"></div>
       {route && <Redirect to="/chat" />}
       {loading ? (
         <>
@@ -185,7 +170,7 @@ export const SignIn = () => {
                   <ReactLink
                     to="/chat"
                     style={{
-                      marginTop: "3rem",
+                      marginTop: "1rem",
                       cursor: "pointer",
                       color: "#2C82D5",
                     }}
@@ -193,8 +178,18 @@ export const SignIn = () => {
                     Go to Chat App
                   </ReactLink>
                 </Box>
-
-                <Copyright sx={{ mt: 8, mb: 4 }} />
+                <Typography
+                  className="copyright"
+                  variant="body2"
+                  color="text.secondary"
+                  align="center"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  {"Copyright © "}
+                  <span color="inherit">Avion School Slack App</span>{" "}
+                  {new Date().getFullYear()}
+                  {"."}
+                </Typography>
               </Container>
             </ThemeProvider>
           </Fade>
