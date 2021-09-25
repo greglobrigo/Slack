@@ -1,22 +1,22 @@
 import * as React from 'react';
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
+
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
+
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
+
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import TextareaAutosize from '@mui/material/TextareaAutosize'
+
 import ForumIcon from "@mui/icons-material/Forum";
 
 import { TextField } from '@mui/material';
@@ -27,6 +27,8 @@ import Collapse from "@mui/material/Collapse";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 
 
+
+
 import useSessionStorage from '../Home/useSessionStorage.js'
 
 import './styles.css'
@@ -34,13 +36,21 @@ import './styles.css'
 
 const drawerWidth = 300;
 
-export default function ResponsiveDrawer(props) {
+ const ResponsiveDrawer = (props) =>{
 
   const [post, setPost] = useSessionStorage('post', [])
-  console.log(post)  
+  
+
+  // const [loading, setLoading] = useState(false)
+  // useEffect(() => {
+  //   setLoading(true)
+  //   setTimeout(() => {
+  //   setLoading(false)
+  //   }, 3000);
+  // }, [])
 
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -68,7 +78,7 @@ export default function ResponsiveDrawer(props) {
               </ListItemIcon>
               <ListItemText primary="Channels" />
               {openChannel ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>{" "}
+            </ListItemButton>
             <Collapse in={openChannel} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItemButton sx={{ pl: 4 }}>
@@ -106,12 +116,39 @@ export default function ResponsiveDrawer(props) {
               </List>
             </Collapse>
           </List>
+
+        <Divider />
+        <List>
+            <ListItemButton onClick={handleClickOpenMessage}>
+              <ListItemIcon>
+                <ChatBubbleIcon />
+              </ListItemIcon>
+              <ListItemText primary="All users" />
+              {openMessage ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={openMessage} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemText primary="Direct Message 1" />
+                </ListItemButton>
+                <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemText primary="Direct Message 2" />
+                </ListItemButton>
+                <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemText primary="Direct Message 3" />
+                </ListItemButton>
+              </List>
+            </Collapse>
+          </List>       
+
     </div>
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
+
+    
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar
@@ -296,7 +333,8 @@ export default function ResponsiveDrawer(props) {
       </Box>
      
     </Box>
+    
   );
 }
 
-
+export default ResponsiveDrawer
