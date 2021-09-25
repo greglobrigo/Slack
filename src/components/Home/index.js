@@ -38,9 +38,15 @@ export const SignIn = () => {
     setValidInfo,
     validInfo,
     loading,
+<<<<<<< HEAD
     route,
   } = useHooks();
 
+=======
+    route,    
+} = useHooks() 
+  
+>>>>>>> feature/home
   return (
     <>
       <div className="background"></div>
