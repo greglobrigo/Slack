@@ -26,6 +26,8 @@ export default function PermanentDrawerLeft() {
     ExpandLess,
     ExpandMore,
     Collapse,
+    PeopleAltIcon,
+    CgSlack,
   } = useHooks();
 
   return (
@@ -33,11 +35,18 @@ export default function PermanentDrawerLeft() {
       <CssBaseline />
       <AppBar
         position="fixed"
-        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
+        sx={{
+          width: `calc(100% - ${drawerWidth}px)`,
+          ml: `${drawerWidth}px`,
+          justifyContent: "center",
+        }}
       >
-        <Toolbar>
+        <Toolbar className="chat-toolbar">
           <Typography variant="h6" noWrap component="div">
-            Avion School
+            <span className="chat-hd">
+              <CgSlack />
+              Avion Slack App
+            </span>
           </Typography>
         </Toolbar>
       </AppBar>
@@ -62,13 +71,19 @@ export default function PermanentDrawerLeft() {
 
           <Divider />
           <List>
+            <ListItemButton className="list-item">
+              <ListItemIcon>
+                <PeopleAltIcon />
+              </ListItemIcon>
+              <ListItemText primary="All Users" />
+            </ListItemButton>
             <ListItemButton onClick={handleClickOpenChannel}>
               <ListItemIcon>
                 <ForumIcon />
               </ListItemIcon>
               <ListItemText primary="Channels" />
               {openChannel ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>{" "}
+            </ListItemButton>
             <Collapse in={openChannel} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItemButton sx={{ pl: 4 }}>
