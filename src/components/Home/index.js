@@ -43,12 +43,10 @@ export const SignIn = () =>{
 } = useHooks() 
   
   return (
-
-    <>
-      <div className="background"></div> 
+    <>      
       {route && <Redirect to="/chat"/>}
       { loading ?
-        <>       
+        <>             
       <div className="loader">
         <HashLoader loading={loading} color={"purple"} size={80}/> 
         <h3>Loading...</h3>
@@ -56,7 +54,7 @@ export const SignIn = () =>{
         </>
         :   
         <>
-        
+        <div className="background"></div> 
         <Fade up>        
         <div className="heading-container">      
          <span className="heading"><CgSlack/>Avion Slack App</span>
@@ -112,6 +110,7 @@ export const SignIn = () =>{
              {validInfo.emailIsEmpty && <span className="failed">Email is required</span>}
              {validInfo.passwordIsEmpty && <span className="failed">Password is required</span>}
              {validInfo.passwordsDoNotMatch && <span className="failed">Passwords do not match</span>}
+             {validInfo.passwordTooShort && <span className="failed">Passwords must atleast be 6 characters</span>}
            
          </Box>
         
