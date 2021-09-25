@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import useSessionStorage from './useSessionStorage'
 import axios from 'axios';
 
 const Hooks = () => {
@@ -12,7 +13,7 @@ const Hooks = () => {
     }, 3000);
   }, [])
 
-    const [post, setPost] = useState([]);
+    const [post, setPost] = useSessionStorage('post', []);
     const [users, setUsers] = useState([]);
     const [password, setPassword] = useState('')
     const [secondPassword, setSecondPassword] = useState('')    
@@ -86,7 +87,7 @@ const Hooks = () => {
         }).then((res) => {
             setPost(res)
             setIsLogin({successful:true})
-            console.log(res)
+            console.log(res?.data?.data?.email)
             transition()
             resetUserInput()
         })
