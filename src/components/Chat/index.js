@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import axios from 'axios'
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -25,9 +26,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Collapse from "@mui/material/Collapse";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
-
-
-
+import { HashLoader } from "react-spinners";
 
 import useSessionStorage from '../Home/useSessionStorage.js'
 
@@ -38,16 +37,50 @@ const drawerWidth = 300;
 
  const ResponsiveDrawer = (props) =>{
 
-  const [post, setPost] = useSessionStorage('post', [])
-  
+  const [headers] = useSessionStorage('headers', [])
+  const [userID] = useSessionStorage('userID', []);
+  const [users, setUsers] = useState([])
+  const [channels, setChannels] = useState([])
+  const [loading, setLoading] = useState(false)
 
-  // const [loading, setLoading] = useState(false)
-  // useEffect(() => {
-  //   setLoading(true)
-  //   setTimeout(() => {
-  //   setLoading(false)
-  //   }, 3000);
-  // }, [])
+
+
+  useEffect(() => {
+    setLoading(true)
+    setTimeout(() => {
+    setLoading(false)
+    }, 2000);
+  }, [])
+   
+  useEffect(() => {
+
+    axios({      
+      url: 'http://206.189.91.54/api/v1/users',
+      data: {},
+      method: 'GET',
+      headers: {
+        'access-token': headers["access-token"],
+        'client': headers.client,
+        'expiry': headers.expiry,
+        'uid': headers.uid
+    },      
+      }).then((res) => setUsers(res.data.data))
+      .catch((error) => {console.log(error)}) 
+      
+    axios({      
+      url: 'http://206.189.91.54/api/v1/channels',
+      data: {},
+      method: 'GET',
+      headers: {
+        'access-token': headers["access-token"],
+        'client': headers.client,
+        'expiry': headers.expiry,
+        'uid': headers.uid
+      },
+       }).then((res) => setChannels(res.data))
+         .catch((error) => {console.log(error)}) 
+
+  }, [headers])
 
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -56,8 +89,9 @@ const drawerWidth = 300;
     setMobileOpen(!mobileOpen);
   };
 
-  const [openChannel, setOpenChannel] = useState(true);
-  const [openMessage, setOpenMessage] = useState(true);
+  const [openChannel, setOpenChannel] = useState(false);
+  const [openMessage, setOpenMessage] = useState(false);
+  const [openUsers, setOpenUsers] = useState(false);
 
   const handleClickOpenChannel = () => {
     setOpenChannel(!openChannel);
@@ -66,6 +100,10 @@ const drawerWidth = 300;
   const handleClickOpenMessage = () => {
     setOpenMessage(!openMessage);
   };
+
+  const handleClickOpenUsers = () => {
+    setOpenUsers(!openUsers)
+}
 
   const drawer = (
     <div>
@@ -76,24 +114,26 @@ const drawerWidth = 300;
               <ListItemIcon>
                 <ForumIcon />
               </ListItemIcon>
-              <ListItemText primary="Channels" />
+              <ListItemText primary={`My Channels (${channels?.data ? channels.length : 0})`} />
               {openChannel ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={openChannel} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemText primary="Channel 1" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemText primary="Channel 2" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemText primary="Channel 3" />
-                </ListItemButton>
+              {channels?.data ? channels?.data.map((channel, idx)=>{
+                return (
+                  <ListItemButton sx={{ pl: 4 }} key={idx}>
+                  <ListItemText  primary={`${channel}`}/>
+                  </ListItemButton>
+                )
+              }) : <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemText  primary={`No users Available`}/>
+                  </ListItemButton>}              
               </List>
             </Collapse>
           </List>
+
       <Divider />
+
       <List>
             <ListItemButton onClick={handleClickOpenMessage}>
               <ListItemIcon>
@@ -118,25 +158,24 @@ const drawerWidth = 300;
           </List>
 
         <Divider />
+
         <List>
-            <ListItemButton onClick={handleClickOpenMessage}>
+            <ListItemButton onClick={handleClickOpenUsers}>
               <ListItemIcon>
                 <ChatBubbleIcon />
               </ListItemIcon>
-              <ListItemText primary="All users" />
-              {openMessage ? <ExpandLess /> : <ExpandMore />}
+              <ListItemText primary={`All Users (reduced to ${users.slice(0, 20).length})`} />
+              {openUsers ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
-            <Collapse in={openMessage} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemText primary="Direct Message 1" />
+            <Collapse in={openUsers} timeout="auto" unmountOnExit>
+              <List>
+              {users.slice(0, 20).map((val)=>{
+                return (
+                <ListItemButton sx={{ pl: 4 }} key={val.id}>
+                <ListItemText primary={`${val.uid}`} />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemText primary="Direct Message 2" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemText primary="Direct Message 3" />
-                </ListItemButton>
+                )
+              })}
               </List>
             </Collapse>
           </List>       
@@ -147,8 +186,16 @@ const drawerWidth = 300;
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-
-    
+      <>
+    {loading ?
+      <>             
+    <div className="loader">
+      <HashLoader loading={loading} color={"purple"} size={80}/> 
+      <h3>Almost there...</h3>
+      </div> 
+      </>
+      :
+      <>
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar
@@ -171,7 +218,7 @@ const drawerWidth = 300;
           </IconButton>
           
           <Typography variant="h6" noWrap component="div">
-            {`${post?.data?.data?.email}`}
+            {`${headers.uid}`}
           </Typography>          
         </Toolbar>
       </AppBar>
@@ -206,7 +253,7 @@ const drawerWidth = 300;
         >
           {drawer}
         </Drawer>
-    </Box>
+     </Box>
       <Box component="main" sx={{ flexGrow: 1, p: 3}}>
         <Toolbar />
         <Box>
@@ -329,11 +376,12 @@ const drawerWidth = 300;
             id="outlined-basic" label="Enter your message here" variant="outlined"            
             />      
         </Box> 
-
-      </Box>
-     
+      </Box>     
     </Box>
-    
+
+    </>}
+
+   </>
   );
 }
 
