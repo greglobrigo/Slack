@@ -32,7 +32,6 @@ export default function PermanentDrawerLeft() {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <CssBaseline />
       <AppBar
         position="fixed"
         sx={{
@@ -49,6 +48,7 @@ export default function PermanentDrawerLeft() {
             </span>
           </Typography>
         </Toolbar>
+        <textarea className="msg-area" value="sample message" />
       </AppBar>
       <Box
         component="nav"
