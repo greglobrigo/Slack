@@ -23,7 +23,8 @@ const Hooks = () => {
             passwordsDoNotMatch: false,
             invalidEmailFormat: false,
             emailIsEmpty: false,
-            passwordIsEmpty: false
+            passwordIsEmpty: false,
+            passwordTooShort: false,
         })
     const [isRegister, setIsRegister] = useState({
            successful: false,
@@ -65,7 +66,10 @@ const Hooks = () => {
             setValidInfo({passwordIsEmpty: true})}     
                  else if (password !== secondPassword) {
                 setValidInfo({passwordsDoNotMatch: true})
-          } else {         
+                    } else if (password.length < 6) {
+                      setValidInfo({passwordTooShort: true})
+                    }
+         else {         
            registerUser()
          }
 
