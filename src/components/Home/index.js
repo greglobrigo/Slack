@@ -38,15 +38,16 @@ export const SignIn = () => {
     setValidInfo,
     validInfo,
     loading,
-    route,
-  } = useHooks();
-
+    route,    
+} = useHooks() 
+  
   return (
     <>
-      <div className="background"></div>
+      
       {route && <Redirect to="/chat" />}
       {loading ? (
         <>
+        
           <div className="loader">
             <HashLoader loading={loading} color={"purple"} size={80} />
             <h3>Loading...</h3>
@@ -54,6 +55,7 @@ export const SignIn = () => {
         </>
       ) : (
         <>
+        <div className="background"></div>
           <Fade up>
             <div className="heading-container">
               <span className="heading">

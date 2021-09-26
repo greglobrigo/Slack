@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import useSessionStorage from './useSessionStorage'
 import axios from 'axios';
 
 const Hooks = () => {
@@ -12,8 +13,8 @@ const Hooks = () => {
     }, 3000);
   }, [])
 
-    const [post, setPost] = useState([]);
-    const [users, setUsers] = useState([]);
+    const [headers, setHeaders] = useSessionStorage('headers', [])
+    const [userID, setUserID] = useSessionStorage('userID', []);
     const [password, setPassword] = useState('')
     const [secondPassword, setSecondPassword] = useState('')    
     const [email, setEmail] = useState('')    
@@ -35,8 +36,7 @@ const Hooks = () => {
            failed: false
         })
     
-    
-
+        
     const registerUser = async() => {      
 
         await axios({      
@@ -46,8 +46,7 @@ const Hooks = () => {
                   'password_confirmation': secondPassword},
             headers: {},
             method: 'POST',
-            }).then((res) => {
-                setPost(res)
+            }).then(() => {                
                 setIsRegister({successful:true})                
                 resetUserInput()
             })
@@ -75,31 +74,24 @@ const Hooks = () => {
 
     }
 
-    const  loginUser = async() =>{
+    const  loginUser = () =>{
 
-        await axios({      
+       axios({      
         url: 'http://206.189.91.54/api/v1/auth/sign_in',
         data: {'email': email,
               'password': password},
         headers: {},
         method: 'POST',
-        }).then((res) => {
-            setPost(res)
-            setIsLogin({successful:true})
-            console.log(res)
-            transition()
-            resetUserInput()
-        })
+        }).then((res) => {          
+          setUserID(res.data.data.id)
+          setHeaders(res.headers)
+          transition()
+          resetUserInput()          
+        })   
         .catch((error) => {
             console.log(error)
             setIsLogin({failed: true})
-        })
-
-    
-         //setPost(res.data?.data)
-       //  console.log({res});      
-       //  console.log({post});
-        
+        })         
     }    
  
    const logIn = (e) =>{   
@@ -114,26 +106,7 @@ const Hooks = () => {
              loginUser()
     }
    } 
- 
-   const getUsers = async() => {
- 
-       await axios({      
-       url: 'http://206.189.91.54/api/v1/users',
-       data: {},
-       headers: {
-         'access-token': post?.headers?.["access-token"],
-         'client': post?.headers?.client,
-         'expiry': post?.headers?.expiry,
-         'uid': post?.headers?.uid
-     },
-       method: 'GET',
-       }).then((res) => setUsers(res))
-       .catch((error) => {console.log(error)})
-   }
- 
-   const getAllUsers = () => {
-     getUsers()
-   }
+
 
    const resetUserInput = () => {
      setEmail('')
@@ -143,18 +116,15 @@ const Hooks = () => {
 
    const transition = () => {
     setLoading(true)
-    setTimeout(() => {setLoading(false); setRoute(true)}, 3000)
+    setTimeout(() => {setLoading(false); setRoute(true)}, 2000)
    }
 
-    return {
-        post,        
-        users,        
+    return {               
         password,
         setPassword,
         email,
         setEmail,                
-        logIn,        
-        getAllUsers,
+        logIn,                
         setIsLogin,
         isLogin,
         isRegistering,
@@ -171,7 +141,7 @@ const Hooks = () => {
         loading,
         transition,
         route,
-        setRoute        
+        setRoute,          
     }   
 }
 

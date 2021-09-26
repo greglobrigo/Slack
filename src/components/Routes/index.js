@@ -9,16 +9,18 @@ import Chat from '../Chat'
 
 const Routes = () => {
     return (
+      <>
       <Router>              
            <Switch>           
-            <Route exact path="/" component={Home}>
+            <Route exact path="/" comp={Home}>
               <Home />
             </Route>            
-            <Route exact path="/chat" component={Chat}>
+            <Route exact path="/chat" comp={Chat}>
               <Chat />
             </Route>          
           </Switch>       
       </Router>
+      </>
     );
   }
 

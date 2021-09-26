@@ -1,0 +1,34 @@
+.profile-pic {
+  background-color: rgb(238, 238, 238);
+  min-height: 13rem;
+}
+
+.message-area {
+  position: fixed;
+  bottom: 0;
+  width: inherit;
+  margin-bottom: 20px;
+  z-index: 2;
+  background-color: white;
+  border-radius: 5px;
+  resize: none;
+}
+
+.message-area-container {   
+ position: fixed;
+ bottom: 0;
+ height: 100px;
+ width: calc(100vw - 360px);
+ z-index: 1;
+ background-color: white;
+ display: flex;
+ align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+  
+  .message-area-container { 
+  width: 90vw;
+
+  }
+}
