@@ -20,3 +20,21 @@
   padding: 0 10px;
   margin: 10px 10px;
 }
+
+.chat-area {
+  /* color: black;
+  position: fixed;
+  bottom: 200px; */
+  width: calc(100% - 200px);
+  height: 20%;
+  padding: 0 10px;
+  margin: 10px 10px;
+}
+
+.messages-container {
+  display: flex;
+  width: auto;
+  height: auto;
+  flex-direction: column;
+  justify-content: flex-end;
+}
