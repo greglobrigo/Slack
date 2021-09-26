@@ -17,9 +17,9 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-
+import GetAppIcon from '@mui/icons-material/GetApp';
 import ForumIcon from "@mui/icons-material/Forum";
-
+import AddIcon from '@mui/icons-material/Add';
 import { TextField } from '@mui/material';
 import { ListItemButton } from "@mui/material";
 import ExpandLess from "@mui/icons-material/ExpandLess";
@@ -42,6 +42,8 @@ const drawerWidth = 300;
   const [users, setUsers] = useState([])
   const [channels, setChannels] = useState([])
   const [loading, setLoading] = useState(false)
+  const [message, setMessage] = useState('')
+  const [messagesContainer, setMessagesContainer] = useState([])
 
 
 
@@ -54,6 +56,7 @@ const drawerWidth = 300;
    
   useEffect(() => {
 
+    const getAllUsers = () => {
     axios({      
       url: 'http://206.189.91.54/api/v1/users',
       data: {},
@@ -66,7 +69,11 @@ const drawerWidth = 300;
     },      
       }).then((res) => setUsers(res.data.data))
       .catch((error) => {console.log(error)}) 
-      
+    }
+    getAllUsers()
+
+    
+    const retrieveChannels = () => {
     axios({      
       url: 'http://206.189.91.54/api/v1/channels',
       data: {},
@@ -79,6 +86,8 @@ const drawerWidth = 300;
       },
        }).then((res) => setChannels(res.data))
          .catch((error) => {console.log(error)}) 
+    }
+    retrieveChannels()
 
   }, [headers])
 
@@ -104,6 +113,119 @@ const drawerWidth = 300;
   const handleClickOpenUsers = () => {
     setOpenUsers(!openUsers)
 }
+
+  const retrieveChannel = () => {
+
+    axios({      
+      url: 'http://206.189.91.54/api/v1/channels/291',
+      data: {},
+      method: 'GET',
+      headers: {
+        'access-token': headers["access-token"],
+        'client': headers.client,
+        'expiry': headers.expiry,
+        'uid': headers.uid
+      },
+       }).then((res) => console.log(res)) //state still to be edited
+         .catch((error) => {console.log(error)}) 
+
+  }
+
+  const inviteUserToAChannel = () => {
+
+    axios({      
+      url: 'http://206.189.91.54/api/v1/channel/add_member',
+      data: {
+        'id': `${userID}`,
+        'member_id': '' //insert member id here 
+      },
+      method: 'POST',
+      headers: {
+        'access-token': headers["access-token"],
+        'expiry': headers.expiry,
+        'uid': headers.uid,
+        'client': headers.client
+      },
+       }).then((res) => console.log(res)) //state still to be edited
+         .catch((error) => {console.log(error)}) 
+    
+  }
+
+  const createNewChannelWithUser = () => {
+
+    axios({      
+      url: 'http://206.189.91.54/api/v1/channels',
+      data: {
+        'id': 'dis3',
+        'user_ids': '' // [] insert member id or id's here 
+      },
+      method: 'POST',
+      headers: {
+        'access-token': headers["access-token"],
+        'expiry': headers.expiry,
+        'client': headers.client,
+        'uid': headers.uid
+      },
+       }).then((res) => console.log(res)) //state still to be edited
+         .catch((error) => {console.log(error)})
+  }
+
+  const retrieveAllMessagesInAChannel= () => {
+
+    axios({      
+      url: `http://206.189.91.54/api/v1/messages?receiver_id=${userID}&receiver_class=Channel`,
+      data: { },
+      method: 'GET',
+      headers: {
+        'access-token': headers["access-token"],
+        'expiry': headers.expiry,
+        'client': headers.client,
+        'uid': headers.uid
+      },
+       }).then((res) => console.log(res)) //state still to be edited
+         .catch((error) => {console.log(error)})
+  } 
+
+  const createMessageInAChannel = () => {
+
+    axios({      
+      url: `http://206.189.91.54/api/v1/messages`,
+      data: { 
+        'receiver_id': `291`,
+        'receiver_class': 'Channel',
+        'body': '' //setState and value of form still need to be edited here
+      },
+      method: 'POST',
+      headers: {
+        'access-token': headers["access-token"],
+        'expiry': headers.expiry,
+        'client': headers.client,
+        'uid': headers.uid
+      },
+       }).then((res) => console.log(res)) //state still to be edited
+         .catch((error) => {console.log(error)})
+  }
+
+  const createDirectMessageToAUser = () => {
+
+    axios({      
+      url: `http://206.189.91.54/api/v1/messages`,
+      data: { 
+        'receiver_id': ``, //input user ID here
+        'receiver_class': 'User',
+        'body': '' //setState and value of form still need to be edited here
+      },
+      method: 'POST',
+      headers: {
+        'access-token': headers["access-token"],
+        'expiry': headers.expiry,
+        'client': headers.client,
+        'uid': headers.uid
+      },
+       }).then((res) => console.log(res)) //state still to be edited
+         .catch((error) => {console.log(error)})
+  }
+
 
   const drawer = (
     <div>
@@ -160,6 +282,58 @@ const drawerWidth = 300;
         <Divider />
 
         <List>
+        
+            <ListItemButton onClick={()=>retrieveChannel()}>
+              <ListItemIcon>
+              <GetAppIcon/>
+              </ListItemIcon>
+              <ListItemText primary="Retrieve Channel" />              
+              <AddIcon />
+            </ListItemButton>
+          </List>  
+        
+          <Divider />
+
+          <List>
+        
+            <ListItemButton onClick={()=>inviteUserToAChannel()}>
+              <ListItemIcon>
+              <GetAppIcon/>
+              </ListItemIcon>
+              <ListItemText primary="Invite User to a Channel" />              
+              <AddIcon />
+            </ListItemButton>
+          </List> 
+
+          <Divider />
+
+          <List>
+        
+            <ListItemButton onClick={()=>createNewChannelWithUser()}>
+              <ListItemIcon>
+              <GetAppIcon/>
+              </ListItemIcon>
+              <ListItemText primary="Create New Channel..." />              
+              <AddIcon />
+            </ListItemButton>
+          </List> 
+
+          <Divider />
+
+          <List>
+        
+            <ListItemButton onClick={()=>retrieveAllMessagesInAChannel()}>
+              <ListItemIcon>
+              <GetAppIcon/>
+              </ListItemIcon>
+              <ListItemText primary="Retrieve all messages in a channel" />              
+              <AddIcon />
+            </ListItemButton>
+          </List> 
+
+          <Divider />
+
+          <List>
             <ListItemButton onClick={handleClickOpenUsers}>
               <ListItemIcon>
                 <ChatBubbleIcon />
@@ -178,7 +352,9 @@ const drawerWidth = 300;
               })}
               </List>
             </Collapse>
-          </List>       
+          </List>     
+
+          <Divider />
 
     </div>
   );
@@ -217,8 +393,8 @@ const drawerWidth = 300;
             <MenuIcon />
           </IconButton>
           
-          <Typography variant="h6" noWrap component="div">
-            {`${headers.uid}`}
+          <Typography onClick={()=>setMessagesContainer([])}variant="h6" noWrap component="div">
+            {`${headers.uid}`} Clear Messages Here!
           </Typography>          
         </Toolbar>
       </AppBar>
@@ -256,124 +432,27 @@ const drawerWidth = 300;
      </Box>
       <Box component="main" sx={{ flexGrow: 1, p: 3}}>
         <Toolbar />
-        <Box>
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-          enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-          Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-          Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-          nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-          leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-          feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-          consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-          sapien faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography> 
-
+        <Box style={{display: "flex", flexDirection: "column"}}>
+        {messagesContainer.map((val, idx)=>{
+          return (
+            <span key={idx} style={{textAlign: idx % 2 === 0 ? 'start' : 'end'}}>
+              {val}
+            </span>
+          )
+        })}
         </Box>
 
         <Box className="message-area-container"
          component="form"        
          noValidate
-         autoComplete="off"
-         onSubmit={(e)=>{e.preventDefault(); console.log('test')}}
+         autoComplete="off"         
+         onSubmit={(e)=>{e.preventDefault(); messagesContainer.push(message); console.log(messagesContainer); setMessage('')}}
          >           
         <TextField
             className="message-area"
             id="outlined-basic" label="Enter your message here" variant="outlined"            
+            onChange={(e)=>setMessage(e.target.value)}
+            value={message}            
             />      
         </Box> 
       </Box>     
