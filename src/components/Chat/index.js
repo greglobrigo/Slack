@@ -42,8 +42,8 @@ const drawerWidth = 300;
   const [users, setUsers] = useState([])
   const [channels, setChannels] = useState([])
   const [loading, setLoading] = useState(false)
-  const [message, setMessage] = useState('')
-  const [messagesContainer, setMessagesContainer] = useState([])
+  const [message, setMessage] = useState('')  
+  const [allMessagesRetrieved, setAllMessagesRetrieved] = useState([])
 
 
 
@@ -84,7 +84,7 @@ const drawerWidth = 300;
         'expiry': headers.expiry,
         'uid': headers.uid
       },
-       }).then((res) => setChannels(res.data))
+       }).then((res) => setChannels(res.data.data))
          .catch((error) => {console.log(error)}) 
     }
     retrieveChannels()
@@ -114,10 +114,10 @@ const drawerWidth = 300;
     setOpenUsers(!openUsers)
 }
 
-  const retrieveChannel = () => {
+  const retrieveChannel = (id) => {
 
     axios({      
-      url: 'http://206.189.91.54/api/v1/channels/291',
+      url: `http://206.189.91.54/api/v1/channels/${id}`,
       data: {},
       method: 'GET',
       headers: {
@@ -126,10 +126,27 @@ const drawerWidth = 300;
         'expiry': headers.expiry,
         'uid': headers.uid
       },
-       }).then((res) => console.log(res)) //state still to be edited
-         .catch((error) => {console.log(error)}) 
+       }).then((res) => console.log("retrieve-channel status: " + res.status))
+        .then(retrieveAllMessagesInAChannel(id)) 
+        .catch((error) => {console.log(error)}) 
 
   }
+
+  const retrieveAllMessagesInAChannel= (id) => {
+
+    axios({      
+      url: `http://206.189.91.54/api/v1/messages?receiver_id=${id}&receiver_class=Channel`,
+      data: { },
+      method: 'GET',
+      headers: {
+        'access-token': headers["access-token"],
+        'expiry': headers.expiry,
+        'client': headers.client,
+        'uid': headers.uid
+      },
+       }).then(res=>setAllMessagesRetrieved(res.data.data))               
+         .catch((error) => {console.log(error)})
+  } 
 
   const inviteUserToAChannel = () => {
 
@@ -156,8 +173,8 @@ const drawerWidth = 300;
     axios({      
       url: 'http://206.189.91.54/api/v1/channels',
       data: {
-        'id': 'dis3',
-        'user_ids': '' // [] insert member id or id's here 
+        'name': `Craig's Channel`,
+        'user_ids': [713, 429] // [] insert member id or id's here 
       },
       method: 'POST',
       headers: {
@@ -170,30 +187,15 @@ const drawerWidth = 300;
          .catch((error) => {console.log(error)})
   }
 
-  const retrieveAllMessagesInAChannel= () => {
 
-    axios({      
-      url: `http://206.189.91.54/api/v1/messages?receiver_id=${userID}&receiver_class=Channel`,
-      data: { },
-      method: 'GET',
-      headers: {
-        'access-token': headers["access-token"],
-        'expiry': headers.expiry,
-        'client': headers.client,
-        'uid': headers.uid
-      },
-       }).then((res) => console.log(res)) //state still to be edited
-         .catch((error) => {console.log(error)})
-  } 
-
-  const createMessageInAChannel = () => {
+  const createMessageInAChannel = (message) => {
 
     axios({      
       url: `http://206.189.91.54/api/v1/messages`,
       data: { 
-        'receiver_id': `291`,
+        'receiver_id': `651`,
         'receiver_class': 'Channel',
-        'body': '' //setState and value of form still need to be edited here
+        'body': `${message}`
       },
       method: 'POST',
       headers: {
@@ -236,16 +238,19 @@ const drawerWidth = 300;
               <ListItemIcon>
                 <ForumIcon />
               </ListItemIcon>
-              <ListItemText primary={`My Channels (${channels?.data ? channels.length : 0})`} />
+              <ListItemText primary={`My Channels (${channels ? channels.length : 0})`} /> 
+              {/* edit soon to have ternary for channel count */}
               {openChannel ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={openChannel} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-              {channels?.data ? channels?.data.map((channel, idx)=>{
-                return (
-                  <ListItemButton sx={{ pl: 4 }} key={idx}>
-                  <ListItemText  primary={`${channel}`}/>
-                  </ListItemButton>
+              {channels ? channels.map((channel)=>{
+                return (                                   
+                  <ListItemButton sx={{ pl: 4 }} key={channel.id} onClick={()=>retrieveChannel(channel.id)}>
+                  {/* console.log(channel) */}
+                  <ListItemText  primary={`${channel.name}`}/>
+                  </ListItemButton>   
+                            
                 )
               }) : <ListItemButton sx={{ pl: 4 }}>
                   <ListItemText  primary={`No users Available`}/>
@@ -256,7 +261,7 @@ const drawerWidth = 300;
 
       <Divider />
 
-      <List>
+      {/* <List>
             <ListItemButton onClick={handleClickOpenMessage}>
               <ListItemIcon>
                 <ChatBubbleIcon />
@@ -277,9 +282,9 @@ const drawerWidth = 300;
                 </ListItemButton>
               </List>
             </Collapse>
-          </List>
+          </List> */}
 
-        <Divider />
+        {/* <Divider />
 
         <List>
         
@@ -290,7 +295,7 @@ const drawerWidth = 300;
               <ListItemText primary="Retrieve Channel" />              
               <AddIcon />
             </ListItemButton>
-          </List>  
+          </List>   */}
         
           <Divider />
 
@@ -320,7 +325,7 @@ const drawerWidth = 300;
 
           <Divider />
 
-          <List>
+          {/* <List>
         
             <ListItemButton onClick={()=>retrieveAllMessagesInAChannel()}>
               <ListItemIcon>
@@ -331,7 +336,7 @@ const drawerWidth = 300;
             </ListItemButton>
           </List> 
 
-          <Divider />
+          <Divider /> */}
 
           <List>
             <ListItemButton onClick={handleClickOpenUsers}>
@@ -393,8 +398,8 @@ const drawerWidth = 300;
             <MenuIcon />
           </IconButton>
           
-          <Typography onClick={()=>setMessagesContainer([])}variant="h6" noWrap component="div">
-            {`${headers.uid}`} Clear Messages Here!
+          <Typography variant="h6" noWrap component="div">
+            {`${headers.uid}`}
           </Typography>          
         </Toolbar>
       </AppBar>
@@ -432,11 +437,11 @@ const drawerWidth = 300;
      </Box>
       <Box component="main" sx={{ flexGrow: 1, p: 3}}>
         <Toolbar />
-        <Box style={{display: "flex", flexDirection: "column"}}>
-        {messagesContainer.map((val, idx)=>{
+        <Box style={{display: "flex", flexDirection: "column", padding: "0 20px 150px "}}>
+        {allMessagesRetrieved.map((val)=>{
           return (
-            <span key={idx} style={{textAlign: idx % 2 === 0 ? 'start' : 'end'}}>
-              {val}
+            <span key={val.id}>
+              {val.body}
             </span>
           )
         })}
@@ -446,7 +451,7 @@ const drawerWidth = 300;
          component="form"        
          noValidate
          autoComplete="off"         
-         onSubmit={(e)=>{e.preventDefault(); messagesContainer.push(message); console.log(messagesContainer); setMessage('')}}
+         onSubmit={(e)=>{e.preventDefault(); setMessage('')}}
          >           
         <TextField
             className="message-area"
