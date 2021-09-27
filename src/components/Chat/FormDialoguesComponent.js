@@ -6,13 +6,31 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import List from '@mui/material/List';
 
-const FormDialoguesComponent = ({open, handleClose, titleText}) => {
+const FormDialoguesComponent = ({open, handleClose, dialogTitleText}) => {
 
   return (
     <div>     
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{titleText}</DialogTitle>
+        <DialogTitle>{dialogTitleText}</DialogTitle>
+        <DialogContent>   
+        <List>
+        <span>Test</span>
+
+        </List>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Email Address"
+            type="email"
+            fullWidth
+            variant="standard"
+          />
+        </DialogContent>
+
+        <DialogTitle>{dialogTitleText}</DialogTitle>
         <DialogContent>
           <DialogContentText>
             To subscribe to this website, please enter your email address here. We
@@ -28,6 +46,7 @@ const FormDialoguesComponent = ({open, handleClose, titleText}) => {
             variant="standard"
           />
         </DialogContent>
+
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleClose}>Subscribe</Button>

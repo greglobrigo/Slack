@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { TextField } from "@mui/material";
+import TextField  from "@mui/material/TextField";
 import SidebarComponent from './SidebarComponent';
 
 const MainChatComponent = ({

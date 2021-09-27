@@ -1,6 +1,13 @@
 import React from 'react'
-import { ListItemButton, ListItemIcon, Toolbar, Divider, List, ListItemText, Collapse } from "@mui/material";
-import { ExpandLess, ExpandMore } from "@mui/icons-material/";
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import  Toolbar  from '@mui/material/Toolbar';
+import Collapse from '@mui/material/Collapse';
+import  Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
+import ListItemText from '@mui/material/ListItemText';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import AddIcon from '@mui/icons-material/Add';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import ForumIcon from '@mui/icons-material/Forum';
@@ -28,7 +35,7 @@ const SidebarComponent = ({
         <FormDialoguesComponent
           open={open}
           handleClose={handleClose}
-          titleText={'Enter name of member you want to invite'}
+          dialogTitleText={'Room where you want the user to be invited'}
         />
         <Toolbar />
         <Divider />
@@ -40,7 +47,7 @@ const SidebarComponent = ({
             <ListItemText
               primary={`My Channels (${channels ? channels.length : 0})`}
             />            
-            {openChannel ? <ExpandLess /> : <ExpandMore />}
+            {openChannel ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </ListItemButton>
           <Collapse in={openChannel} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
@@ -150,7 +157,7 @@ const SidebarComponent = ({
             <ListItemText
               primary={`All Users (reduced to ${users.slice(0, 20).length})`}
             />
-            {openUsers ? <ExpandLess /> : <ExpandMore />}
+            {openUsers ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </ListItemButton>
           <Collapse in={openUsers} timeout="auto" unmountOnExit>
             <List>
