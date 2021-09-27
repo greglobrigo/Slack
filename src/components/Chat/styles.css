@@ -3,6 +3,11 @@
   min-height: 13rem;
 }
 
+.username {
+  display: flex;
+  text-align: end;
+}
+
 .message-area {
   position: fixed;
   bottom: 0;

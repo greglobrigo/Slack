@@ -35,7 +35,9 @@ const SidebarComponent = ({
         <FormDialoguesComponent
           open={open}
           handleClose={handleClose}
-          dialogTitleText={'Room where you want the user to be invited'}
+          dialogTitleText1={'Room where you want the user to be invited'}
+          dialogTitleText2={''}
+          channels={channels}
         />
         <Toolbar />
         <Divider />

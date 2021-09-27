@@ -2,6 +2,7 @@ import React from 'react';
 import Loaders from './Loaders';
 import useHooks from './hooks'
 import MainChatComponent from './MainChatComponent'
+import './styles.css'
 
 import './styles.css'
 
@@ -30,7 +31,6 @@ import './styles.css'
     handleClose
 
   } = useHooks()  
-
       
 
   return (
