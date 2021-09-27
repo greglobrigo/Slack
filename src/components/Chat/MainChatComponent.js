@@ -22,16 +22,13 @@ const MainChatComponent = ({
     mobileOpen,
     allMessagesRetrieved,
     message,
-    setMessage,
-    open,
-    setOpen,
-    handleClickOpen,
-    handleClose,
+    setMessage, 
     isAChannelSelected,
     selectedChannel,
     setSelectedChannel,
     createMessageInAChannel,
-    intervalRetrieveMessages
+    intervalRetrieveMessages,
+    userID
   }
 ) => {
   const drawerWidth = 300;
@@ -47,15 +44,10 @@ const MainChatComponent = ({
          drawerWidth={300}
          headers={headers}
          handleDrawerToggle={handleDrawerToggle}
-         open={open}
-         setOpen={setOpen}
-         handleClose={handleClose}
-         channels={channels}
-         handleClickOpen={handleClickOpen} 
          isAChannelSelected={isAChannelSelected}  
-         selectedChannel={selectedChannel}
-         setSelectedChannel={setSelectedChannel}
-         inviteUserToAChannel={inviteUserToAChannel}   
+         selectedChannel={selectedChannel}         
+         inviteUserToAChannel={inviteUserToAChannel}
+         userID={userID}   
        />
         <Box
           component="nav"

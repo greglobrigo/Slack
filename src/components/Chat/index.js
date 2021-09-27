@@ -31,7 +31,8 @@ import './styles.css'
     selectedChannel,
     setSelectedChannel,
     createMessageInAChannel,
-    intervalRetrieveMessages
+    intervalRetrieveMessages,
+    userID
   } = useHooks()  
       
 
@@ -67,6 +68,7 @@ import './styles.css'
     setSelectedChannel={setSelectedChannel}
     createMessageInAChannel={createMessageInAChannel}
     intervalRetrieveMessages={intervalRetrieveMessages}
+    userID={userID}
       />
      }
 

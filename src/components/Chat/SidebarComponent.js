@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import  Toolbar  from '@mui/material/Toolbar';
@@ -12,6 +12,7 @@ import AddIcon from '@mui/icons-material/Add';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import ForumIcon from '@mui/icons-material/Forum';
 import GetAppIcon from '@mui/icons-material/GetApp';
+import FormDialoguesComponent from './FormDialoguesComponent';
 
 
 const SidebarComponent = ({
@@ -28,6 +29,19 @@ const SidebarComponent = ({
   setSelectedChannel,
   intervalRetrieveMessages
 }) => {
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+   setOpen(true);
+ };
+
+  const handleClose = () => {
+   setOpen(false);
+ };
+
+
+
   return (
     <>
       <div>        
@@ -69,7 +83,7 @@ const SidebarComponent = ({
         <Divider />
 
         <List>
-          <ListItemButton onClick={() => createNewChannelWithUser()}>
+          <ListItemButton onClick={() => handleClickOpen()}>
             <ListItemIcon>
               <GetAppIcon />
             </ListItemIcon>
@@ -104,6 +118,16 @@ const SidebarComponent = ({
         </List>
         <Divider />
       </div>
+
+      {/* For Invite User Modal */}
+      <FormDialoguesComponent
+        open={open}
+        handleClose={handleClose}
+        dialogTitleText={'Enter New Channel Name You Want to Create'}
+        label={'Channel Name'}
+        type={`text`}
+        createNewChannelWithUser={createNewChannelWithUser}
+      />
     </>
   );
 };

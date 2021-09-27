@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,7 +13,18 @@ import Box from '@mui/material/Box';
 import FormDialoguesComponent from './FormDialoguesComponent';
 
 
-const TopBarComponent = ({drawerWidth, headers, handleDrawerToggle, open, handleClose, channels, handleClickOpen, isAChannelSelected, selectedChannel, setSelectedChannel, inviteUserToAChannel}) => {
+const TopBarComponent = ({drawerWidth, headers, handleDrawerToggle, channels, selectedChannel, inviteUserToAChannel, userID}) => {
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+   setOpen(true);
+ };
+
+  const handleClose = () => {
+   setOpen(false);
+ };
+
   return (
     <>
       <AppBar
@@ -24,7 +36,7 @@ const TopBarComponent = ({drawerWidth, headers, handleDrawerToggle, open, handle
         }}
       >
         <Toolbar
-          style={{backgroundColor: "blue", justifyContent: "space-between"}}
+          style={{backgroundColor: "blue", justifyContent: "space-between" }}
         >
           <IconButton
             color="inherit"
@@ -37,18 +49,42 @@ const TopBarComponent = ({drawerWidth, headers, handleDrawerToggle, open, handle
           </IconButton>
 
 
-          {selectedChannel.name && 
+          {selectedChannel.name ? 
           <Box onClick={()=>handleClickOpen()}>
             <ListItemButton>
               <PersonAddIcon sx={{mr: 1}} />
               <Typography variant="h7" noWrap component="div">
-                {`Invite to ${selectedChannel.name}`}
+                {`Invite`}
+              </Typography>
+            </ListItemButton>
+          </Box>
+          : <Box>
+            <ListItemButton>              
+              <Typography variant="h7" noWrap component="div">
+                {'Select or Add Channel to Get Started!'}
               </Typography>
             </ListItemButton>
           </Box>
           }
 
+          {selectedChannel.name ? 
           <Box>
+            <ListItemButton>              
+              <Typography variant="h7" noWrap component="div">
+                {`${selectedChannel.name}`}
+              </Typography>
+            </ListItemButton>
+          </Box>
+          :  <Box>
+            <ListItemButton>              
+              <Typography variant="h7" noWrap component="div">
+                {'Avion Slack App'}
+              </Typography>
+            </ListItemButton>
+          </Box>
+          }
+
+          {/* <Box>
             <TextField
               label="Search All users..."
               sx={{m: 1, width: "25ch"}}
@@ -61,24 +97,24 @@ const TopBarComponent = ({drawerWidth, headers, handleDrawerToggle, open, handle
               }}
               variant="filled"
             />
-          </Box>
+          </Box> */}
 
           <Box style={{textAlign: "end"}}>
             <Typography variant="h12" component="div">
-              {`${headers.uid}`}
+              {`${headers.uid} ID: ${userID}`}
             </Typography>
           </Box>
         </Toolbar>
       </AppBar>
 
       {/* Form Dialogues */}
-      <FormDialoguesComponent
-        selectedChannel={selectedChannel}        
+      <FormDialoguesComponent           
         open={open}
         handleClose={handleClose}
-        dialogTitleText1={selectedChannel && `Enter user ID to invite to ${selectedChannel.name}`}
-        dialogTitleText2={""}
+        dialogTitleText={selectedChannel && `Enter user ID to invite to ${selectedChannel.name}`}        
         channels={channels}
+        type={'text'}
+        label={'User ID'}
         inviteUserToAChannel={inviteUserToAChannel}
       />
     </>

@@ -11,31 +11,32 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 
 
-const FormDialoguesComponent = ({open, handleClose, dialogTitleText1, channels, selectedChannel, inviteUserToAChannel}) => {
+const FormDialoguesComponent = ({open, handleClose, dialogTitleText, inviteUserToAChannel, label, type, createNewChannelWithUser}) => {
 
-  const [idFromForm, setIDfromForm] = useState('')
+  const [valueFromForm, setValueFromForm] = useState('')
   
   return (
     <div>     
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{dialogTitleText1}</DialogTitle>           
+        <DialogTitle>{dialogTitleText}</DialogTitle>           
         <DialogContent>     
           <TextField
             autoFocus
             margin="dense"
             id="name"
-            label="User ID"
-            type="number"
+            label={label}
+            type={type}
             fullWidth
             variant="standard"
-            value={idFromForm}
-            onChange={(e)=>setIDfromForm(e.target.value)}
+            value={valueFromForm}
+            onChange={(e)=>setValueFromForm(e.target.value)}
           />
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={()=>{inviteUserToAChannel(idFromForm); handleClose();}}>Invite</Button>
+          <Button onClick={()=>{handleClose(); setValueFromForm('')}}>Cancel</Button>
+        {inviteUserToAChannel && <Button onClick={()=>{inviteUserToAChannel(valueFromForm); handleClose();}}>Invite</Button>}
+        {createNewChannelWithUser && <Button onClick={()=>{createNewChannelWithUser(valueFromForm); handleClose();}}>Create</Button>}
         </DialogActions>
       </Dialog>
     </div>
