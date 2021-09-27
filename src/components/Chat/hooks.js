@@ -223,7 +223,8 @@ const Hooks = () => {
     allMessagesRetrieved,
     message,
     setMessage,    
-    open,    
+    open,
+    setOpen,    
     handleClickOpen,
     handleClose
 

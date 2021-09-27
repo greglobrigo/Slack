@@ -1,7 +1,11 @@
 import React from 'react'
-import { ListItemButton, ListItemIcon, Toolbar, Divider, List, ListItemText, Collapse, ChatBubbleIcon } from "@mui/material";
-import { ForumIcon, ExpandLess, ExpandMore, GetAppIcon, AddIcon } from "@mui/icons-material/";
-
+import { ListItemButton, ListItemIcon, Toolbar, Divider, List, ListItemText, Collapse } from "@mui/material";
+import { ExpandLess, ExpandMore } from "@mui/icons-material/";
+import AddIcon from '@mui/icons-material/Add';
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import ForumIcon from '@mui/icons-material/Forum';
+import GetAppIcon from '@mui/icons-material/GetApp';
+import FormDialoguesComponent from './FormDialoguesComponent';
 
 const SidebarComponent = ({
   handleClickOpenChannel,
@@ -13,10 +17,19 @@ const SidebarComponent = ({
   handleClickOpenUsers,
   users,
   openUsers,
+  open,
+  setOpen,  
+  handleClose,
+  handleClickOpen
 }) => {
   return (
     <>
       <div>
+        <FormDialoguesComponent
+          open={open}
+          handleClose={handleClose}
+          titleText={'Enter name of member you want to invite'}
+        />
         <Toolbar />
         <Divider />
         <List>
@@ -26,8 +39,7 @@ const SidebarComponent = ({
             </ListItemIcon>
             <ListItemText
               primary={`My Channels (${channels ? channels.length : 0})`}
-            />
-            {/* edit soon to have ternary for channel count */}
+            />            
             {openChannel ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={openChannel} timeout="auto" unmountOnExit>
@@ -39,8 +51,7 @@ const SidebarComponent = ({
                       sx={{pl: 4}}
                       key={channel.id}
                       onClick={() => retrieveChannel(channel.id)}
-                    >
-                      {/* console.log(channel) */}
+                    >                      
                       <ListItemText primary={`${channel.name}`} />
                     </ListItemButton>
                   );
@@ -95,7 +106,7 @@ const SidebarComponent = ({
         <Divider />
 
         <List>
-          <ListItemButton onClick={() => inviteUserToAChannel()}>
+          <ListItemButton onClick={() => {inviteUserToAChannel(); handleClickOpen(); console.log('work')}}>
             <ListItemIcon>
               <GetAppIcon />
             </ListItemIcon>
