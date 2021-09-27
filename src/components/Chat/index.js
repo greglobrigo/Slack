@@ -30,6 +30,7 @@ const Index = () => {
     selectedChannel,
     setSelectedChannel,
     createMessageInAChannel,
+<<<<<<< HEAD
   } = useHooks();
 
   return (
@@ -64,6 +65,48 @@ const Index = () => {
         />
       )}
     </>
+=======
+    intervalRetrieveMessages
+  } = useHooks()  
+      
+
+  return (
+      <>
+    {loading ?               
+      <Loaders
+        loading={loading}
+      />      
+      :
+     <MainChatComponent
+    headers={headers}
+    users={users}
+    channels={channels}
+    handleClickOpenChannel={handleClickOpenChannel}
+    openChannel={openChannel}    
+    retrieveChannel={retrieveChannel}
+    inviteUserToAChannel={inviteUserToAChannel}
+    createNewChannelWithUser={createNewChannelWithUser}
+    handleClickOpenUsers={handleClickOpenUsers}
+    openUsers={openUsers}
+    handleDrawerToggle={handleDrawerToggle}
+    mobileOpen={mobileOpen}
+    allMessagesRetrieved={allMessagesRetrieved}
+    message={message}
+    setMessage={setMessage}
+    open={open}
+    setOpen={setOpen}
+    handleClickOpen={handleClickOpen}
+    handleClose={handleClose}
+    isAChannelSelected={isAChannelSelected}
+    selectedChannel={selectedChannel}
+    setSelectedChannel={setSelectedChannel}
+    createMessageInAChannel={createMessageInAChannel}
+    intervalRetrieveMessages={intervalRetrieveMessages}
+      />
+     }
+
+   </>
+>>>>>>> main
   );
 };
 

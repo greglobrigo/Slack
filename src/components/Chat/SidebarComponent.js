@@ -25,7 +25,8 @@ const SidebarComponent = ({
   users,
   openUsers,
   selectedChannel,
-  setSelectedChannel
+  setSelectedChannel,
+  intervalRetrieveMessages
 }) => {
   return (
     <>
@@ -50,7 +51,7 @@ const SidebarComponent = ({
                     <ListItemButton
                       sx={{pl: 4}}
                       key={channel.id}
-                      onClick={() => {retrieveChannel(channel.id); setSelectedChannel(channel)}}
+                      onClick={() => {intervalRetrieveMessages(channel.id); setSelectedChannel(channel)}}
                     >                      
                       <ListItemText primary={`${channel.name}`} />
                     </ListItemButton>
@@ -65,45 +66,7 @@ const SidebarComponent = ({
           </Collapse>
         </List>
 
-        <Divider />
-
-        {/* <List>
-            <ListItemButton onClick={handleClickOpenMessage}>
-              <ListItemIcon>
-                <ChatBubbleIcon />
-              </ListItemIcon>
-              <ListItemText primary="Direct Messages" />
-              {openMessage ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={openMessage} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemText primary="Direct Message 1" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemText primary="Direct Message 2" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemText primary="Direct Message 3" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-          </List> */}
-
-        {/* <Divider />
-
-        <List>
-        
-            <ListItemButton onClick={()=>retrieveChannel()}>
-              <ListItemIcon>
-              <GetAppIcon/>
-              </ListItemIcon>
-              <ListItemText primary="Retrieve Channel" />              
-              <AddIcon />
-            </ListItemButton>
-          </List>   */}
-
-        <Divider />
+        <Divider />      
 
         <List>
           <ListItemButton onClick={() => inviteUserToAChannel()}>
@@ -128,19 +91,6 @@ const SidebarComponent = ({
         </List>
 
         <Divider />
-
-        {/* <List>
-        
-            <ListItemButton onClick={()=>retrieveAllMessagesInAChannel()}>
-              <ListItemIcon>
-              <GetAppIcon/>
-              </ListItemIcon>
-              <ListItemText primary="Retrieve all messages in a channel" />              
-              <AddIcon />
-            </ListItemButton>
-          </List> 
-
-          <Divider /> */}
 
         <List>
           <ListItemButton onClick={handleClickOpenUsers}>

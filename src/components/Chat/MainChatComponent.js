@@ -30,7 +30,8 @@ const MainChatComponent = ({
     isAChannelSelected,
     selectedChannel,
     setSelectedChannel,
-    createMessageInAChannel
+    createMessageInAChannel,
+    intervalRetrieveMessages
   }
 ) => {
   const drawerWidth = 300;
@@ -89,7 +90,8 @@ const MainChatComponent = ({
                 users={users}
                 openUsers={openUsers}
                 selectedChannel={selectedChannel}
-                setSelectedChannel={setSelectedChannel}                              
+                setSelectedChannel={setSelectedChannel}
+                intervalRetrieveMessages={intervalRetrieveMessages}                              
               />
             }
           </Drawer>
@@ -116,7 +118,8 @@ const MainChatComponent = ({
                 users={users}
                 openUsers={openUsers}   
                 selectedChannel={selectedChannel}
-                setSelectedChannel={setSelectedChannel}                          
+                setSelectedChannel={setSelectedChannel}   
+                intervalRetrieveMessages={intervalRetrieveMessages}                                                     
               />
             }
           </Drawer>

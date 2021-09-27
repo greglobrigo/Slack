@@ -110,6 +110,13 @@ const Hooks = () => {
 
   }
 
+  const intervalRetrieveMessages = (id) => {
+    retrieveAllMessagesInAChannel(id)
+    setInterval(() => {
+      retrieveAllMessagesInAChannel(id)
+    }, 1500);
+  }
+
   const retrieveAllMessagesInAChannel= (id) => {
 
     axios({      
@@ -122,7 +129,7 @@ const Hooks = () => {
         'client': headers.client,
         'uid': headers.uid
       },
-       }).then(res=>setAllMessagesRetrieved(res.data.data))               
+       }).then(res=>{setAllMessagesRetrieved(res.data.data); console.log(res)})               
          .catch((error) => {console.log(error)})
   } 
 
@@ -233,7 +240,8 @@ const Hooks = () => {
     isAChannelSelected,
     selectedChannel,
     setSelectedChannel,
-    createMessageInAChannel
+    createMessageInAChannel,
+    intervalRetrieveMessages
   }
 
 }
