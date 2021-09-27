@@ -1,233 +1,58 @@
-import * as React from 'react';
-import { useState, useEffect } from 'react';
-import axios from 'axios'
-
+import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-
 import List from '@mui/material/List';
-
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import GetAppIcon from '@mui/icons-material/GetApp';
 import ForumIcon from "@mui/icons-material/Forum";
 import AddIcon from '@mui/icons-material/Add';
-import { TextField } from '@mui/material';
-import { ListItemButton } from "@mui/material";
+// import { TextField } from '@mui/material';
+import { ListItemButton, TextField } from "@mui/material";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Collapse from "@mui/material/Collapse";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import { HashLoader } from "react-spinners";
-
-import useSessionStorage from '../Home/useSessionStorage.js'
+import useHooks from './hooks'
 
 import './styles.css'
 
-
-const drawerWidth = 300;
-
  const ResponsiveDrawer = (props) =>{
+  
+  const {
+    headers,
+    users,
+    channels,
+    handleClickOpenChannel,
+    openChannel,
+    loading,
+    retrieveChannel,
+    inviteUserToAChannel,
+    createNewChannelWithUser,
+    handleClickOpenUsers,
+    openUsers,
+    handleDrawerToggle,
+    mobileOpen,
+    allMessagesRetrieved,
+    message,
+    setMessage,
+    open,    
+    handleClickOpen,
+    handleClose
 
-  const [headers] = useSessionStorage('headers', [])
-  const [userID] = useSessionStorage('userID', []);
-  const [users, setUsers] = useState([])
-  const [channels, setChannels] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [message, setMessage] = useState('')  
-  const [allMessagesRetrieved, setAllMessagesRetrieved] = useState([])
+  } = useHooks()  
 
-
-
-  useEffect(() => {
-    setLoading(true)
-    setTimeout(() => {
-    setLoading(false)
-    }, 2000);
-  }, [])
-   
-  useEffect(() => {
-
-    const getAllUsers = () => {
-    axios({      
-      url: 'http://206.189.91.54/api/v1/users',
-      data: {},
-      method: 'GET',
-      headers: {
-        'access-token': headers["access-token"],
-        'client': headers.client,
-        'expiry': headers.expiry,
-        'uid': headers.uid
-    },      
-      }).then((res) => setUsers(res.data.data))
-      .catch((error) => {console.log(error)}) 
-    }
-    getAllUsers()
-
-    
-    const retrieveChannels = () => {
-    axios({      
-      url: 'http://206.189.91.54/api/v1/channels',
-      data: {},
-      method: 'GET',
-      headers: {
-        'access-token': headers["access-token"],
-        'client': headers.client,
-        'expiry': headers.expiry,
-        'uid': headers.uid
-      },
-       }).then((res) => setChannels(res.data.data))
-         .catch((error) => {console.log(error)}) 
-    }
-    retrieveChannels()
-
-  }, [headers])
-
+  const drawerWidth = 300;
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = useState(false);
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-
-  const [openChannel, setOpenChannel] = useState(false);
-  const [openMessage, setOpenMessage] = useState(false);
-  const [openUsers, setOpenUsers] = useState(false);
-
-  const handleClickOpenChannel = () => {
-    setOpenChannel(!openChannel);
-  };
-
-  const handleClickOpenMessage = () => {
-    setOpenMessage(!openMessage);
-  };
-
-  const handleClickOpenUsers = () => {
-    setOpenUsers(!openUsers)
-}
-
-  const retrieveChannel = (id) => {
-
-    axios({      
-      url: `http://206.189.91.54/api/v1/channels/${id}`,
-      data: {},
-      method: 'GET',
-      headers: {
-        'access-token': headers["access-token"],
-        'client': headers.client,
-        'expiry': headers.expiry,
-        'uid': headers.uid
-      },
-       }).then((res) => console.log("retrieve-channel status: " + res.status))
-        .then(retrieveAllMessagesInAChannel(id)) 
-        .catch((error) => {console.log(error)}) 
-
-  }
-
-  const retrieveAllMessagesInAChannel= (id) => {
-
-    axios({      
-      url: `http://206.189.91.54/api/v1/messages?receiver_id=${id}&receiver_class=Channel`,
-      data: { },
-      method: 'GET',
-      headers: {
-        'access-token': headers["access-token"],
-        'expiry': headers.expiry,
-        'client': headers.client,
-        'uid': headers.uid
-      },
-       }).then(res=>setAllMessagesRetrieved(res.data.data))               
-         .catch((error) => {console.log(error)})
-  } 
-
-  const inviteUserToAChannel = () => {
-
-    axios({      
-      url: 'http://206.189.91.54/api/v1/channel/add_member',
-      data: {
-        'id': `${userID}`,
-        'member_id': '' //insert member id here 
-      },
-      method: 'POST',
-      headers: {
-        'access-token': headers["access-token"],
-        'expiry': headers.expiry,
-        'uid': headers.uid,
-        'client': headers.client
-      },
-       }).then((res) => console.log(res)) //state still to be edited
-         .catch((error) => {console.log(error)}) 
-    
-  }
-
-  const createNewChannelWithUser = () => {
-
-    axios({      
-      url: 'http://206.189.91.54/api/v1/channels',
-      data: {
-        'name': `Craig's Channel`,
-        'user_ids': [713, 429] // [] insert member id or id's here 
-      },
-      method: 'POST',
-      headers: {
-        'access-token': headers["access-token"],
-        'expiry': headers.expiry,
-        'client': headers.client,
-        'uid': headers.uid
-      },
-       }).then((res) => console.log(res)) //state still to be edited
-         .catch((error) => {console.log(error)})
-  }
-
-
-  const createMessageInAChannel = (message) => {
-
-    axios({      
-      url: `http://206.189.91.54/api/v1/messages`,
-      data: { 
-        'receiver_id': `651`,
-        'receiver_class': 'Channel',
-        'body': `${message}`
-      },
-      method: 'POST',
-      headers: {
-        'access-token': headers["access-token"],
-        'expiry': headers.expiry,
-        'client': headers.client,
-        'uid': headers.uid
-      },
-       }).then((res) => console.log(res)) //state still to be edited
-         .catch((error) => {console.log(error)})
-  }
-
-  const createDirectMessageToAUser = () => {
-
-    axios({      
-      url: `http://206.189.91.54/api/v1/messages`,
-      data: { 
-        'receiver_id': ``, //input user ID here
-        'receiver_class': 'User',
-        'body': '' //setState and value of form still need to be edited here
-      },
-      method: 'POST',
-      headers: {
-        'access-token': headers["access-token"],
-        'expiry': headers.expiry,
-        'client': headers.client,
-        'uid': headers.uid
-      },
-       }).then((res) => console.log(res)) //state still to be edited
-         .catch((error) => {console.log(error)})
-  }
-
+  const container = window !== undefined ? () => window().document.body : undefined;      
 
   const drawer = (
     <div>
@@ -364,7 +189,7 @@ const drawerWidth = 300;
     </div>
   );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  
 
   return (
       <>
