@@ -2,7 +2,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 import TextField  from "@mui/material/TextField";
 
-const ChatBodyComponent = ({allMessagesRetrieved, setMessage, message}) => {
+const ChatBodyComponent = ({allMessagesRetrieved, setMessage, message, createMessageInAChannel}) => {
     return (
         <Box component="main" sx={{flexGrow: 1, p: 3}}>
           <Toolbar />
@@ -25,6 +25,7 @@ const ChatBodyComponent = ({allMessagesRetrieved, setMessage, message}) => {
             autoComplete="off"
             onSubmit={(e) => {
               e.preventDefault();
+              createMessageInAChannel(message)
               setMessage("");
             }}
           >
