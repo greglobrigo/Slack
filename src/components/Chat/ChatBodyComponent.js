@@ -14,7 +14,13 @@ const ChatBodyComponent = ({allMessagesRetrieved, setMessage, message, createMes
             }}
           >
             {allMessagesRetrieved.map((val) => {
-              return <span key={val.id}>{val.body}</span>;
+              return (
+              <div key={val.id}>
+              <span>
+             {`${val.sender.email} says: `}</span>   
+             <p>{val.body}</p>
+             </div>              
+              )
             })}
           </Box>
 
