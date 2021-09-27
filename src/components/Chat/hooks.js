@@ -2,7 +2,10 @@ import useSessionStorage from '../Home/useSessionStorage.js'
 import { useState, useEffect } from 'react';
 import axios from 'axios'
 
-const Hooks = () => {
+var req1;
+var req2;
+
+const Hooks = () => {  
 
   const [headers] = useSessionStorage('headers', [])
   const [userID] = useSessionStorage('userID', []);
@@ -12,6 +15,7 @@ const Hooks = () => {
   const [message, setMessage] = useState('')  
   const [allMessagesRetrieved, setAllMessagesRetrieved] = useState([])
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [duplicate, setDuplicate] = useState(false)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -109,12 +113,22 @@ const Hooks = () => {
         .catch((error) => {console.log(error)}) 
 
   }
-
-  const intervalRetrieveMessages = (id) => {
-    retrieveAllMessagesInAChannel(id)
-    setInterval(() => {
-      retrieveAllMessagesInAChannel(id)
-    }, 1500);
+  
+  
+  const intervalRetrieveMessages = (id) => {    
+    retrieveAllMessagesInAChannel(id)          
+    setDuplicate(!duplicate)
+    if(duplicate) {
+       req1 = setInterval(() => {
+        retrieveAllMessagesInAChannel(id)  
+      }, 1500);
+      clearTimeout(req2)
+    } else {
+       req2 = setInterval(() => {
+        retrieveAllMessagesInAChannel(id)  
+      }, 1500);
+      clearTimeout(req1)
+    }   
   }
 
   const retrieveAllMessagesInAChannel= (id) => {

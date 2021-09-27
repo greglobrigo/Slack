@@ -35,7 +35,7 @@ const FormDialoguesComponent = ({open, handleClose, dialogTitleText1, channels, 
 
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={()=>{inviteUserToAChannel(idFromForm); handleClose()}}>Invite</Button>
+          <Button onClick={()=>{inviteUserToAChannel(idFromForm); handleClose();}}>Invite</Button>
         </DialogActions>
       </Dialog>
     </div>

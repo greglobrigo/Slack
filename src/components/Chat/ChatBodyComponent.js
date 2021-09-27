@@ -17,7 +17,7 @@ const ChatBodyComponent = ({allMessagesRetrieved, setMessage, message, createMes
               return (
               <div key={val.id}>
               <span>
-             {`${val.sender.email} says: `}</span>   
+             {`${val.sender.email} says at ${val.created_at}: `}</span>   
              <p>{val.body}</p>
              </div>              
               )

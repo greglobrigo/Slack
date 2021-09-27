@@ -64,19 +64,7 @@ const SidebarComponent = ({
               )}
             </List>
           </Collapse>
-        </List>
-
-        <Divider />      
-
-        <List>
-          <ListItemButton onClick={() => inviteUserToAChannel()}>
-            <ListItemIcon>
-              <GetAppIcon />
-            </ListItemIcon>
-            <ListItemText primary="Invite User to a Channel" />
-            <AddIcon />
-          </ListItemButton>
-        </List>
+        </List>      
 
         <Divider />
 

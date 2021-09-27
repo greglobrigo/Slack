@@ -37,7 +37,7 @@ const TopBarComponent = ({drawerWidth, headers, handleDrawerToggle, open, handle
           </IconButton>
 
 
-          {isAChannelSelected && 
+          {selectedChannel.name && 
           <Box onClick={()=>handleClickOpen()}>
             <ListItemButton>
               <PersonAddIcon sx={{mr: 1}} />
@@ -73,7 +73,7 @@ const TopBarComponent = ({drawerWidth, headers, handleDrawerToggle, open, handle
 
       {/* Form Dialogues */}
       <FormDialoguesComponent
-        selectedChannel={selectedChannel}
+        selectedChannel={selectedChannel}        
         open={open}
         handleClose={handleClose}
         dialogTitleText1={selectedChannel && `Enter user ID to invite to ${selectedChannel.name}`}
