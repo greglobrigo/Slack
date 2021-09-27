@@ -11,15 +11,14 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 
 
-const FormDialoguesComponent = ({open, handleClose, dialogTitleText1, dialogTitleText2, channels, selectedChannel, inviteUserToAChannel}) => {
+const FormDialoguesComponent = ({open, handleClose, dialogTitleText1, channels, selectedChannel, inviteUserToAChannel}) => {
 
   const [idFromForm, setIDfromForm] = useState('')
   
   return (
     <div>     
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{dialogTitleText1}</DialogTitle>   
-        <DialogTitle>{dialogTitleText2}</DialogTitle>
+        <DialogTitle>{dialogTitleText1}</DialogTitle>           
         <DialogContent>     
           <TextField
             autoFocus
@@ -30,12 +29,13 @@ const FormDialoguesComponent = ({open, handleClose, dialogTitleText1, dialogTitl
             fullWidth
             variant="standard"
             value={idFromForm}
+            onChange={(e)=>setIDfromForm(e.target.value)}
           />
         </DialogContent>
 
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={()=>inviteUserToAChannel()}>Invite</Button>
+          <Button onClick={()=>{inviteUserToAChannel(idFromForm); handleClose()}}>Invite</Button>
         </DialogActions>
       </Dialog>
     </div>

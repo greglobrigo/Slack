@@ -44,7 +44,7 @@ const Hooks = () => {
  };
 
   const [isAChannelSelected, setIsAChannelSelected] = useState(false)
-  const [selectedChannel, setSelectedChannel] = useState(null)
+  const [selectedChannel, setSelectedChannel] = useState([])
 
   useEffect(() => {
     setLoading(true)
@@ -66,7 +66,7 @@ const Hooks = () => {
         'expiry': headers.expiry,
         'uid': headers.uid
     },      
-      }).then((res) => setUsers(res.data.data))
+      }).then((res) => {setUsers(res.data.data); console.log(res.data.data)})
       .catch((error) => {console.log(error)}) 
     }
     getAllUsers()
@@ -83,7 +83,7 @@ const Hooks = () => {
         'expiry': headers.expiry,
         'uid': headers.uid
       },
-       }).then((res) => setChannels(res.data.data))
+       }).then((res) => {setChannels(res.data.data); console.log(res.data.data)})
          .catch((error) => {console.log(error)}) 
     }
     retrieveChannels()
@@ -126,12 +126,12 @@ const Hooks = () => {
          .catch((error) => {console.log(error)})
   } 
 
-  const inviteUserToAChannel = (memberID) => {
+  const inviteUserToAChannel = (memberID) => {    
 
     axios({      
       url: 'http://206.189.91.54/api/v1/channel/add_member',
       data: {
-        'id': `${userID}`,
+        'id': `${selectedChannel.id}`,
         'member_id': `${memberID}`
       },
       method: 'POST',
@@ -170,7 +170,7 @@ const Hooks = () => {
     axios({      
       url: `http://206.189.91.54/api/v1/messages`,
       data: { 
-        'receiver_id': `651`,
+        'receiver_id': `${selectedChannel.id}`,
         'receiver_class': 'Channel',
         'body': `${message}`
       },
@@ -181,7 +181,7 @@ const Hooks = () => {
         'client': headers.client,
         'uid': headers.uid
       },
-       }).then((res) => console.log(res)) //state still to be edited
+       }).then(retrieveAllMessagesInAChannel(selectedChannel.id))
          .catch((error) => {console.log(error)})
   }
 
@@ -233,6 +233,7 @@ const Hooks = () => {
     isAChannelSelected,
     selectedChannel,
     setSelectedChannel,
+    createMessageInAChannel
   }
 
 }

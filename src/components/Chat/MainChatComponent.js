@@ -30,6 +30,7 @@ const MainChatComponent = ({
     isAChannelSelected,
     selectedChannel,
     setSelectedChannel,
+    createMessageInAChannel
   }
 ) => {
   const drawerWidth = 300;
@@ -124,6 +125,7 @@ const MainChatComponent = ({
         allMessagesRetrieved={allMessagesRetrieved}
         setMessage={setMessage}
         message={message}
+        createMessageInAChannel={createMessageInAChannel}
         />
       </Box>
     </>

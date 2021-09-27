@@ -29,6 +29,7 @@ const Index = () => {
     isAChannelSelected,
     selectedChannel,
     setSelectedChannel,
+    createMessageInAChannel,
   } = useHooks();
 
   return (
@@ -59,6 +60,7 @@ const Index = () => {
           isAChannelSelected={isAChannelSelected}
           selectedChannel={selectedChannel}
           setSelectedChannel={setSelectedChannel}
+          createMessageInAChannel={createMessageInAChannel}
         />
       )}
     </>
