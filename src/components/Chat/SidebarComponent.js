@@ -12,7 +12,7 @@ import AddIcon from '@mui/icons-material/Add';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import ForumIcon from '@mui/icons-material/Forum';
 import GetAppIcon from '@mui/icons-material/GetApp';
-import FormDialoguesComponent from './FormDialoguesComponent';
+
 
 const SidebarComponent = ({
   handleClickOpenChannel,
@@ -24,21 +24,12 @@ const SidebarComponent = ({
   handleClickOpenUsers,
   users,
   openUsers,
-  open,
-  setOpen,  
-  handleClose,
-  handleClickOpen
+  selectedChannel,
+  setSelectedChannel
 }) => {
   return (
     <>
-      <div>
-        <FormDialoguesComponent
-          open={open}
-          handleClose={handleClose}
-          dialogTitleText1={'Room where you want the user to be invited'}
-          dialogTitleText2={''}
-          channels={channels}
-        />
+      <div>        
         <Toolbar />
         <Divider />
         <List>
@@ -59,7 +50,7 @@ const SidebarComponent = ({
                     <ListItemButton
                       sx={{pl: 4}}
                       key={channel.id}
-                      onClick={() => retrieveChannel(channel.id)}
+                      onClick={() => {retrieveChannel(channel.id); setSelectedChannel(channel)}}
                     >                      
                       <ListItemText primary={`${channel.name}`} />
                     </ListItemButton>
@@ -115,7 +106,7 @@ const SidebarComponent = ({
         <Divider />
 
         <List>
-          <ListItemButton onClick={() => {inviteUserToAChannel(); handleClickOpen(); console.log('work')}}>
+          <ListItemButton onClick={() => inviteUserToAChannel()}>
             <ListItemIcon>
               <GetAppIcon />
             </ListItemIcon>

@@ -27,6 +27,9 @@ const MainChatComponent = ({
     setOpen,
     handleClickOpen,
     handleClose,
+    isAChannelSelected,
+    selectedChannel,
+    setSelectedChannel,
   }
 ) => {
   const drawerWidth = 300;
@@ -42,6 +45,15 @@ const MainChatComponent = ({
          drawerWidth={300}
          headers={headers}
          handleDrawerToggle={handleDrawerToggle}
+         open={open}
+         setOpen={setOpen}
+         handleClose={handleClose}
+         channels={channels}
+         handleClickOpen={handleClickOpen} 
+         isAChannelSelected={isAChannelSelected}  
+         selectedChannel={selectedChannel}
+         setSelectedChannel={setSelectedChannel}
+         inviteUserToAChannel={inviteUserToAChannel}   
        />
         <Box
           component="nav"
@@ -75,10 +87,8 @@ const MainChatComponent = ({
                 handleClickOpenUsers={handleClickOpenUsers}
                 users={users}
                 openUsers={openUsers}
-                open={open}
-                setOpen={setOpen}
-                handleClickOpen={handleClickOpen}
-                handleClose={handleClose}
+                selectedChannel={selectedChannel}
+                setSelectedChannel={setSelectedChannel}                              
               />
             }
           </Drawer>
@@ -103,11 +113,9 @@ const MainChatComponent = ({
                 createNewChannelWithUser={createNewChannelWithUser}
                 handleClickOpenUsers={handleClickOpenUsers}
                 users={users}
-                openUsers={openUsers}
-                open={open}
-                setOpen={setOpen}
-                handleClickOpen={handleClickOpen}
-                handleClose={handleClose}
+                openUsers={openUsers}   
+                selectedChannel={selectedChannel}
+                setSelectedChannel={setSelectedChannel}                          
               />
             }
           </Drawer>

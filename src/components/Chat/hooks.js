@@ -43,6 +43,9 @@ const Hooks = () => {
    setOpen(false);
  };
 
+  const [isAChannelSelected, setIsAChannelSelected] = useState(false)
+  const [selectedChannel, setSelectedChannel] = useState(null)
+
   useEffect(() => {
     setLoading(true)
     setTimeout(() => {
@@ -101,7 +104,8 @@ const Hooks = () => {
         'uid': headers.uid
       },
        }).then((res) => console.log("retrieve-channel status: " + res.status))
-        .then(retrieveAllMessagesInAChannel(id)) 
+        .then(retrieveAllMessagesInAChannel(id))
+        .then(setIsAChannelSelected(true)) 
         .catch((error) => {console.log(error)}) 
 
   }
@@ -122,13 +126,13 @@ const Hooks = () => {
          .catch((error) => {console.log(error)})
   } 
 
-  const inviteUserToAChannel = () => {
+  const inviteUserToAChannel = (memberID) => {
 
     axios({      
       url: 'http://206.189.91.54/api/v1/channel/add_member',
       data: {
         'id': `${userID}`,
-        'member_id': '' //insert member id here 
+        'member_id': `${memberID}`
       },
       method: 'POST',
       headers: {
@@ -138,8 +142,7 @@ const Hooks = () => {
         'client': headers.client
       },
        }).then((res) => console.log(res)) //state still to be edited
-         .catch((error) => {console.log(error)}) 
-    
+         .catch((error) => {console.log(error)})    
   }
 
   const createNewChannelWithUser = () => {
@@ -226,8 +229,10 @@ const Hooks = () => {
     open,
     setOpen,    
     handleClickOpen,
-    handleClose
-
+    handleClose,
+    isAChannelSelected,
+    selectedChannel,
+    setSelectedChannel,
   }
 
 }

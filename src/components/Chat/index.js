@@ -4,8 +4,6 @@ import useHooks from './hooks'
 import MainChatComponent from './MainChatComponent'
 import './styles.css'
 
-import './styles.css'
-
  const Index = () =>{
   
   const {
@@ -28,8 +26,10 @@ import './styles.css'
     open,
     setOpen,    
     handleClickOpen,
-    handleClose
-
+    handleClose,
+    isAChannelSelected,
+    selectedChannel,
+    setSelectedChannel,
   } = useHooks()  
       
 
@@ -60,6 +60,9 @@ import './styles.css'
     setOpen={setOpen}
     handleClickOpen={handleClickOpen}
     handleClose={handleClose}
+    isAChannelSelected={isAChannelSelected}
+    selectedChannel={selectedChannel}
+    setSelectedChannel={setSelectedChannel}
       />
      }
 
