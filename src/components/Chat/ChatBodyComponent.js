@@ -13,15 +13,19 @@ const ChatBodyComponent = ({allMessagesRetrieved, setMessage, message, createMes
               padding: "0 20px 150px ",
             }}
           >
-            {allMessagesRetrieved.map((val) => {
+            {allMessagesRetrieved.length > 1 ? allMessagesRetrieved.map((val) => {
               return (
               <div key={val.id}>
               <span>
-             {`${val.sender.email} says: `}</span>   
+             {`${val.sender.email} says at ${val.created_at}: `}</span>   
              <p>{val.body}</p>
              </div>              
               )
-            })}
+            }) : <span className="greetings">Welcome to Avion Slack App! Hop on a channel or send a DM to get started!👀</span>}
+
+            
+
+
           </Box>
 
           <Box

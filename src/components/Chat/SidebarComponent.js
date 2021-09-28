@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import  Toolbar  from '@mui/material/Toolbar';
@@ -12,6 +12,8 @@ import AddIcon from '@mui/icons-material/Add';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import ForumIcon from '@mui/icons-material/Forum';
 import GetAppIcon from '@mui/icons-material/GetApp';
+import FormDialoguesComponent from './FormDialoguesComponent';
+import HomeIcon from '@mui/icons-material/Home';
 
 
 const SidebarComponent = ({
@@ -26,13 +28,45 @@ const SidebarComponent = ({
   openUsers,
   selectedChannel,
   setSelectedChannel,
-  intervalRetrieveMessages
+  intervalRetrieveMessages,
+  retrieveAllMessagesWithUser
 }) => {
+
+  const [openForInviteUser, setOpenForInviteUser] = useState(false);
+  const handleClickOpenForInviteUser = () => {
+    setOpenForInviteUser(true);
+ };
+  const handleCloseForInviteUser = () => {
+    setOpenForInviteUser(false);
+ };
+
+ const [openForSendDirectMessage, setOpenForSendDirectMessage] = useState(false);
+ const handleClickOpenSendDirectMessage = () => {
+  setOpenForSendDirectMessage(true);
+};
+ const handleCloseForSendDirectMessage = () => {
+  setOpenForSendDirectMessage(false);
+};
+
+
+
   return (
     <>
       <div>        
         <Toolbar />
+        <Divider />         
+
+        <List>
+          <ListItemButton>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary="Home" />            
+          </ListItemButton>
+        </List>
+
         <Divider />
+
         <List>
           <ListItemButton onClick={handleClickOpenChannel}>
             <ListItemIcon>
@@ -64,16 +98,16 @@ const SidebarComponent = ({
               )}
             </List>
           </Collapse>
-        </List>
+        </List>               
 
-        <Divider />      
+        <Divider />
 
         <List>
-          <ListItemButton onClick={() => inviteUserToAChannel()}>
+          <ListItemButton onClick={() => handleClickOpenForInviteUser()}>
             <ListItemIcon>
               <GetAppIcon />
             </ListItemIcon>
-            <ListItemText primary="Invite User to a Channel" />
+            <ListItemText primary="Create New Channel..." />
             <AddIcon />
           </ListItemButton>
         </List>
@@ -81,11 +115,11 @@ const SidebarComponent = ({
         <Divider />
 
         <List>
-          <ListItemButton onClick={() => createNewChannelWithUser()}>
+          <ListItemButton onClick={() => handleClickOpenSendDirectMessage()}>
             <ListItemIcon>
               <GetAppIcon />
             </ListItemIcon>
-            <ListItemText primary="Create New Channel..." />
+            <ListItemText primary="Send a Direct Message" />
             <AddIcon />
           </ListItemButton>
         </List>
@@ -114,8 +148,28 @@ const SidebarComponent = ({
             </List>
           </Collapse>
         </List>
+
         <Divider />
       </div>
+
+      {/* For Invite User Modal */}
+      <FormDialoguesComponent
+        open={openForInviteUser}
+        handleClose={handleCloseForInviteUser}
+        dialogTitleText={'Enter New Channel Name You Want to Create'}
+        label={'Channel Name'}
+        type={`text`}
+        createNewChannelWithUser={createNewChannelWithUser}
+      />
+    {/* For Send a DM Modal */}
+    <FormDialoguesComponent
+        open={openForSendDirectMessage}
+        handleClose={handleCloseForSendDirectMessage}
+        dialogTitleText={'Enter User ID of Person you want to message'}
+        label={'User ID'}
+        type={`number`}
+        retrieveAllMessagesWithUser={retrieveAllMessagesWithUser}
+      />
     </>
   );
 };

@@ -2,7 +2,10 @@ import useSessionStorage from '../Home/useSessionStorage.js'
 import { useState, useEffect } from 'react';
 import axios from 'axios'
 
-const Hooks = () => {
+var req1;
+var req2;
+
+const Hooks = () => {  
 
   const [headers] = useSessionStorage('headers', [])
   const [userID] = useSessionStorage('userID', []);
@@ -12,6 +15,7 @@ const Hooks = () => {
   const [message, setMessage] = useState('')  
   const [allMessagesRetrieved, setAllMessagesRetrieved] = useState([])
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [duplicate, setDuplicate] = useState(false)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -33,15 +37,7 @@ const Hooks = () => {
     setOpenUsers(!openUsers)
   }
 
-  const [open, setOpen] = useState(false);
 
-  const handleClickOpen = () => {
-   setOpen(true);
- };
-
-  const handleClose = () => {
-   setOpen(false);
- };
 
   const [isAChannelSelected, setIsAChannelSelected] = useState(false)
   const [selectedChannel, setSelectedChannel] = useState([])
@@ -89,7 +85,21 @@ const Hooks = () => {
     retrieveChannels()
 
   }, [headers])   
- 
+
+  const retrieveChannels = () => {
+    axios({      
+      url: 'http://206.189.91.54/api/v1/channels',
+      data: {},
+      method: 'GET',
+      headers: {
+        'access-token': headers["access-token"],
+        'client': headers.client,
+        'expiry': headers.expiry,
+        'uid': headers.uid
+      },
+       }).then((res) => {setChannels(res.data.data); console.log(res.data.data)})
+         .catch((error) => {console.log(error)}) 
+    } 
 
   const retrieveChannel = (id) => {
 
@@ -103,18 +113,27 @@ const Hooks = () => {
         'expiry': headers.expiry,
         'uid': headers.uid
       },
-       }).then((res) => console.log("retrieve-channel status: " + res.status))
+       }).then((res) => console.log(res))
         .then(retrieveAllMessagesInAChannel(id))
         .then(setIsAChannelSelected(true)) 
         .catch((error) => {console.log(error)}) 
-
   }
-
-  const intervalRetrieveMessages = (id) => {
-    retrieveAllMessagesInAChannel(id)
-    setInterval(() => {
-      retrieveAllMessagesInAChannel(id)
-    }, 1500);
+  
+  
+  const intervalRetrieveMessages = (id) => {    
+    retrieveAllMessagesInAChannel(id)          
+    setDuplicate(!duplicate)
+    if(duplicate) {
+       req1 = setInterval(() => {
+        retrieveAllMessagesInAChannel(id)  
+      }, 1500);
+      clearTimeout(req2)
+    } else {
+       req2 = setInterval(() => {
+        retrieveAllMessagesInAChannel(id)  
+      }, 1500);
+      clearTimeout(req1)
+    }   
   }
 
   const retrieveAllMessagesInAChannel= (id) => {
@@ -152,13 +171,13 @@ const Hooks = () => {
          .catch((error) => {console.log(error)})    
   }
 
-  const createNewChannelWithUser = () => {
+  const createNewChannelWithUser = (channelName) => {
 
     axios({      
       url: 'http://206.189.91.54/api/v1/channels',
       data: {
-        'name': `Craig's Channel`,
-        'user_ids': [713, 429] // [] insert member id or id's here 
+        'name': `${channelName}`,
+        'user_ids': [userID] // [] insert member id or id's here 
       },
       method: 'POST',
       headers: {
@@ -167,7 +186,7 @@ const Hooks = () => {
         'client': headers.client,
         'uid': headers.uid
       },
-       }).then((res) => console.log(res)) //state still to be edited
+       }).then(() => retrieveChannels()) //state still to be edited         
          .catch((error) => {console.log(error)})
   }
 
@@ -192,6 +211,22 @@ const Hooks = () => {
          .catch((error) => {console.log(error)})
   }
 
+
+  const retrieveAllMessagesWithUser = (receiverID) => {
+
+    axios({      
+      url: `http://206.189.91.54/api/v1/messages?receiver_id=${receiverID}&receiver_class=User`,     
+      method: 'GET',
+      headers: {
+        'access-token': headers["access-token"],
+        'expiry': headers.expiry,
+        'client': headers.client,
+        'uid': headers.uid
+      },
+       }).then((res) => setAllMessagesRetrieved(res.data.data)) //state still to be edited
+         .catch((error) => {console.log(error)})
+  }
+
   const createDirectMessageToAUser = () => {
 
     axios({      
@@ -213,7 +248,7 @@ const Hooks = () => {
   }
 
   return {
-
+    userID,
     headers,
     users,
     channels,
@@ -232,16 +267,13 @@ const Hooks = () => {
     mobileOpen,
     allMessagesRetrieved,
     message,
-    setMessage,    
-    open,
-    setOpen,    
-    handleClickOpen,
-    handleClose,
+    setMessage,
     isAChannelSelected,
     selectedChannel,
     setSelectedChannel,
     createMessageInAChannel,
-    intervalRetrieveMessages
+    intervalRetrieveMessages,
+    retrieveAllMessagesWithUser
   }
 
 }

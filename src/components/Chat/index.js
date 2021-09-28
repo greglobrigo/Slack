@@ -31,6 +31,8 @@ const Index = () => {
     setSelectedChannel,
     createMessageInAChannel,
     intervalRetrieveMessages,
+    userID,
+    retrieveAllMessagesWithUser,
   } = useHooks();
 
   return (
@@ -63,6 +65,8 @@ const Index = () => {
           setSelectedChannel={setSelectedChannel}
           createMessageInAChannel={createMessageInAChannel}
           intervalRetrieveMessages={intervalRetrieveMessages}
+          userID={userID}
+          retrieveAllMessagesWithUser={retrieveAllMessagesWithUser}
         />
       )}
     </>
