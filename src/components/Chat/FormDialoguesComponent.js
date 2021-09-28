@@ -11,7 +11,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 
 
-const FormDialoguesComponent = ({open, handleClose, dialogTitleText, inviteUserToAChannel, label, type, createNewChannelWithUser}) => {
+const FormDialoguesComponent = ({open, handleClose, dialogTitleText, inviteUserToAChannel, label, type, createNewChannelWithUser, retrieveAllMessagesWithUser}) => {
 
   const [valueFromForm, setValueFromForm] = useState('')
   
@@ -34,9 +34,10 @@ const FormDialoguesComponent = ({open, handleClose, dialogTitleText, inviteUserT
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={()=>{handleClose(); setValueFromForm('')}}>Cancel</Button>
+        <Button onClick={()=>{handleClose(); setValueFromForm('')}}>Cancel</Button>
         {inviteUserToAChannel && <Button onClick={()=>{inviteUserToAChannel(valueFromForm); handleClose();}}>Invite</Button>}
         {createNewChannelWithUser && <Button onClick={()=>{createNewChannelWithUser(valueFromForm); handleClose();}}>Create</Button>}
+        {retrieveAllMessagesWithUser && <Button onClick={()=>{retrieveAllMessagesWithUser(valueFromForm); handleClose();}}>Enter</Button>}
         </DialogActions>
       </Dialog>
     </div>

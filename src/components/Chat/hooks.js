@@ -211,6 +211,22 @@ const Hooks = () => {
          .catch((error) => {console.log(error)})
   }
 
+
+  const retrieveAllMessagesWithUser = (receiverID) => {
+
+    axios({      
+      url: `http://206.189.91.54/api/v1/messages?receiver_id=${receiverID}&receiver_class=User`,     
+      method: 'GET',
+      headers: {
+        'access-token': headers["access-token"],
+        'expiry': headers.expiry,
+        'client': headers.client,
+        'uid': headers.uid
+      },
+       }).then((res) => setAllMessagesRetrieved(res.data.data)) //state still to be edited
+         .catch((error) => {console.log(error)})
+  }
+
   const createDirectMessageToAUser = () => {
 
     axios({      
@@ -256,7 +272,8 @@ const Hooks = () => {
     selectedChannel,
     setSelectedChannel,
     createMessageInAChannel,
-    intervalRetrieveMessages
+    intervalRetrieveMessages,
+    retrieveAllMessagesWithUser
   }
 
 }

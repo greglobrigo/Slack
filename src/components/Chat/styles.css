@@ -30,6 +30,12 @@
  align-items: center;
 }
 
+.greetings {
+  position: fixed;
+  bottom: 0;
+  padding-bottom: 100px;
+}
+
 @media screen and (max-width: 600px) {
   
   .message-area-container { 
