@@ -4,6 +4,8 @@ import axios from 'axios'
 
 var req1;
 var req2;
+var req3;
+var req4;
 
 const Hooks = () => {  
 
@@ -16,6 +18,9 @@ const Hooks = () => {
   const [allMessagesRetrieved, setAllMessagesRetrieved] = useState([])
   const [mobileOpen, setMobileOpen] = useState(false);
   const [duplicate, setDuplicate] = useState(false)
+  const [searchResults, setSearchResults] = useState([])
+  const [selectedUser, setSelectedUser] = useState([])
+  const [duplicateForDM, setDuplicateForDM] = useState(false)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -62,7 +67,7 @@ const Hooks = () => {
         'expiry': headers.expiry,
         'uid': headers.uid
     },      
-      }).then((res) => {setUsers(res.data.data); console.log(res.data.data)})
+      }).then((res) => {setUsers(res.data.data); console.log(JSON.stringify(res.data.data))})
       .catch((error) => {console.log(error)}) 
     }
     getAllUsers()
@@ -120,7 +125,10 @@ const Hooks = () => {
   }
   
   
-  const intervalRetrieveMessages = (id) => {    
+  const intervalRetrieveMessages = (id) => {  
+    clearTimeout(req3)
+    clearTimeout(req4)  
+    setSelectedUser([])
     retrieveAllMessagesInAChannel(id)          
     setDuplicate(!duplicate)
     if(duplicate) {
@@ -148,7 +156,7 @@ const Hooks = () => {
         'client': headers.client,
         'uid': headers.uid
       },
-       }).then(res=>{setAllMessagesRetrieved(res.data.data); console.log(res)})               
+       }).then(res=>{setAllMessagesRetrieved(res.data.data); console.log(res)})  
          .catch((error) => {console.log(error)})
   } 
 
@@ -212,10 +220,10 @@ const Hooks = () => {
   }
 
 
-  const retrieveAllMessagesWithUser = (receiverID) => {
+  const retrieveAllMessagesWithUser = (userData) => {
 
     axios({      
-      url: `http://206.189.91.54/api/v1/messages?receiver_id=${receiverID}&receiver_class=User`,     
+      url: `http://206.189.91.54/api/v1/messages?receiver_id=${userData.id}&receiver_class=User`,     
       method: 'GET',
       headers: {
         'access-token': headers["access-token"],
@@ -223,18 +231,39 @@ const Hooks = () => {
         'client': headers.client,
         'uid': headers.uid
       },
-       }).then((res) => setAllMessagesRetrieved(res.data.data)) //state still to be edited
+       }).then((res) => {setAllMessagesRetrieved(res.data.data)})   
+         .then(console.log(userData)) 
          .catch((error) => {console.log(error)})
   }
 
-  const createDirectMessageToAUser = () => {
+  const intervalRetrieveMessagesWithUser = (userData) => {  
+    clearTimeout(req1)
+    clearTimeout(req2)
+    setSelectedChannel([])
+    setSelectedUser(userData)
+    retrieveAllMessagesWithUser(userData)          
+      setDuplicateForDM(!duplicateForDM)
+      if(duplicateForDM) {
+         req3 = setInterval(() => {
+          retrieveAllMessagesWithUser(userData)  
+        }, 1500);
+        clearTimeout(req4)
+      } else {
+         req4 = setInterval(() => {
+          retrieveAllMessagesWithUser(userData)  
+        }, 1500);
+        clearTimeout(req3)
+      }  
+  }
+
+  const createDirectMessageToAUser = (message) => {
 
     axios({      
       url: `http://206.189.91.54/api/v1/messages`,
       data: { 
-        'receiver_id': ``, //input user ID here
+        'receiver_id': `${selectedUser.id}`,
         'receiver_class': 'User',
-        'body': '' //setState and value of form still need to be edited here
+        'body': `${message}`
       },
       method: 'POST',
       headers: {
@@ -245,6 +274,24 @@ const Hooks = () => {
       },
        }).then((res) => console.log(res)) //state still to be edited
          .catch((error) => {console.log(error)})
+  }
+
+  const returnToHome = () => {
+      clearTimeout(req1)
+      clearTimeout(req2)
+      clearTimeout(req3)
+      clearTimeout(req4)
+      setAllMessagesRetrieved([])
+      setSelectedChannel([])
+      setSelectedUser([])
+  }
+
+
+  const sortByEmail = (e) => {   
+      setTimeout(() => {
+      const sortedUsers = users.filter(user=>user.email.includes(e))
+      setSearchResults(sortedUsers)       
+    }, 500)
   }
 
   return {
@@ -273,7 +320,13 @@ const Hooks = () => {
     setSelectedChannel,
     createMessageInAChannel,
     intervalRetrieveMessages,
-    retrieveAllMessagesWithUser
+    retrieveAllMessagesWithUser,
+    returnToHome,
+    sortByEmail,
+    searchResults,
+    selectedUser,
+    createDirectMessageToAUser,
+    intervalRetrieveMessagesWithUser    
   }
 
 }

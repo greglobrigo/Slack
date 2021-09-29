@@ -33,7 +33,14 @@ import './styles.css'
     createMessageInAChannel,
     intervalRetrieveMessages,
     userID,
-    retrieveAllMessagesWithUser
+    retrieveAllMessagesWithUser,
+    returnToHome,
+    sortByEmail,
+    searchResults,
+    selectedUser,
+    createDirectMessageToAUser,
+    intervalRetrieveMessagesWithUser
+
   } = useHooks()  
       
 
@@ -71,6 +78,12 @@ import './styles.css'
     intervalRetrieveMessages={intervalRetrieveMessages}
     userID={userID}
     retrieveAllMessagesWithUser={retrieveAllMessagesWithUser}
+    returnToHome={returnToHome}
+    sortByEmail={sortByEmail}
+    searchResults={searchResults}
+    selectedUser={selectedUser}
+    createDirectMessageToAUser={createDirectMessageToAUser}
+    intervalRetrieveMessagesWithUser={intervalRetrieveMessagesWithUser}
       />
      }
 
