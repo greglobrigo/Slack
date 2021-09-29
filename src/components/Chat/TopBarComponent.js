@@ -13,7 +13,7 @@ import Box from '@mui/material/Box';
 import FormDialoguesComponent from './FormDialoguesComponent';
 
 
-const TopBarComponent = ({drawerWidth, headers, handleDrawerToggle, channels, selectedChannel, inviteUserToAChannel, userID}) => {
+const TopBarComponent = ({drawerWidth, headers, handleDrawerToggle, channels, selectedChannel, inviteUserToAChannel, userID, selectedUser}) => {
 
   const [open, setOpen] = useState(false);
 
@@ -58,33 +58,7 @@ const TopBarComponent = ({drawerWidth, headers, handleDrawerToggle, channels, se
               </Typography>
             </ListItemButton>
           </Box>
-          : <Box>
-            <ListItemButton>              
-              <Typography variant="h7" noWrap component="div">
-                {'Select or Add Channel to Get Started!'}
-              </Typography>
-            </ListItemButton>
-          </Box>
-          }
-
-          {selectedChannel.name ? 
-          <Box>
-            <ListItemButton>              
-              <Typography variant="h7" noWrap component="div">
-                {`${selectedChannel.name}`}
-              </Typography>
-            </ListItemButton>
-          </Box>
           :  <Box>
-            <ListItemButton>              
-              <Typography variant="h7" noWrap component="div">
-                {'Avion Slack App'}
-              </Typography>
-            </ListItemButton>
-          </Box>
-          }
-
-          {/* <Box>
             <TextField
               label="Search All users..."
               sx={{m: 1, width: "25ch"}}
@@ -97,7 +71,27 @@ const TopBarComponent = ({drawerWidth, headers, handleDrawerToggle, channels, se
               }}
               variant="filled"
             />
-          </Box> */}
+          </Box>
+          }    
+          
+
+          {selectedChannel.name || selectedUser.email ? 
+          <Box>
+            <ListItemButton>              
+              <Typography variant="h7" noWrap component="div">
+              {selectedChannel.name && `Channel: ${selectedChannel.name}`} {selectedUser.email && `Chat with ${selectedUser.email}`}
+              </Typography>
+            </ListItemButton>
+          </Box>
+          :  <Box>
+            <ListItemButton>              
+              <Typography variant="h7" noWrap component="div">
+                {'Avion Slack App'}
+              </Typography>
+            </ListItemButton>
+          </Box>
+          }   
+
 
           <Box style={{textAlign: "end"}}>
             <Typography variant="h12" component="div">
@@ -113,9 +107,10 @@ const TopBarComponent = ({drawerWidth, headers, handleDrawerToggle, channels, se
         handleClose={handleClose}
         dialogTitleText={selectedChannel && `Enter user ID to invite to ${selectedChannel.name}`}        
         channels={channels}
-        type={'text'}
+        type={'number'}
         label={'User ID'}
         inviteUserToAChannel={inviteUserToAChannel}
+        
       />
     </>
   );

@@ -29,7 +29,14 @@ const MainChatComponent = ({
     createMessageInAChannel,
     intervalRetrieveMessages,
     userID,
-    retrieveAllMessagesWithUser
+    retrieveAllMessagesWithUser,
+    returnToHome,
+    sortByEmail,
+    searchResults,
+    selectedUser,
+    createDirectMessageToAUser,
+    intervalRetrieveMessagesWithUser
+    
   }
 ) => {
   const drawerWidth = 300;
@@ -48,7 +55,8 @@ const MainChatComponent = ({
          isAChannelSelected={isAChannelSelected}  
          selectedChannel={selectedChannel}         
          inviteUserToAChannel={inviteUserToAChannel}
-         userID={userID}   
+         userID={userID} 
+         selectedUser={selectedUser}  
        />
         <Box
           component="nav"
@@ -85,7 +93,12 @@ const MainChatComponent = ({
                 selectedChannel={selectedChannel}
                 setSelectedChannel={setSelectedChannel}
                 intervalRetrieveMessages={intervalRetrieveMessages}
-                retrieveAllMessagesWithUser={retrieveAllMessagesWithUser}                              
+                retrieveAllMessagesWithUser={retrieveAllMessagesWithUser}  
+                returnToHome={returnToHome}
+                sortByEmail={sortByEmail}
+                searchResults={searchResults}
+                intervalRetrieveMessagesWithUser={intervalRetrieveMessagesWithUser}
+                                        
               />
             }
           </Drawer>
@@ -114,7 +127,11 @@ const MainChatComponent = ({
                 selectedChannel={selectedChannel}
                 setSelectedChannel={setSelectedChannel}   
                 intervalRetrieveMessages={intervalRetrieveMessages}
-                retrieveAllMessagesWithUser={retrieveAllMessagesWithUser}                                                     
+                retrieveAllMessagesWithUser={retrieveAllMessagesWithUser}  
+                returnToHome={returnToHome}    
+                sortByEmail={sortByEmail}     
+                searchResults={searchResults}    
+                intervalRetrieveMessagesWithUser={intervalRetrieveMessagesWithUser}                                                                                  
               />
             }
           </Drawer>
@@ -124,6 +141,9 @@ const MainChatComponent = ({
         setMessage={setMessage}
         message={message}
         createMessageInAChannel={createMessageInAChannel}
+        selectedChannel={selectedChannel}
+        selectedUser={selectedUser}
+        createDirectMessageToAUser={createDirectMessageToAUser}
         />
       </Box>
     </>

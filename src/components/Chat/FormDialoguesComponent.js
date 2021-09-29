@@ -11,33 +11,71 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 
 
-const FormDialoguesComponent = ({open, handleClose, dialogTitleText, inviteUserToAChannel, label, type, createNewChannelWithUser, retrieveAllMessagesWithUser}) => {
+const FormDialoguesComponent = ({users, open, handleClose, dialogTitleText, inviteUserToAChannel, label, type, createNewChannelWithUser, intervalRetrieveMessagesWithUser, sortByEmail, searchResults}) => {
 
   const [valueFromForm, setValueFromForm] = useState('')
   
   return (
     <div>     
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{dialogTitleText}</DialogTitle>           
+        <DialogTitle sx={{pb:5}}>{dialogTitleText}</DialogTitle>           
         <DialogContent>     
-          <TextField
+          {sortByEmail && <TextField
             autoFocus
             margin="dense"
             id="name"
             label={label}
             type={type}
             fullWidth
-            variant="standard"
+            variant="standard"                        
+            onChange={(e)=>{setValueFromForm(e.target.value); sortByEmail(valueFromForm)}}
             value={valueFromForm}
-            onChange={(e)=>setValueFromForm(e.target.value)}
-          />
+
+          />}
+
+           {inviteUserToAChannel && <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label={label}
+            type={type}
+            fullWidth
+            variant="standard"                        
+            onChange={(e)=>{setValueFromForm(e.target.value); inviteUserToAChannel(valueFromForm)}}
+            value={valueFromForm}
+
+          />}
+
+           {createNewChannelWithUser && <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label={label}
+            type={type}
+            fullWidth
+            variant="standard"                        
+            onChange={(e)=>{setValueFromForm(e.target.value); createNewChannelWithUser(valueFromForm)}}
+            value={valueFromForm}
+
+          />}
         </DialogContent>
+      {searchResults &&
+        <List sx={{mt: 5}}>
+              {searchResults.map((val) => {
+                return (
+                  <ListItemButton sx={{pl: 4}} key={val.id} onClick={()=>{intervalRetrieveMessagesWithUser(val); handleClose()}}>
+                    <ListItemText primary={`${val.uid}`} />
+                  </ListItemButton>
+                );
+              })}
+            </List>            
+      }
+
 
         <DialogActions>
         <Button onClick={()=>{handleClose(); setValueFromForm('')}}>Cancel</Button>
-        {inviteUserToAChannel && <Button onClick={()=>{inviteUserToAChannel(valueFromForm); handleClose();}}>Invite</Button>}
-        {createNewChannelWithUser && <Button onClick={()=>{createNewChannelWithUser(valueFromForm); handleClose();}}>Create</Button>}
-        {retrieveAllMessagesWithUser && <Button onClick={()=>{retrieveAllMessagesWithUser(valueFromForm); handleClose();}}>Enter</Button>}
+        {inviteUserToAChannel && <Button onClick={()=>{inviteUserToAChannel(valueFromForm); handleClose(); setValueFromForm('')}}>Invite</Button>}
+        {createNewChannelWithUser && <Button sx={{ alignItems: 'center',}} onClick={()=>{createNewChannelWithUser(valueFromForm); handleClose(); setValueFromForm('')}}>Create</Button>}        
         </DialogActions>
       </Dialog>
     </div>

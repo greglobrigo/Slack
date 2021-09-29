@@ -2,7 +2,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 import TextField  from "@mui/material/TextField";
 
-const ChatBodyComponent = ({allMessagesRetrieved, setMessage, message, createMessageInAChannel}) => {
+const ChatBodyComponent = ({allMessagesRetrieved, setMessage, message, createMessageInAChannel, selectedChannel, selectedUser, createDirectMessageToAUser}) => {
     return (
         <Box component="main" sx={{flexGrow: 1, p: 3}}>
           <Toolbar />
@@ -21,23 +21,23 @@ const ChatBodyComponent = ({allMessagesRetrieved, setMessage, message, createMes
              <p>{val.body}</p>
              </div>              
               )
-            }) : <span className="greetings">Welcome to Avion Slack App! Hop on a channel or send a DM to get started!👀</span>}
+            }) : 
+            
+            (selectedChannel.name && <span className="greetings">Your Channel has no messages</span>) || 
+            (selectedUser.email && <span className="greetings">You have no chat history with {selectedUser.email}</span>) ||            
+            <span className="greetings">Welcome to Avion Slack App! Hop on a channel or send a DM to get started!👀</span>}
 
             
 
 
           </Box>
 
-          <Box
+          {selectedChannel.name && <Box
             className="message-area-container"
             component="form"
             noValidate
             autoComplete="off"
-            onSubmit={(e) => {
-              e.preventDefault();
-              createMessageInAChannel(message)
-              setMessage("");
-            }}
+            onSubmit={(e) => {e.preventDefault(); createMessageInAChannel(message); setMessage("")}}
           >
             <TextField
               className="message-area"
@@ -47,7 +47,24 @@ const ChatBodyComponent = ({allMessagesRetrieved, setMessage, message, createMes
               onChange={(e) => setMessage(e.target.value)}
               value={message}
             />
-          </Box>
+          </Box>}
+
+          {selectedUser.email && <Box
+            className="message-area-container"
+            component="form"
+            noValidate
+            autoComplete="off"
+            onSubmit={(e) => {e.preventDefault(); createDirectMessageToAUser(message); setMessage("")}}
+          >
+            <TextField
+              className="message-area"
+              id="outlined-basic"
+              label="Enter your message here"
+              variant="outlined"
+              onChange={(e) => setMessage(e.target.value)}
+              value={message}
+            />
+          </Box>}
         </Box>
     )
 }

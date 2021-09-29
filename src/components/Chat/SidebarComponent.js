@@ -19,17 +19,17 @@ import HomeIcon from '@mui/icons-material/Home';
 const SidebarComponent = ({
   handleClickOpenChannel,
   openChannel,
-  channels,
-  retrieveChannel,
-  inviteUserToAChannel,
+  channels,  
   createNewChannelWithUser,
   handleClickOpenUsers,
   users,
-  openUsers,
-  selectedChannel,
+  openUsers,  
   setSelectedChannel,
-  intervalRetrieveMessages,
-  retrieveAllMessagesWithUser
+  intervalRetrieveMessages,  
+  returnToHome,
+  sortByEmail, 
+  searchResults,
+  intervalRetrieveMessagesWithUser
 }) => {
 
   const [openForInviteUser, setOpenForInviteUser] = useState(false);
@@ -56,7 +56,7 @@ const SidebarComponent = ({
         <Toolbar />
         <Divider />         
 
-        <List>
+        <List onClick={()=>returnToHome()}>
           <ListItemButton>
             <ListItemIcon>
               <HomeIcon />
@@ -165,10 +165,14 @@ const SidebarComponent = ({
     <FormDialoguesComponent
         open={openForSendDirectMessage}
         handleClose={handleCloseForSendDirectMessage}
-        dialogTitleText={'Enter User ID of Person you want to message'}
-        label={'User ID'}
-        type={`number`}
-        retrieveAllMessagesWithUser={retrieveAllMessagesWithUser}
+        dialogTitleText={'Who do you want to send a message to?'}
+        label={'Email'}
+        type={`text`}        
+        users={users}
+        sortByEmail={sortByEmail}
+        searchResults={searchResults}
+        intervalRetrieveMessagesWithUser={intervalRetrieveMessagesWithUser}
+        
       />
     </>
   );
