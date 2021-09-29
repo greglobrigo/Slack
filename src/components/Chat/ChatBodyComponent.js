@@ -23,8 +23,8 @@ const ChatBodyComponent = ({allMessagesRetrieved, setMessage, message, createMes
               )
             }) : 
             
-            (selectedChannel.name && <span className="greetings">Your Channel has no messages</span>) || 
-            (selectedUser.email && <span className="greetings">You have no chat history with {selectedUser.email}</span>) ||            
+            (selectedChannel.name && <span className="greetings">Channel: {selectedChannel.name} has no messages.</span>) || 
+            (selectedUser.email && <span className="greetings">You have no chat history with {selectedUser.email}. Send him/her a message!</span>) ||            
             <span className="greetings">Welcome to Avion Slack App! Hop on a channel or send a DM to get started!👀</span>}
 
             

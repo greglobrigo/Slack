@@ -2,18 +2,16 @@ import {useState} from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Toolbar from '@mui/material/Toolbar';
-import InputAdornment from '@mui/material/InputAdornment';
-import SearchIcon from '@mui/icons-material/Search';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
-import TextField  from "@mui/material/TextField";
 import Box from '@mui/material/Box';
 import FormDialoguesComponent from './FormDialoguesComponent';
 
 
-const TopBarComponent = ({drawerWidth, headers, handleDrawerToggle, channels, selectedChannel, inviteUserToAChannel, userID, selectedUser}) => {
+
+const TopBarComponent = ({drawerWidth, headers, handleDrawerToggle, channels, selectedChannel, inviteUserToAChannel, userID, selectedUser, currentDateAndTime}) => { 
 
   const [open, setOpen] = useState(false);
 
@@ -36,7 +34,7 @@ const TopBarComponent = ({drawerWidth, headers, handleDrawerToggle, channels, se
         }}
       >
         <Toolbar
-          style={{backgroundColor: "blue", justifyContent: "space-between" }}
+          style={{backgroundColor: "purple", justifyContent: "space-between" }}
         >
           <IconButton
             color="inherit"
@@ -59,18 +57,7 @@ const TopBarComponent = ({drawerWidth, headers, handleDrawerToggle, channels, se
             </ListItemButton>
           </Box>
           :  <Box>
-            <TextField
-              label="Search All users..."
-              sx={{m: 1, width: "25ch"}}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-              }}
-              variant="filled"
-            />
+          {`${currentDateAndTime.currentDate}, ${currentDateAndTime.currentTime}`}
           </Box>
           }    
           

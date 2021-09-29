@@ -37,9 +37,9 @@ const Hooks = () => {
         })
     
         
-    const registerUser = async() => {      
+    const registerUser = () => {      
 
-        await axios({      
+         axios({      
             url: 'http://206.189.91.54/api/v1/auth',
             data: {'email': email,
                   'password': password,

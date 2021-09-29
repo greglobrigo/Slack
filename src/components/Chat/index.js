@@ -11,9 +11,7 @@ import './styles.css'
     users,
     channels,
     handleClickOpenChannel,
-    openChannel,
-    loading,
-    retrieveChannel,
+    openChannel,    
     inviteUserToAChannel,
     createNewChannelWithUser,
     handleClickOpenUsers,
@@ -22,24 +20,21 @@ import './styles.css'
     mobileOpen,
     allMessagesRetrieved,
     message,
-    setMessage,    
-    open,
-    setOpen,    
-    handleClickOpen,
-    handleClose,
+    setMessage, 
     isAChannelSelected,
     selectedChannel,
     setSelectedChannel,
     createMessageInAChannel,
     intervalRetrieveMessages,
-    userID,
-    retrieveAllMessagesWithUser,
+    userID,    
     returnToHome,
     sortByEmail,
     searchResults,
     selectedUser,
     createDirectMessageToAUser,
-    intervalRetrieveMessagesWithUser
+    intervalRetrieveMessagesWithUser,
+    loading,
+    currentDateAndTime
 
   } = useHooks()  
       
@@ -56,8 +51,7 @@ import './styles.css'
     users={users}
     channels={channels}
     handleClickOpenChannel={handleClickOpenChannel}
-    openChannel={openChannel}    
-    retrieveChannel={retrieveChannel}
+    openChannel={openChannel}        
     inviteUserToAChannel={inviteUserToAChannel}
     createNewChannelWithUser={createNewChannelWithUser}
     handleClickOpenUsers={handleClickOpenUsers}
@@ -66,24 +60,20 @@ import './styles.css'
     mobileOpen={mobileOpen}
     allMessagesRetrieved={allMessagesRetrieved}
     message={message}
-    setMessage={setMessage}
-    open={open}
-    setOpen={setOpen}
-    handleClickOpen={handleClickOpen}
-    handleClose={handleClose}
+    setMessage={setMessage}  
     isAChannelSelected={isAChannelSelected}
     selectedChannel={selectedChannel}
     setSelectedChannel={setSelectedChannel}
     createMessageInAChannel={createMessageInAChannel}
     intervalRetrieveMessages={intervalRetrieveMessages}
     userID={userID}
-    retrieveAllMessagesWithUser={retrieveAllMessagesWithUser}
     returnToHome={returnToHome}
     sortByEmail={sortByEmail}
     searchResults={searchResults}
     selectedUser={selectedUser}
     createDirectMessageToAUser={createDirectMessageToAUser}
     intervalRetrieveMessagesWithUser={intervalRetrieveMessagesWithUser}
+    currentDateAndTime={currentDateAndTime}
       />
      }
 

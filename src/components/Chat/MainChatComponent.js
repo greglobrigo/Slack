@@ -7,13 +7,11 @@ import ChatBodyComponent from './ChatBodyComponent';
 
 
 const MainChatComponent = ({
-    props,
     headers,
     users,
     channels,
     handleClickOpenChannel,
-    openChannel,
-    retrieveChannel,
+    openChannel,    
     inviteUserToAChannel,
     createNewChannelWithUser,
     handleClickOpenUsers,
@@ -28,14 +26,14 @@ const MainChatComponent = ({
     setSelectedChannel,
     createMessageInAChannel,
     intervalRetrieveMessages,
-    userID,
-    retrieveAllMessagesWithUser,
+    userID,    
     returnToHome,
     sortByEmail,
     searchResults,
     selectedUser,
     createDirectMessageToAUser,
-    intervalRetrieveMessagesWithUser
+    intervalRetrieveMessagesWithUser,
+    currentDateAndTime
     
   }
 ) => {
@@ -48,21 +46,22 @@ const MainChatComponent = ({
     <>
       <Box sx={{display: "flex"}}>
         <CssBaseline />
-       <TopBarComponent
-         drawerWidth={300}
-         headers={headers}
-         handleDrawerToggle={handleDrawerToggle}
-         isAChannelSelected={isAChannelSelected}  
-         selectedChannel={selectedChannel}         
-         inviteUserToAChannel={inviteUserToAChannel}
-         userID={userID} 
-         selectedUser={selectedUser}  
-       />
+        <TopBarComponent
+          drawerWidth={300}
+          headers={headers}
+          handleDrawerToggle={handleDrawerToggle}
+          isAChannelSelected={isAChannelSelected}
+          selectedChannel={selectedChannel}
+          inviteUserToAChannel={inviteUserToAChannel}
+          userID={userID}
+          selectedUser={selectedUser}
+          currentDateAndTime={currentDateAndTime}
+        />
         <Box
           component="nav"
           sx={{width: {sm: drawerWidth}, flexShrink: {sm: 0}}}
           aria-label="mailbox folders"
-        >          
+        >
           <Drawer
             // container={container}
             variant="temporary"
@@ -83,22 +82,17 @@ const MainChatComponent = ({
               <SidebarComponent
                 handleClickOpenChannel={handleClickOpenChannel}
                 openChannel={openChannel}
-                channels={channels}
-                retrieveChannel={retrieveChannel}
-                inviteUserToAChannel={inviteUserToAChannel}
                 createNewChannelWithUser={createNewChannelWithUser}
                 handleClickOpenUsers={handleClickOpenUsers}
                 users={users}
                 openUsers={openUsers}
-                selectedChannel={selectedChannel}
                 setSelectedChannel={setSelectedChannel}
                 intervalRetrieveMessages={intervalRetrieveMessages}
-                retrieveAllMessagesWithUser={retrieveAllMessagesWithUser}  
                 returnToHome={returnToHome}
                 sortByEmail={sortByEmail}
                 searchResults={searchResults}
                 intervalRetrieveMessagesWithUser={intervalRetrieveMessagesWithUser}
-                                        
+                channels={channels}
               />
             }
           </Drawer>
@@ -117,33 +111,29 @@ const MainChatComponent = ({
               <SidebarComponent
                 handleClickOpenChannel={handleClickOpenChannel}
                 openChannel={openChannel}
-                channels={channels}
-                retrieveChannel={retrieveChannel}
-                inviteUserToAChannel={inviteUserToAChannel}
                 createNewChannelWithUser={createNewChannelWithUser}
                 handleClickOpenUsers={handleClickOpenUsers}
                 users={users}
-                openUsers={openUsers}   
-                selectedChannel={selectedChannel}
-                setSelectedChannel={setSelectedChannel}   
+                openUsers={openUsers}
+                setSelectedChannel={setSelectedChannel}
                 intervalRetrieveMessages={intervalRetrieveMessages}
-                retrieveAllMessagesWithUser={retrieveAllMessagesWithUser}  
-                returnToHome={returnToHome}    
-                sortByEmail={sortByEmail}     
-                searchResults={searchResults}    
-                intervalRetrieveMessagesWithUser={intervalRetrieveMessagesWithUser}                                                                                  
+                returnToHome={returnToHome}
+                sortByEmail={sortByEmail}
+                searchResults={searchResults}
+                intervalRetrieveMessagesWithUser={intervalRetrieveMessagesWithUser}
+                channels={channels}
               />
             }
           </Drawer>
         </Box>
         <ChatBodyComponent
-        allMessagesRetrieved={allMessagesRetrieved}
-        setMessage={setMessage}
-        message={message}
-        createMessageInAChannel={createMessageInAChannel}
-        selectedChannel={selectedChannel}
-        selectedUser={selectedUser}
-        createDirectMessageToAUser={createDirectMessageToAUser}
+          allMessagesRetrieved={allMessagesRetrieved}
+          setMessage={setMessage}
+          message={message}
+          createMessageInAChannel={createMessageInAChannel}
+          selectedChannel={selectedChannel}
+          selectedUser={selectedUser}
+          createDirectMessageToAUser={createDirectMessageToAUser}
         />
       </Box>
     </>

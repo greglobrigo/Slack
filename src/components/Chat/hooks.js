@@ -21,30 +21,24 @@ const Hooks = () => {
   const [searchResults, setSearchResults] = useState([])
   const [selectedUser, setSelectedUser] = useState([])
   const [duplicateForDM, setDuplicateForDM] = useState(false)
+  // const withoutCurrentUser = users.filter(user=>!user.email.includes(headers.uid))
+  
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const [openChannel, setOpenChannel] = useState(false);
-  const [openMessage, setOpenMessage] = useState(false);
+  const [openChannel, setOpenChannel] = useState(false);  
   const [openUsers, setOpenUsers] = useState(false);
 
   const handleClickOpenChannel = () => {
     setOpenChannel(!openChannel);
   };
 
-  const handleClickOpenMessage = () => {
-    setOpenMessage(!openMessage);
-  };
-
   const handleClickOpenUsers = () => {
     setOpenUsers(!openUsers)
   }
 
-
-
-  const [isAChannelSelected, setIsAChannelSelected] = useState(false)
   const [selectedChannel, setSelectedChannel] = useState([])
 
   useEffect(() => {
@@ -67,7 +61,7 @@ const Hooks = () => {
         'expiry': headers.expiry,
         'uid': headers.uid
     },      
-      }).then((res) => {setUsers(res.data.data); console.log(JSON.stringify(res.data.data))})
+      }).then((res) => setUsers(res.data.data))
       .catch((error) => {console.log(error)}) 
     }
     getAllUsers()
@@ -84,10 +78,11 @@ const Hooks = () => {
         'expiry': headers.expiry,
         'uid': headers.uid
       },
-       }).then((res) => {setChannels(res.data.data); console.log(res.data.data)})
+       }).then((res) => setChannels(res.data.data))
          .catch((error) => {console.log(error)}) 
     }
     retrieveChannels()
+    getCurrentTime()
 
   }, [headers])   
 
@@ -102,27 +97,9 @@ const Hooks = () => {
         'expiry': headers.expiry,
         'uid': headers.uid
       },
-       }).then((res) => {setChannels(res.data.data); console.log(res.data.data)})
+       }).then((res) => setChannels(res.data.data))
          .catch((error) => {console.log(error)}) 
     } 
-
-  const retrieveChannel = (id) => {
-
-    axios({      
-      url: `http://206.189.91.54/api/v1/channels/${id}`,
-      data: {},
-      method: 'GET',
-      headers: {
-        'access-token': headers["access-token"],
-        'client': headers.client,
-        'expiry': headers.expiry,
-        'uid': headers.uid
-      },
-       }).then((res) => console.log(res))
-        .then(retrieveAllMessagesInAChannel(id))
-        .then(setIsAChannelSelected(true)) 
-        .catch((error) => {console.log(error)}) 
-  }
   
   
   const intervalRetrieveMessages = (id) => {  
@@ -156,7 +133,7 @@ const Hooks = () => {
         'client': headers.client,
         'uid': headers.uid
       },
-       }).then(res=>{setAllMessagesRetrieved(res.data.data); console.log(res)})  
+       }).then(res=>setAllMessagesRetrieved(res.data.data))  
          .catch((error) => {console.log(error)})
   } 
 
@@ -175,8 +152,8 @@ const Hooks = () => {
         'uid': headers.uid,
         'client': headers.client
       },
-       }).then((res) => console.log(res)) //state still to be edited
-         .catch((error) => {console.log(error)})    
+       }).then(res=>console.log(res))
+       .catch((error) => {console.log(error)})    
   }
 
   const createNewChannelWithUser = (channelName) => {
@@ -231,8 +208,7 @@ const Hooks = () => {
         'client': headers.client,
         'uid': headers.uid
       },
-       }).then((res) => {setAllMessagesRetrieved(res.data.data)})   
-         .then(console.log(userData)) 
+       }).then((res) => {setAllMessagesRetrieved(res.data.data)})            
          .catch((error) => {console.log(error)})
   }
 
@@ -241,7 +217,8 @@ const Hooks = () => {
     clearTimeout(req2)
     setSelectedChannel([])
     setSelectedUser(userData)
-    retrieveAllMessagesWithUser(userData)          
+    retrieveAllMessagesWithUser(userData)
+    setSearchResults([])          
       setDuplicateForDM(!duplicateForDM)
       if(duplicateForDM) {
          req3 = setInterval(() => {
@@ -272,8 +249,7 @@ const Hooks = () => {
         'client': headers.client,
         'uid': headers.uid
       },
-       }).then((res) => console.log(res)) //state still to be edited
-         .catch((error) => {console.log(error)})
+       }).catch((error) => {console.log(error)})
   }
 
   const returnToHome = () => {
@@ -286,26 +262,50 @@ const Hooks = () => {
       setSelectedUser([])
   }
 
+  // const [isLoading, setIsLoading] = useState(false)
 
-  const sortByEmail = (e) => {   
-      setTimeout(() => {
-      const sortedUsers = users.filter(user=>user.email.includes(e))
-      setSearchResults(sortedUsers)       
-    }, 500)
+  
+  const sortByEmail = (val) => {  
+          // setLoading(true)
+        setTimeout(() => {   
+          const sortedUsers = users.filter(value=>value.email.includes(val))   
+          setSearchResults(sortedUsers)
+          // setIsLoading(false)
+                  }, 500)
+  }
+
+  const [currentDateAndTime, setCurrentDateAndTime] = useState({
+    currentTime: '',
+    currentDate: ''
+  })
+
+  const getCurrentTime = () => {  
+    var d = new Date();
+    var weekday = new Array(7);
+    weekday[0] = "Sunday";
+    weekday[1] = "Monday";
+    weekday[2] = "Tuesday";
+    weekday[3] = "Wednesday";
+    weekday[4] = "Thursday";
+    weekday[5] = "Friday";
+    weekday[6] = "Saturday";      
+    setInterval(() => {
+      const time = new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+    })
+    var currentDay = weekday[d.getDay()];
+    setCurrentDateAndTime({currentTime: time, currentDate: currentDay})
+    }, 1000)
   }
 
   return {
-    userID,
+    loading,
     headers,
     users,
     channels,
     handleClickOpenChannel,
-    openChannel,
-    loading,
-    setLoading,
-    setUsers,
-    setChannels,
-    retrieveChannel,
+    openChannel,    
     inviteUserToAChannel,
     createNewChannelWithUser,
     handleClickOpenUsers,
@@ -314,19 +314,19 @@ const Hooks = () => {
     mobileOpen,
     allMessagesRetrieved,
     message,
-    setMessage,
-    isAChannelSelected,
+    setMessage,     
     selectedChannel,
     setSelectedChannel,
     createMessageInAChannel,
     intervalRetrieveMessages,
-    retrieveAllMessagesWithUser,
+    userID,    
     returnToHome,
     sortByEmail,
     searchResults,
     selectedUser,
     createDirectMessageToAUser,
-    intervalRetrieveMessagesWithUser    
+    intervalRetrieveMessagesWithUser,
+    currentDateAndTime,
   }
 
 }

@@ -36,7 +36,7 @@ const SidebarComponent = ({
   const handleClickOpenForInviteUser = () => {
     setOpenForInviteUser(true);
  };
-  const handleCloseForInviteUser = () => {
+  const handleCloseForInviteUser = () => {    
     setOpenForInviteUser(false);
  };
 
@@ -152,7 +152,7 @@ const SidebarComponent = ({
         <Divider />
       </div>
 
-      {/* For Invite User Modal */}
+      {/* For Create Channel */}
       <FormDialoguesComponent
         open={openForInviteUser}
         handleClose={handleCloseForInviteUser}
