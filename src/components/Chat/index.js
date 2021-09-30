@@ -34,7 +34,9 @@ import './styles.css'
     createDirectMessageToAUser,
     intervalRetrieveMessagesWithUser,
     loading,
-    currentDateAndTime
+    currentDateAndTime,
+    isCreateChannel,
+    setIsCreateChannel
 
   } = useHooks()  
       
@@ -74,6 +76,8 @@ import './styles.css'
     createDirectMessageToAUser={createDirectMessageToAUser}
     intervalRetrieveMessagesWithUser={intervalRetrieveMessagesWithUser}
     currentDateAndTime={currentDateAndTime}
+    isCreateChannel={isCreateChannel}
+    setIsCreateChannel={setIsCreateChannel}
       />
      }
 

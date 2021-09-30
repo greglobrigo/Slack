@@ -10,7 +10,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 
 
-const FormDialoguesComponent = ({open, handleClose, dialogTitleText, inviteUserToAChannel, label, type, createNewChannelWithUser, intervalRetrieveMessagesWithUser, sortByEmail, searchResults}) => {
+const FormDialoguesComponent = ({open, handleClose, dialogTitleText, inviteUserToAChannel, label, type, createNewChannelWithUser, intervalRetrieveMessagesWithUser, sortByEmail, searchResults, isCreateChannel, setIsCreateChannel}) => {
 
   const [valueFromForm, setValueFromForm] = useState('')
   
@@ -73,14 +73,18 @@ const FormDialoguesComponent = ({open, handleClose, dialogTitleText, inviteUserT
             value={valueFromForm}
 
           />}
+          {isCreateChannel?.failed && (<span style={{color: "red"}}>{[...isCreateChannel.failed]}</span>)}
+          
         </DialogContent>
      
 
 
         <DialogActions>
-        <Button onClick={()=>{handleClose(); setValueFromForm('')}}>Cancel</Button>
+        <Button onClick={()=>{handleClose(); setValueFromForm('')
+        isCreateChannel && setIsCreateChannel(false)}}>Cancel</Button>
         {inviteUserToAChannel && <Button onClick={()=>{inviteUserToAChannel(valueFromForm); setValueFromForm('')}}>Invite</Button>}
-        {createNewChannelWithUser && <Button sx={{ alignItems: 'center',}} onClick={()=>{createNewChannelWithUser(valueFromForm, handleClose); setValueFromForm('')}}>Create</Button>}        
+        {createNewChannelWithUser && <Button sx={{ alignItems: 'center',}} onClick={()=>{createNewChannelWithUser(valueFromForm, handleClose, setValueFromForm)}}>Create</Button>}
+        
         </DialogActions>
       </Dialog>
     </div>

@@ -33,7 +33,9 @@ const MainChatComponent = ({
     selectedUser,
     createDirectMessageToAUser,
     intervalRetrieveMessagesWithUser,
-    currentDateAndTime
+    currentDateAndTime,
+    isCreateChannel,
+    setIsCreateChannel
     
   }
 ) => {
@@ -93,6 +95,8 @@ const MainChatComponent = ({
                 searchResults={searchResults}
                 intervalRetrieveMessagesWithUser={intervalRetrieveMessagesWithUser}
                 channels={channels}
+                isCreateChannel={isCreateChannel}
+                setIsCreateChannel={setIsCreateChannel}
               />
             }
           </Drawer>
@@ -122,6 +126,8 @@ const MainChatComponent = ({
                 searchResults={searchResults}
                 intervalRetrieveMessagesWithUser={intervalRetrieveMessagesWithUser}
                 channels={channels}
+                isCreateChannel={isCreateChannel}
+                setIsCreateChannel={setIsCreateChannel}
               />
             }
           </Drawer>

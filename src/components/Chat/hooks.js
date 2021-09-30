@@ -21,8 +21,11 @@ const Hooks = () => {
   const [searchResults, setSearchResults] = useState([])
   const [selectedUser, setSelectedUser] = useState([])
   const [duplicateForDM, setDuplicateForDM] = useState(false)
-  const [isInvite, setIsInvite] = useState(false)
   const withoutCurrentUser = users.filter(user=>!user.email.includes(headers.uid))
+  const [isCreateChannel, setIsCreateChannel] = useState({
+    success: false,
+    failed: false
+  })
   
 
   const handleDrawerToggle = () => {
@@ -157,7 +160,7 @@ const Hooks = () => {
        .catch((error) => {console.log(error)})    
   }
 
-  const createNewChannelWithUser = (channelName, handleClose) => {
+  const createNewChannelWithUser = (channelName, handleClose, setValueFromForm) => {
     
     axios({      
       url: 'http://206.189.91.54/api/v1/channels',
@@ -172,11 +175,18 @@ const Hooks = () => {
         'client': headers.client,
         'uid': headers.uid
       },
-       }).then((res) => {retrieveChannels(); console.log(res)
-        // setIsInviteSuccess(true)
-        handleClose()}) //state still to be edited         
-         .catch((error) => {console.log(error)})
-         .then()
+       }).then((res) => {              
+        retrieveChannels()
+        if(res.data.data?.id) {
+          setIsCreateChannel({success: true})
+          handleClose()
+          setValueFromForm('')          
+      } 
+      else {
+        const errors = res.data.errors 
+        setIsCreateChannel({failed: [...errors].join('. ')})
+      }})        
+         .catch((error) => {console.log(error)})         
   }
 
 
@@ -327,6 +337,8 @@ const Hooks = () => {
     createDirectMessageToAUser,
     intervalRetrieveMessagesWithUser,
     currentDateAndTime,
+    isCreateChannel,
+    setIsCreateChannel    
   }
 
 }
