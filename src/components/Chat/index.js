@@ -11,8 +11,6 @@ const Index = () => {
     channels,
     handleClickOpenChannel,
     openChannel,
-    loading,
-    retrieveChannel,
     inviteUserToAChannel,
     createNewChannelWithUser,
     handleClickOpenUsers,
@@ -22,23 +20,20 @@ const Index = () => {
     allMessagesRetrieved,
     message,
     setMessage,
-    open,
-    setOpen,
-    handleClickOpen,
-    handleClose,
     isAChannelSelected,
     selectedChannel,
     setSelectedChannel,
     createMessageInAChannel,
     intervalRetrieveMessages,
     userID,
-    retrieveAllMessagesWithUser,
     returnToHome,
     sortByEmail,
     searchResults,
     selectedUser,
     createDirectMessageToAUser,
     intervalRetrieveMessagesWithUser,
+    loading,
+    currentDateAndTime,
   } = useHooks();
 
   return (
@@ -52,7 +47,6 @@ const Index = () => {
           channels={channels}
           handleClickOpenChannel={handleClickOpenChannel}
           openChannel={openChannel}
-          retrieveChannel={retrieveChannel}
           inviteUserToAChannel={inviteUserToAChannel}
           createNewChannelWithUser={createNewChannelWithUser}
           handleClickOpenUsers={handleClickOpenUsers}
@@ -62,23 +56,19 @@ const Index = () => {
           allMessagesRetrieved={allMessagesRetrieved}
           message={message}
           setMessage={setMessage}
-          open={open}
-          setOpen={setOpen}
-          handleClickOpen={handleClickOpen}
-          handleClose={handleClose}
           isAChannelSelected={isAChannelSelected}
           selectedChannel={selectedChannel}
           setSelectedChannel={setSelectedChannel}
           createMessageInAChannel={createMessageInAChannel}
           intervalRetrieveMessages={intervalRetrieveMessages}
           userID={userID}
-          retrieveAllMessagesWithUser={retrieveAllMessagesWithUser}
           returnToHome={returnToHome}
           sortByEmail={sortByEmail}
           searchResults={searchResults}
           selectedUser={selectedUser}
           createDirectMessageToAUser={createDirectMessageToAUser}
           intervalRetrieveMessagesWithUser={intervalRetrieveMessagesWithUser}
+          currentDateAndTime={currentDateAndTime}
         />
       )}
     </>
