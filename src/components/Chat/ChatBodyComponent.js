@@ -13,7 +13,7 @@ const ChatBodyComponent = ({allMessagesRetrieved, setMessage, message, createMes
               padding: "0 20px 150px ",
             }}
           >
-            {allMessagesRetrieved.length > 1 ? allMessagesRetrieved.map((val) => {
+            {allMessagesRetrieved?.length >= 1 ? allMessagesRetrieved.map((val) => {
               return (
               <div key={val.id}>
               <span>
