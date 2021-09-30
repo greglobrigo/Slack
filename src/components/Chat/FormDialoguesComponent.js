@@ -80,7 +80,7 @@ const FormDialoguesComponent = ({open, handleClose, dialogTitleText, inviteUserT
         <DialogActions>
         <Button onClick={()=>{handleClose(); setValueFromForm('')}}>Cancel</Button>
         {inviteUserToAChannel && <Button onClick={()=>{inviteUserToAChannel(valueFromForm); setValueFromForm('')}}>Invite</Button>}
-        {createNewChannelWithUser && <Button sx={{ alignItems: 'center',}} onClick={()=>{createNewChannelWithUser(valueFromForm); handleClose(); setValueFromForm('')}}>Create</Button>}        
+        {createNewChannelWithUser && <Button sx={{ alignItems: 'center',}} onClick={()=>{createNewChannelWithUser(valueFromForm, handleClose); setValueFromForm('')}}>Create</Button>}        
         </DialogActions>
       </Dialog>
     </div>

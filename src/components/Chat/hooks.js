@@ -21,7 +21,8 @@ const Hooks = () => {
   const [searchResults, setSearchResults] = useState([])
   const [selectedUser, setSelectedUser] = useState([])
   const [duplicateForDM, setDuplicateForDM] = useState(false)
-  // const withoutCurrentUser = users.filter(user=>!user.email.includes(headers.uid))
+  const [isInvite, setIsInvite] = useState(false)
+  const withoutCurrentUser = users.filter(user=>!user.email.includes(headers.uid))
   
 
   const handleDrawerToggle = () => {
@@ -156,8 +157,8 @@ const Hooks = () => {
        .catch((error) => {console.log(error)})    
   }
 
-  const createNewChannelWithUser = (channelName) => {
-
+  const createNewChannelWithUser = (channelName, handleClose) => {
+    
     axios({      
       url: 'http://206.189.91.54/api/v1/channels',
       data: {
@@ -171,8 +172,11 @@ const Hooks = () => {
         'client': headers.client,
         'uid': headers.uid
       },
-       }).then(() => retrieveChannels()) //state still to be edited         
+       }).then((res) => {retrieveChannels(); console.log(res)
+        // setIsInviteSuccess(true)
+        handleClose()}) //state still to be edited         
          .catch((error) => {console.log(error)})
+         .then()
   }
 
 
@@ -262,15 +266,11 @@ const Hooks = () => {
       setSelectedUser([])
   }
 
-  // const [isLoading, setIsLoading] = useState(false)
-
   
-  const sortByEmail = (val) => {  
-          // setLoading(true)
+  const sortByEmail = (val) => {            
         setTimeout(() => {   
-          const sortedUsers = users.filter(value=>value.email.includes(val))   
-          setSearchResults(sortedUsers)
-          // setIsLoading(false)
+          const sortedUsers = withoutCurrentUser.filter(value=>value.email.includes(val))   
+          setSearchResults(sortedUsers)          
                   }, 500)
   }
 

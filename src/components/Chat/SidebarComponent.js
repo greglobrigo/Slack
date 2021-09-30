@@ -11,9 +11,11 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import AddIcon from '@mui/icons-material/Add';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import ForumIcon from '@mui/icons-material/Forum';
-import GetAppIcon from '@mui/icons-material/GetApp';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import FormDialoguesComponent from './FormDialoguesComponent';
 import HomeIcon from '@mui/icons-material/Home';
+import SendIcon from '@mui/icons-material/Send';
+import GroupIcon from '@mui/icons-material/Group';
 
 
 const SidebarComponent = ({
@@ -70,7 +72,7 @@ const SidebarComponent = ({
         <List>
           <ListItemButton onClick={handleClickOpenChannel}>
             <ListItemIcon>
-              <ForumIcon />
+              <GroupIcon />
             </ListItemIcon>
             <ListItemText
               primary={`My Channels (${channels ? channels.length : 0})`}
@@ -105,7 +107,7 @@ const SidebarComponent = ({
         <List>
           <ListItemButton onClick={() => handleClickOpenForInviteUser()}>
             <ListItemIcon>
-              <GetAppIcon />
+              <GroupAddIcon />
             </ListItemIcon>
             <ListItemText primary="Create New Channel..." />
             <AddIcon />
@@ -117,10 +119,10 @@ const SidebarComponent = ({
         <List>
           <ListItemButton onClick={() => handleClickOpenSendDirectMessage()}>
             <ListItemIcon>
-              <GetAppIcon />
+              <ForumIcon />
             </ListItemIcon>
             <ListItemText primary="Send a Direct Message" />
-            <AddIcon />
+            <SendIcon />
           </ListItemButton>
         </List>
 
