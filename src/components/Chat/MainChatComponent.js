@@ -33,8 +33,8 @@ const MainChatComponent = ({
   createDirectMessageToAUser,
   intervalRetrieveMessagesWithUser,
   currentDateAndTime,
-  channelExists,
-  channelError,
+  isCreateChannel,
+  setIsCreateChannel,
 }) => {
   const drawerWidth = 300;
   //   const {window} = props;
@@ -94,6 +94,8 @@ const MainChatComponent = ({
                   intervalRetrieveMessagesWithUser
                 }
                 channels={channels}
+                isCreateChannel={isCreateChannel}
+                setIsCreateChannel={setIsCreateChannel}
               />
             }
           </Drawer>
@@ -125,8 +127,8 @@ const MainChatComponent = ({
                   intervalRetrieveMessagesWithUser
                 }
                 channels={channels}
-                channelExists={channelExists}
-                channelError={channelError}
+                isCreateChannel={isCreateChannel}
+                setIsCreateChannel={setIsCreateChannel}
               />
             }
           </Drawer>

@@ -16,6 +16,7 @@ const Hooks = () => {
   const [message, setMessage] = useState("");
   const [allMessagesRetrieved, setAllMessagesRetrieved] = useState([]);
   const [mobileOpen, setMobileOpen] = useState(false);
+<<<<<<< HEAD
   const [duplicate, setDuplicate] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [selectedUser, setSelectedUser] = useState([]);
@@ -26,6 +27,18 @@ const Hooks = () => {
   const withoutCurrentUser = users.filter(
     (user) => !user.email.includes(headers.uid)
   );
+=======
+  const [duplicate, setDuplicate] = useState(false)
+  const [searchResults, setSearchResults] = useState([])
+  const [selectedUser, setSelectedUser] = useState([])
+  const [duplicateForDM, setDuplicateForDM] = useState(false)
+  const withoutCurrentUser = users.filter(user=>!user.email.includes(headers.uid))
+  const [isCreateChannel, setIsCreateChannel] = useState({
+    success: false,
+    failed: false
+  })
+  
+>>>>>>> main
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -172,9 +185,10 @@ const Hooks = () => {
       });
   };
 
-  const createNewChannelWithUser = (channelName, handleClose) => {
-    axios({
-      url: "http://206.189.91.54/api/v1/channels",
+  const createNewChannelWithUser = (channelName, handleClose, setValueFromForm) => {
+    
+    axios({      
+      url: 'http://206.189.91.54/api/v1/channels',
       data: {
         name: `${channelName}`,
         user_ids: [userID], // [] insert member id or id's here
@@ -186,24 +200,20 @@ const Hooks = () => {
         client: headers.client,
         uid: headers.uid,
       },
-    })
-      .then((res) => {
-        if (res.data.errors) {
-          const error = res.data.errors;
-          setChannelExists([...error]);
-        } else {
-          handleClose();
-          retrieveChannels();
-          setChannelExists("");
-        }
-        console.log(res.data.errors);
-        // setIsInviteSuccess(true)
-      }) //state still to be edited
-      .catch((error) => {
-        console.log(error);
-      })
-      .then();
-  };
+       }).then((res) => {              
+        retrieveChannels()
+        if(res.data.data?.id) {
+          setIsCreateChannel({success: true})
+          handleClose()
+          setValueFromForm('')          
+      } 
+      else {
+        const errors = res.data.errors 
+        setIsCreateChannel({failed: [...errors].join('. ')})
+      }})        
+         .catch((error) => {console.log(error)})         
+  }
+
 
   const createMessageInAChannel = (message) => {
     axios({
@@ -359,9 +369,17 @@ const Hooks = () => {
     createDirectMessageToAUser,
     intervalRetrieveMessagesWithUser,
     currentDateAndTime,
+<<<<<<< HEAD
     channelExists,
     channelError,
   };
 };
+=======
+    isCreateChannel,
+    setIsCreateChannel    
+  }
+
+}
+>>>>>>> main
 
 export default Hooks;

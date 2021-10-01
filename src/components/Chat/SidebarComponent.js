@@ -31,8 +31,13 @@ const SidebarComponent = ({
   sortByEmail,
   searchResults,
   intervalRetrieveMessagesWithUser,
+<<<<<<< HEAD
   channelExists,
   channelError,
+=======
+  isCreateChannel,
+  setIsCreateChannel
+>>>>>>> main
 }) => {
   const [openForInviteUser, setOpenForInviteUser] = useState(false);
   const handleClickOpenForInviteUser = () => {
@@ -164,8 +169,8 @@ const SidebarComponent = ({
         label={"Channel Name"}
         type={`text`}
         createNewChannelWithUser={createNewChannelWithUser}
-        channelExists={channelExists}
-        channelError={channelError}
+        isCreateChannel={isCreateChannel}
+        setIsCreateChannel={setIsCreateChannel}
       />
       {/* For Send a DM Modal */}
       <FormDialoguesComponent

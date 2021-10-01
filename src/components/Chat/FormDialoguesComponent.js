@@ -25,6 +25,10 @@ const FormDialoguesComponent = ({
 }) => {
   const [valueFromForm, setValueFromForm] = useState("");
 
+const FormDialoguesComponent = ({open, handleClose, dialogTitleText, inviteUserToAChannel, label, type, createNewChannelWithUser, intervalRetrieveMessagesWithUser, sortByEmail, searchResults, isCreateChannel, setIsCreateChannel}) => {
+
+  const [valueFromForm, setValueFromForm] = useState('')
+  
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
@@ -92,53 +96,28 @@ const FormDialoguesComponent = ({
             />
           )}
 
-          {createNewChannelWithUser && (
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label={label}
-              type={type}
-              fullWidth
-              variant="standard"
-              onChange={(e) => {
-                setValueFromForm(e.target.value);
-              }}
-              value={valueFromForm}
-            />
-          )}
+           {createNewChannelWithUser && <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label={label}
+            type={type}
+            fullWidth
+            variant="standard"                        
+            onChange={(e)=>{setValueFromForm(e.target.value)}}
+            value={valueFromForm}
+
+          />}
+          {isCreateChannel?.failed && (<span style={{color: "red"}}>{[...isCreateChannel.failed]}</span>)}
+          
         </DialogContent>
 
         <DialogActions>
-          <Button
-            onClick={() => {
-              handleClose();
-              setValueFromForm("");
-            }}
-          >
-            Cancel
-          </Button>
-          {inviteUserToAChannel && (
-            <Button
-              onClick={() => {
-                inviteUserToAChannel(valueFromForm);
-                setValueFromForm("");
-              }}
-            >
-              Invite
-            </Button>
-          )}
-          {createNewChannelWithUser && (
-            <Button
-              sx={{ alignItems: "center" }}
-              onClick={() => {
-                createNewChannelWithUser(valueFromForm, handleClose);
-                setValueFromForm("");
-              }}
-            >
-              Create
-            </Button>
-          )}
+        <Button onClick={()=>{handleClose(); setValueFromForm('')
+        isCreateChannel && setIsCreateChannel(false)}}>Cancel</Button>
+        {inviteUserToAChannel && <Button onClick={()=>{inviteUserToAChannel(valueFromForm); setValueFromForm('')}}>Invite</Button>}
+        {createNewChannelWithUser && <Button sx={{ alignItems: 'center',}} onClick={()=>{createNewChannelWithUser(valueFromForm, handleClose, setValueFromForm)}}>Create</Button>}
+        
         </DialogActions>
       </Dialog>
     </div>
