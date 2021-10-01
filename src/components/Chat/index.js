@@ -34,6 +34,8 @@ const Index = () => {
     intervalRetrieveMessagesWithUser,
     loading,
     currentDateAndTime,
+    channelExists,
+    channelError,
   } = useHooks();
 
   return (
@@ -69,6 +71,8 @@ const Index = () => {
           createDirectMessageToAUser={createDirectMessageToAUser}
           intervalRetrieveMessagesWithUser={intervalRetrieveMessagesWithUser}
           currentDateAndTime={currentDateAndTime}
+          channelExists={channelExists}
+          channelError={channelError}
         />
       )}
     </>

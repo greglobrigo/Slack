@@ -1,69 +1,68 @@
-import React, { useState } from 'react'
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import  Toolbar  from '@mui/material/Toolbar';
-import Collapse from '@mui/material/Collapse';
-import  Divider from '@mui/material/Divider';
-import List from '@mui/material/List';
-import ListItemText from '@mui/material/ListItemText';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import AddIcon from '@mui/icons-material/Add';
-import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
-import ForumIcon from '@mui/icons-material/Forum';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import FormDialoguesComponent from './FormDialoguesComponent';
-import HomeIcon from '@mui/icons-material/Home';
-import SendIcon from '@mui/icons-material/Send';
-import GroupIcon from '@mui/icons-material/Group';
-
+import React, { useState } from "react";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Toolbar from "@mui/material/Toolbar";
+import Collapse from "@mui/material/Collapse";
+import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
+import ListItemText from "@mui/material/ListItemText";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import AddIcon from "@mui/icons-material/Add";
+import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
+import ForumIcon from "@mui/icons-material/Forum";
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import FormDialoguesComponent from "./FormDialoguesComponent";
+import HomeIcon from "@mui/icons-material/Home";
+import SendIcon from "@mui/icons-material/Send";
+import GroupIcon from "@mui/icons-material/Group";
 
 const SidebarComponent = ({
   handleClickOpenChannel,
   openChannel,
-  channels,  
+  channels,
   createNewChannelWithUser,
   handleClickOpenUsers,
   users,
-  openUsers,  
+  openUsers,
   setSelectedChannel,
-  intervalRetrieveMessages,  
+  intervalRetrieveMessages,
   returnToHome,
-  sortByEmail, 
+  sortByEmail,
   searchResults,
-  intervalRetrieveMessagesWithUser
+  intervalRetrieveMessagesWithUser,
+  channelExists,
+  channelError,
 }) => {
-
   const [openForInviteUser, setOpenForInviteUser] = useState(false);
   const handleClickOpenForInviteUser = () => {
     setOpenForInviteUser(true);
- };
-  const handleCloseForInviteUser = () => {    
+  };
+  const handleCloseForInviteUser = () => {
     setOpenForInviteUser(false);
- };
+  };
 
- const [openForSendDirectMessage, setOpenForSendDirectMessage] = useState(false);
- const handleClickOpenSendDirectMessage = () => {
-  setOpenForSendDirectMessage(true);
-};
- const handleCloseForSendDirectMessage = () => {
-  setOpenForSendDirectMessage(false);
-};
-
-
+  const [openForSendDirectMessage, setOpenForSendDirectMessage] =
+    useState(false);
+  const handleClickOpenSendDirectMessage = () => {
+    setOpenForSendDirectMessage(true);
+  };
+  const handleCloseForSendDirectMessage = () => {
+    setOpenForSendDirectMessage(false);
+  };
 
   return (
     <>
-      <div>        
+      <div>
         <Toolbar />
-        <Divider />         
+        <Divider />
 
-        <List onClick={()=>returnToHome()}>
+        <List onClick={() => returnToHome()}>
           <ListItemButton>
             <ListItemIcon>
               <HomeIcon />
             </ListItemIcon>
-            <ListItemText primary="Home" />            
+            <ListItemText primary="Home" />
           </ListItemButton>
         </List>
 
@@ -76,7 +75,7 @@ const SidebarComponent = ({
             </ListItemIcon>
             <ListItemText
               primary={`My Channels (${channels ? channels.length : 0})`}
-            />            
+            />
             {openChannel ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </ListItemButton>
           <Collapse in={openChannel} timeout="auto" unmountOnExit>
@@ -85,22 +84,25 @@ const SidebarComponent = ({
                 channels.map((channel) => {
                   return (
                     <ListItemButton
-                      sx={{pl: 4}}
+                      sx={{ pl: 4 }}
                       key={channel.id}
-                      onClick={() => {intervalRetrieveMessages(channel.id); setSelectedChannel(channel)}}
-                    >                      
+                      onClick={() => {
+                        intervalRetrieveMessages(channel.id);
+                        setSelectedChannel(channel);
+                      }}
+                    >
                       <ListItemText primary={`${channel.name}`} />
                     </ListItemButton>
                   );
                 })
               ) : (
-                <ListItemButton sx={{pl: 4}}>
+                <ListItemButton sx={{ pl: 4 }}>
                   <ListItemText primary={`No users Available`} />
                 </ListItemButton>
               )}
             </List>
           </Collapse>
-        </List>               
+        </List>
 
         <Divider />
 
@@ -142,7 +144,7 @@ const SidebarComponent = ({
             <List>
               {users.slice(0, 20).map((val) => {
                 return (
-                  <ListItemButton sx={{pl: 4}} key={val.id}>
+                  <ListItemButton sx={{ pl: 4 }} key={val.id}>
                     <ListItemText primary={`${val.uid}`} />
                   </ListItemButton>
                 );
@@ -158,26 +160,27 @@ const SidebarComponent = ({
       <FormDialoguesComponent
         open={openForInviteUser}
         handleClose={handleCloseForInviteUser}
-        dialogTitleText={'Enter New Channel Name You Want to Create'}
-        label={'Channel Name'}
+        dialogTitleText={"Enter New Channel Name You Want to Create"}
+        label={"Channel Name"}
         type={`text`}
         createNewChannelWithUser={createNewChannelWithUser}
+        channelExists={channelExists}
+        channelError={channelError}
       />
-    {/* For Send a DM Modal */}
-    <FormDialoguesComponent
+      {/* For Send a DM Modal */}
+      <FormDialoguesComponent
         open={openForSendDirectMessage}
         handleClose={handleCloseForSendDirectMessage}
-        dialogTitleText={'Who do you want to send a message to?'}
-        label={'Email'}
-        type={`text`}        
+        dialogTitleText={"Who do you want to send a message to?"}
+        label={"Email"}
+        type={`text`}
         users={users}
         sortByEmail={sortByEmail}
         searchResults={searchResults}
         intervalRetrieveMessagesWithUser={intervalRetrieveMessagesWithUser}
-        
       />
     </>
   );
 };
 
-export default SidebarComponent
+export default SidebarComponent;

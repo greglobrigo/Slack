@@ -1,50 +1,49 @@
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Drawer from '@mui/material/Drawer';
-import SidebarComponent from './SidebarComponent';
-import TopBarComponent from './TopBarComponent'
-import ChatBodyComponent from './ChatBodyComponent';
-
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+import Drawer from "@mui/material/Drawer";
+import SidebarComponent from "./SidebarComponent";
+import TopBarComponent from "./TopBarComponent";
+import ChatBodyComponent from "./ChatBodyComponent";
 
 const MainChatComponent = ({
-    headers,
-    users,
-    channels,
-    handleClickOpenChannel,
-    openChannel,    
-    inviteUserToAChannel,
-    createNewChannelWithUser,
-    handleClickOpenUsers,
-    openUsers,
-    handleDrawerToggle,
-    mobileOpen,
-    allMessagesRetrieved,
-    message,
-    setMessage, 
-    isAChannelSelected,
-    selectedChannel,
-    setSelectedChannel,
-    createMessageInAChannel,
-    intervalRetrieveMessages,
-    userID,    
-    returnToHome,
-    sortByEmail,
-    searchResults,
-    selectedUser,
-    createDirectMessageToAUser,
-    intervalRetrieveMessagesWithUser,
-    currentDateAndTime
-    
-  }
-) => {
+  headers,
+  users,
+  channels,
+  handleClickOpenChannel,
+  openChannel,
+  inviteUserToAChannel,
+  createNewChannelWithUser,
+  handleClickOpenUsers,
+  openUsers,
+  handleDrawerToggle,
+  mobileOpen,
+  allMessagesRetrieved,
+  message,
+  setMessage,
+  isAChannelSelected,
+  selectedChannel,
+  setSelectedChannel,
+  createMessageInAChannel,
+  intervalRetrieveMessages,
+  userID,
+  returnToHome,
+  sortByEmail,
+  searchResults,
+  selectedUser,
+  createDirectMessageToAUser,
+  intervalRetrieveMessagesWithUser,
+  currentDateAndTime,
+  channelExists,
+  channelError,
+}) => {
   const drawerWidth = 300;
-//   const {window} = props;
-//   const container =
-//     window !== undefined ? () => window().document.body : undefined;
+  //   const {window} = props;
+  //   const container =
+  //     window !== undefined ? () => window().document.body : undefined;
 
   return (
     <>
-      <Box sx={{display: "flex"}}>
+      <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <TopBarComponent
           drawerWidth={300}
@@ -59,7 +58,7 @@ const MainChatComponent = ({
         />
         <Box
           component="nav"
-          sx={{width: {sm: drawerWidth}, flexShrink: {sm: 0}}}
+          sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
           aria-label="mailbox folders"
         >
           <Drawer
@@ -71,7 +70,7 @@ const MainChatComponent = ({
               keepMounted: true, // Better open performance on mobile.
             }}
             sx={{
-              display: {xs: "block", sm: "none"},
+              display: { xs: "block", sm: "none" },
               "& .MuiDrawer-paper": {
                 boxSizing: "border-box",
                 width: drawerWidth,
@@ -91,7 +90,9 @@ const MainChatComponent = ({
                 returnToHome={returnToHome}
                 sortByEmail={sortByEmail}
                 searchResults={searchResults}
-                intervalRetrieveMessagesWithUser={intervalRetrieveMessagesWithUser}
+                intervalRetrieveMessagesWithUser={
+                  intervalRetrieveMessagesWithUser
+                }
                 channels={channels}
               />
             }
@@ -99,7 +100,7 @@ const MainChatComponent = ({
           <Drawer
             variant="permanent"
             sx={{
-              display: {xs: "none", sm: "block"},
+              display: { xs: "none", sm: "block" },
               "& .MuiDrawer-paper": {
                 boxSizing: "border-box",
                 width: drawerWidth,
@@ -120,8 +121,12 @@ const MainChatComponent = ({
                 returnToHome={returnToHome}
                 sortByEmail={sortByEmail}
                 searchResults={searchResults}
-                intervalRetrieveMessagesWithUser={intervalRetrieveMessagesWithUser}
+                intervalRetrieveMessagesWithUser={
+                  intervalRetrieveMessagesWithUser
+                }
                 channels={channels}
+                channelExists={channelExists}
+                channelError={channelError}
               />
             }
           </Drawer>
@@ -140,4 +145,4 @@ const MainChatComponent = ({
   );
 };
 
-export default MainChatComponent
+export default MainChatComponent;
