@@ -31,13 +31,8 @@ const SidebarComponent = ({
   sortByEmail,
   searchResults,
   intervalRetrieveMessagesWithUser,
-<<<<<<< HEAD
-  channelExists,
-  channelError,
-=======
   isCreateChannel,
-  setIsCreateChannel
->>>>>>> main
+  setIsCreateChannel,
 }) => {
   const [openForInviteUser, setOpenForInviteUser] = useState(false);
   const handleClickOpenForInviteUser = () => {
