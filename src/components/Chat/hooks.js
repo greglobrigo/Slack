@@ -28,6 +28,8 @@ const Hooks = () => {
     failed: false,
   });
 
+  const [userInviteError, setUserInviteError] = useState("");
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -44,10 +46,6 @@ const Hooks = () => {
   };
 
   const [selectedChannel, setSelectedChannel] = useState([]);
-
-  useEffect(() => {
-    setChannelExists(channelExists);
-  }, [channelExists]);
 
   useEffect(() => {
     setLoading(true);
@@ -152,7 +150,7 @@ const Hooks = () => {
       });
   };
 
-  const inviteUserToAChannel = (memberID) => {
+  const inviteUserToAChannel = (memberID, handleClose) => {
     axios({
       url: "http://206.189.91.54/api/v1/channel/add_member",
       data: {
@@ -167,9 +165,17 @@ const Hooks = () => {
         client: headers.client,
       },
     })
-      .then((res) => console.log(res))
+      .then((res) => {
+        if (res.data.errors) {
+          setUserInviteError(res.data.errors);
+        } else {
+          handleClose();
+          setUserInviteError("");
+        }
+        console.log(res);
+      })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   };
 
@@ -364,6 +370,8 @@ const Hooks = () => {
     currentDateAndTime,
     isCreateChannel,
     setIsCreateChannel,
+    userInviteError,
+    setUserInviteError,
   };
 };
 

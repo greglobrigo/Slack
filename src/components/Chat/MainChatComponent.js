@@ -35,6 +35,8 @@ const MainChatComponent = ({
   currentDateAndTime,
   isCreateChannel,
   setIsCreateChannel,
+  userInviteError,
+  setUserInviteError,
 }) => {
   const drawerWidth = 300;
   //   const {window} = props;
@@ -55,6 +57,8 @@ const MainChatComponent = ({
           userID={userID}
           selectedUser={selectedUser}
           currentDateAndTime={currentDateAndTime}
+          userInviteError={userInviteError}
+          setUserInviteError={setUserInviteError}
         />
         <Box
           component="nav"

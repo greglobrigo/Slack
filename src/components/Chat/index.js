@@ -36,6 +36,8 @@ const Index = () => {
     currentDateAndTime,
     isCreateChannel,
     setIsCreateChannel,
+    userInviteError,
+    setUserInviteError,
   } = useHooks();
 
   return (
@@ -73,6 +75,8 @@ const Index = () => {
           currentDateAndTime={currentDateAndTime}
           isCreateChannel={isCreateChannel}
           setIsCreateChannel={setIsCreateChannel}
+          userInviteError={userInviteError}
+          setUserInviteError={setUserInviteError}
         />
       )}
     </>

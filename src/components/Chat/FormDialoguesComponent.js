@@ -20,15 +20,13 @@ const FormDialoguesComponent = ({
   intervalRetrieveMessagesWithUser,
   sortByEmail,
   searchResults,
-  channelExists,
-  channelError,
+  isCreateChannel,
+  setIsCreateChannel,
+  userInviteError,
+  setUserInviteError,
 }) => {
   const [valueFromForm, setValueFromForm] = useState("");
 
-const FormDialoguesComponent = ({open, handleClose, dialogTitleText, inviteUserToAChannel, label, type, createNewChannelWithUser, intervalRetrieveMessagesWithUser, sortByEmail, searchResults, isCreateChannel, setIsCreateChannel}) => {
-
-  const [valueFromForm, setValueFromForm] = useState('')
-  
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
@@ -71,15 +69,6 @@ const FormDialoguesComponent = ({open, handleClose, dialogTitleText, inviteUserT
             </List>
           )}
 
-          {channelExists &&
-            [...channelExists].map((val, id, asad) => {
-              return (
-                <div key={id}>
-                  {val} {asad}
-                </div>
-              );
-            })}
-
           {inviteUserToAChannel && (
             <TextField
               autoFocus
@@ -96,28 +85,65 @@ const FormDialoguesComponent = ({open, handleClose, dialogTitleText, inviteUserT
             />
           )}
 
-           {createNewChannelWithUser && <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label={label}
-            type={type}
-            fullWidth
-            variant="standard"                        
-            onChange={(e)=>{setValueFromForm(e.target.value)}}
-            value={valueFromForm}
+          {userInviteError && (
+            <span style={{ color: "red" }}>{userInviteError}</span>
+          )}
 
-          />}
-          {isCreateChannel?.failed && (<span style={{color: "red"}}>{[...isCreateChannel.failed]}</span>)}
-          
+          {createNewChannelWithUser && (
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label={label}
+              type={type}
+              fullWidth
+              variant="standard"
+              onChange={(e) => {
+                setValueFromForm(e.target.value);
+              }}
+              value={valueFromForm}
+            />
+          )}
+          {isCreateChannel?.failed && (
+            <span style={{ color: "red" }}>{[...isCreateChannel.failed]}</span>
+          )}
         </DialogContent>
 
         <DialogActions>
-        <Button onClick={()=>{handleClose(); setValueFromForm('')
-        isCreateChannel && setIsCreateChannel(false)}}>Cancel</Button>
-        {inviteUserToAChannel && <Button onClick={()=>{inviteUserToAChannel(valueFromForm); setValueFromForm('')}}>Invite</Button>}
-        {createNewChannelWithUser && <Button sx={{ alignItems: 'center',}} onClick={()=>{createNewChannelWithUser(valueFromForm, handleClose, setValueFromForm)}}>Create</Button>}
-        
+          <Button
+            onClick={() => {
+              handleClose();
+              setValueFromForm("");
+              isCreateChannel && setIsCreateChannel(false);
+              userInviteError && setUserInviteError("");
+            }}
+          >
+            Cancel
+          </Button>
+          {inviteUserToAChannel && (
+            <Button
+              onClick={() => {
+                inviteUserToAChannel(valueFromForm, handleClose);
+                setValueFromForm("");
+              }}
+            >
+              Invite
+            </Button>
+          )}
+          {createNewChannelWithUser && (
+            <Button
+              sx={{ alignItems: "center" }}
+              onClick={() => {
+                createNewChannelWithUser(
+                  valueFromForm,
+                  handleClose,
+                  setValueFromForm
+                );
+              }}
+            >
+              Create
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     </div>
