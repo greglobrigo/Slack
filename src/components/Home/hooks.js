@@ -40,7 +40,7 @@ const Hooks = () => {
     const registerUser = () => {      
 
          axios({      
-            url: 'http://206.189.91.54/api/v1/auth',
+            url: 'https://206.189.91.54/api/v1/auth',
             data: {'email': email,
                   'password': password,
                   'password_confirmation': secondPassword},
@@ -77,7 +77,7 @@ const Hooks = () => {
     const  loginUser = () =>{
 
        axios({      
-        url: 'http://206.189.91.54/api/v1/auth/sign_in',
+        url: 'https://206.189.91.54/api/v1/auth/sign_in',
         data: {'email': email,
               'password': password},
         headers: {},
