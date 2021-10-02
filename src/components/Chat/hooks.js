@@ -145,7 +145,7 @@ const Hooks = () => {
       url: "http://206.189.91.54/api/v1/channel/add_member",
       data: {
         id: `${selectedChannel.id}`,
-        member_id: `${extractedId[0].id}`,
+        member_id: `${extractedId[0]?.id}`,
       },
       method: "POST",
       headers: {
