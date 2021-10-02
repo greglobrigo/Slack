@@ -37,6 +37,7 @@ const ChatBodyComponent = ({
             display: "flex",
             flexDirection: "column",
             padding: "0 20px 150px ",
+            width: '600px'
           }}
         >
           {allMessagesRetrieved?.length >= 1

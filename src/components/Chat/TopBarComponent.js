@@ -44,7 +44,10 @@ const TopBarComponent = ({
         }}
       >
         <Toolbar
-          style={{ backgroundColor: "purple", justifyContent: "space-between" }}
+          style={{
+            backgroundColor: "purple",
+            justifyContent: "space-between",
+            paddingRight: "250px"}}
         >
           <IconButton
             color="inherit"

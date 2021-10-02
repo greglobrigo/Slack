@@ -4,6 +4,7 @@ import Drawer from "@mui/material/Drawer";
 import SidebarComponent from "./SidebarComponent";
 import TopBarComponent from "./TopBarComponent";
 import ChatBodyComponent from "./ChatBodyComponent";
+import RightSideBar from "./RightSideBar";
 import { useState } from "react";
 
 const MainChatComponent = ({
@@ -41,7 +42,7 @@ const MainChatComponent = ({
   stateSB,
   setStateSB
 }) => {
-  const drawerWidth = 300;
+  const drawerWidth = 320;
   //   const {window} = props;
   //   const container =
   //     window !== undefined ? () => window().document.body : undefined;
@@ -50,10 +51,10 @@ const MainChatComponent = ({
 
   return (
     <>
-      <Box sx={{ display: "flex" }}>
+      <Box>
         <CssBaseline />
         <TopBarComponent
-          drawerWidth={300}
+          drawerWidth={drawerWidth}
           headers={headers}
           handleDrawerToggle={handleDrawerToggle}
           isAChannelSelected={isAChannelSelected}
@@ -106,8 +107,7 @@ const MainChatComponent = ({
                 channels={channels}
                 isCreateChannel={isCreateChannel}
                 setIsCreateChannel={setIsCreateChannel}   
-                setGetChannel={setGetChannel}
-                         
+                setGetChannel={setGetChannel}                         
               />
             }
           </Drawer>
@@ -141,13 +141,12 @@ const MainChatComponent = ({
                 channels={channels}
                 isCreateChannel={isCreateChannel}
                 setIsCreateChannel={setIsCreateChannel}
-                setGetChannel={setGetChannel}
-                          
-               
+                setGetChannel={setGetChannel}                  
               />
             }
           </Drawer>
-        </Box>
+          </Box>
+          <RightSideBar/>        
         <ChatBodyComponent
           allMessagesRetrieved={allMessagesRetrieved}
           setMessage={setMessage}

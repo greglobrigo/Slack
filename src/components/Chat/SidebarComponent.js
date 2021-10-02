@@ -54,13 +54,21 @@ const SidebarComponent = ({
   };
 
   return (
-    <>
-    
-      <div>
-        <Toolbar 
+    <>   
+     <Toolbar 
           sx={{bgcolor: "purple"}}
-        />
-        
+        />  
+      <div className="sidebar-container">
+      <div className="side-navigation">
+        <p>item1</p>
+        <p>item1</p>
+        <p>item1</p>
+        <p>item1</p>
+        <p>item1</p>
+      </div>
+
+      <div className="main-sidebar">
+       
 
         <List onClick={() => {returnToHome()}}>
           <ListItemButton>
@@ -159,6 +167,7 @@ const SidebarComponent = ({
         </List>
 
         
+      </div>
       </div>
 
       {/* For Create Channel */}
