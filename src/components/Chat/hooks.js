@@ -4,8 +4,6 @@ import axios from "axios";
 
 var req1;
 var req2;
-var req3;
-var req4;
 
 const Hooks = () => {
   const [headers] = useSessionStorage("headers", []);
@@ -15,11 +13,10 @@ const Hooks = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [allMessagesRetrieved, setAllMessagesRetrieved] = useState([]);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [duplicate, setDuplicate] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);  
   const [searchResults, setSearchResults] = useState([]);
   const [selectedUser, setSelectedUser] = useState([]);
-  const [duplicateForDM, setDuplicateForDM] = useState(false);
+  
   const withoutCurrentUser = users.filter(
     (user) => !user.email.includes(headers.uid)
   );
@@ -67,7 +64,7 @@ const Hooks = () => {
           uid: headers.uid,
         },
       })
-        .then((res) => setUsers(res.data.data))
+        .then((res) => {setUsers(res.data.data)})
         .catch((error) => {
           console.log(error);
         });
@@ -114,22 +111,13 @@ const Hooks = () => {
   };
 
   const intervalRetrieveMessages = (id) => {
-    clearTimeout(req3);
-    clearTimeout(req4);
+    clearTimeout(req1);
+    clearTimeout(req2);    
     setSelectedUser([]);
-    retrieveAllMessagesInAChannel(id);
-    setDuplicate(!duplicate);
-    if (duplicate) {
+    retrieveAllMessagesInAChannel(id);  
       req1 = setInterval(() => {
         retrieveAllMessagesInAChannel(id);
-      }, 1500);
-      clearTimeout(req2);
-    } else {
-      req2 = setInterval(() => {
-        retrieveAllMessagesInAChannel(id);
-      }, 1500);
-      clearTimeout(req1);
-    }
+      }, 1500);  
   };
 
   const retrieveAllMessagesInAChannel = (id) => {
@@ -144,18 +132,20 @@ const Hooks = () => {
         uid: headers.uid,
       },
     })
-      .then((res) => setAllMessagesRetrieved(res.data.data))
+      .then((res) => {setAllMessagesRetrieved(res.data.data); console.log(res)})
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const inviteUserToAChannel = (memberID, handleClose) => {
+  const inviteUserToAChannel = (userEmail, handleClose) => {
+    const extractedId = users.filter(user=>user.email===userEmail) 
+
     axios({
       url: "http://206.189.91.54/api/v1/channel/add_member",
       data: {
         id: `${selectedChannel.id}`,
-        member_id: `${memberID}`,
+        member_id: `${extractedId[0].id}`,
       },
       method: "POST",
       headers: {
@@ -248,7 +238,8 @@ const Hooks = () => {
       },
     })
       .then((res) => {
-        setAllMessagesRetrieved(res.data.data);
+        setAllMessagesRetrieved(res.data.data)
+        console.log(res);
       })
       .catch((error) => {
         console.log(error);
@@ -262,18 +253,9 @@ const Hooks = () => {
     setSelectedUser(userData);
     retrieveAllMessagesWithUser(userData);
     setSearchResults([]);
-    setDuplicateForDM(!duplicateForDM);
-    if (duplicateForDM) {
-      req3 = setInterval(() => {
+         req2 = setInterval(() => {
         retrieveAllMessagesWithUser(userData);
-      }, 1500);
-      clearTimeout(req4);
-    } else {
-      req4 = setInterval(() => {
-        retrieveAllMessagesWithUser(userData);
-      }, 1500);
-      clearTimeout(req3);
-    }
+      }, 1500);  
   };
 
   const createDirectMessageToAUser = (message) => {
@@ -299,20 +281,18 @@ const Hooks = () => {
   const returnToHome = () => {
     clearTimeout(req1);
     clearTimeout(req2);
-    clearTimeout(req3);
-    clearTimeout(req4);
     setAllMessagesRetrieved([]);
     setSelectedChannel([]);
     setSelectedUser([]);
   };
 
   const sortByEmail = (val) => {
-    setTimeout(() => {
+    // setTimeout(() => {
       const sortedUsers = withoutCurrentUser.filter((value) =>
         value.email.includes(val)
       );
       setSearchResults(sortedUsers);
-    }, 500);
+    // }, 500);
   };
 
   const [currentDateAndTime, setCurrentDateAndTime] = useState({

@@ -53,9 +53,17 @@ const SidebarComponent = ({
 
   return (
     <>
+
+
+
+
+
+    
       <div>
-        <Toolbar />
-        <Divider />
+        <Toolbar 
+          sx={{bgcolor: "purple"}}
+        />
+        
 
         <List onClick={() => returnToHome()}>
           <ListItemButton>
@@ -66,7 +74,7 @@ const SidebarComponent = ({
           </ListItemButton>
         </List>
 
-        <Divider />
+        
 
         <List>
           <ListItemButton onClick={handleClickOpenChannel}>
@@ -104,7 +112,7 @@ const SidebarComponent = ({
           </Collapse>
         </List>
 
-        <Divider />
+        
 
         <List>
           <ListItemButton onClick={() => handleClickOpenForInviteUser()}>
@@ -116,7 +124,7 @@ const SidebarComponent = ({
           </ListItemButton>
         </List>
 
-        <Divider />
+        
 
         <List>
           <ListItemButton onClick={() => handleClickOpenSendDirectMessage()}>
@@ -128,7 +136,7 @@ const SidebarComponent = ({
           </ListItemButton>
         </List>
 
-        <Divider />
+        
 
         <List>
           <ListItemButton onClick={handleClickOpenUsers}>
@@ -153,7 +161,7 @@ const SidebarComponent = ({
           </Collapse>
         </List>
 
-        <Divider />
+        
       </div>
 
       {/* For Create Channel */}

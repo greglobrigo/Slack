@@ -103,11 +103,11 @@ const TopBarComponent = ({
         handleClose={handleClose}
         dialogTitleText={
           selectedChannel &&
-          `Enter user ID to invite to ${selectedChannel.name}`
+          `Enter email to invite to ${selectedChannel.name}`
         }
         channels={channels}
-        type={"number"}
-        label={"User ID"}
+        type={"text"}
+        label={"Email"}
         inviteUserToAChannel={inviteUserToAChannel}
         userInviteError={userInviteError}
         setUserInviteError={setUserInviteError}
