@@ -33,7 +33,7 @@ const SidebarComponent = ({
   intervalRetrieveMessagesWithUser,
   isCreateChannel,
   setIsCreateChannel,  
-  setGetChannel
+  setGetChannel,  
 
 }) => {
   const [openForInviteUser, setOpenForInviteUser] = useState(false);

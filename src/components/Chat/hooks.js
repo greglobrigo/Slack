@@ -147,7 +147,7 @@ const Hooks = () => {
 
 
     //INVITE USER TO A CHANNEL
-  const inviteUserToAChannel = (userEmail, handleClose) => {
+  const inviteUserToAChannel = (userEmail, handleClose, setValueFromForm) => {
     const extractedId = users.filter(user=>user.email===userEmail) 
 
     axios({
@@ -168,10 +168,10 @@ const Hooks = () => {
         if (res.data.errors) {
           setUserInviteError(res.data.errors);            
         } else {
-          setStateSB({ ...stateSB, openSB: true });   
-          setUserInviteError(res.data.errors);    
-          handleClose();
+          setStateSB({ ...stateSB, openSB: true });          
+          setValueFromForm('')
           setUserInviteError("");
+          handleClose();
         }
         console.log(res);
       })
@@ -182,11 +182,7 @@ const Hooks = () => {
 
 
   //CREATE NEW CHANNEL
-  const createNewChannelWithUser = (
-    channelName,
-    handleClose,
-    setValueFromForm
-  ) => {
+   const createNewChannelWithUser = (channelName, handleClose, setValueFromForm) => {
     axios({
       url: "http://206.189.91.54/api/v1/channels",
       data: {
@@ -207,6 +203,7 @@ const Hooks = () => {
           setStateSB({ ...stateSB, openSB: true });                
           handleClose();
           setValueFromForm("");
+          
         } else {
           const errors = res.data.errors;
           setIsCreateChannel({ failed: [...errors].join(". ") })

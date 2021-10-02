@@ -127,8 +127,10 @@ const FormDialoguesComponent = ({
             <Button
               onClick={() => {
                 setGetEmail(valueFromForm)
-                inviteUserToAChannel(valueFromForm, handleClose);
-                setValueFromForm("");
+                inviteUserToAChannel(valueFromForm, handleClose, setValueFromForm)
+                setTimeout(() => {
+                setGetEmail('')
+              }, 4000);  
               }}
             >
               Invite
@@ -139,11 +141,10 @@ const FormDialoguesComponent = ({
               sx={{ alignItems: "center" }}
               onClick={() => {
                 setGetChannel(valueFromForm)
-                createNewChannelWithUser(
-                  valueFromForm,
-                  handleClose,
-                  setValueFromForm
-                );
+                createNewChannelWithUser(valueFromForm, handleClose, setValueFromForm)
+                setTimeout(() => {
+                setGetChannel('')
+              }, 4000);                
               }}
             >
               Create
@@ -154,5 +155,7 @@ const FormDialoguesComponent = ({
     </div>
   );
 };
+
+
 
 export default FormDialoguesComponent;

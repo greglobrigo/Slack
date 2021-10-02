@@ -157,7 +157,7 @@ const MainChatComponent = ({
           selectedUser={selectedUser}
           createDirectMessageToAUser={createDirectMessageToAUser}
           stateSB={stateSB}
-          setStateSB={setStateSB}
+          setStateSB={setStateSB}          
           getChannel={getChannel}
           getEmail={getEmail}
         />

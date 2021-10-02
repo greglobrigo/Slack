@@ -14,15 +14,22 @@ const ChatBodyComponent = ({
   stateSB,
   setStateSB,
   getChannel,
-  getEmail
+  getEmail,
 }) => {
   return (
     <>
-      <SnackBarComponent
+    { getChannel && <SnackBarComponent
         stateSB={stateSB}
-        messageSB={(getChannel && `Successfully Created Channel: ${getChannel}!`) || (getEmail && `Successfully Invited User: ${getEmail}`)}
+        messageSB={`Successfully Created Channel: ${getChannel}!`}
         setStateSB={setStateSB}
-      />
+      />}
+
+    { getEmail && <SnackBarComponent
+        stateSB={stateSB}
+        messageSB={`Successfully Added User: ${getEmail}!`}
+        setStateSB={setStateSB}
+      />}
+
       <Box component="main" sx={{flexGrow: 1, p: 3}}>
         <Toolbar />
         <Box
