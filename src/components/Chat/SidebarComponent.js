@@ -32,7 +32,9 @@ const SidebarComponent = ({
   searchResults,
   intervalRetrieveMessagesWithUser,
   isCreateChannel,
-  setIsCreateChannel,
+  setIsCreateChannel,  
+  setGetChannel
+
 }) => {
   const [openForInviteUser, setOpenForInviteUser] = useState(false);
   const handleClickOpenForInviteUser = () => {
@@ -53,11 +55,6 @@ const SidebarComponent = ({
 
   return (
     <>
-
-
-
-
-
     
       <div>
         <Toolbar 
@@ -65,7 +62,7 @@ const SidebarComponent = ({
         />
         
 
-        <List onClick={() => returnToHome()}>
+        <List onClick={() => {returnToHome()}}>
           <ListItemButton>
             <ListItemIcon>
               <HomeIcon />
@@ -174,6 +171,7 @@ const SidebarComponent = ({
         createNewChannelWithUser={createNewChannelWithUser}
         isCreateChannel={isCreateChannel}
         setIsCreateChannel={setIsCreateChannel}
+        setGetChannel={setGetChannel}
       />
       {/* For Send a DM Modal */}
       <FormDialoguesComponent

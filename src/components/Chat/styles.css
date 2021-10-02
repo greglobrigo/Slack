@@ -40,6 +40,10 @@
   overflow: unset;
 }
 
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation6.MuiSnackbarContent-root.css-1eqdgzv-MuiPaper-root-MuiSnackbarContent-root {
+  background-color: green;
+}
+
 @media screen and (max-width: 600px) {
   
   .message-area-container { 

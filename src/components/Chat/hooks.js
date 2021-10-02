@@ -44,7 +44,14 @@ const Hooks = () => {
 
   const [selectedChannel, setSelectedChannel] = useState([]);
 
+  const [stateSB, setStateSB] = useState({
+    openSB: false,
+    vertical: "top",
+    horizontal: "center"
+  });
+
   useEffect(() => {
+    
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -138,6 +145,8 @@ const Hooks = () => {
       });
   };
 
+
+    //INVITE USER TO A CHANNEL
   const inviteUserToAChannel = (userEmail, handleClose) => {
     const extractedId = users.filter(user=>user.email===userEmail) 
 
@@ -157,8 +166,10 @@ const Hooks = () => {
     })
       .then((res) => {
         if (res.data.errors) {
-          setUserInviteError(res.data.errors);
+          setUserInviteError(res.data.errors);            
         } else {
+          setStateSB({ ...stateSB, openSB: true });   
+          setUserInviteError(res.data.errors);    
           handleClose();
           setUserInviteError("");
         }
@@ -169,6 +180,8 @@ const Hooks = () => {
       });
   };
 
+
+  //CREATE NEW CHANNEL
   const createNewChannelWithUser = (
     channelName,
     handleClose,
@@ -178,7 +191,7 @@ const Hooks = () => {
       url: "http://206.189.91.54/api/v1/channels",
       data: {
         name: `${channelName}`,
-        user_ids: [userID], // [] insert member id or id's here
+        user_ids: [userID],
       },
       method: "POST",
       headers: {
@@ -191,12 +204,12 @@ const Hooks = () => {
       .then((res) => {
         retrieveChannels();
         if (res.data.data?.id) {
-          setIsCreateChannel({ success: true });
+          setStateSB({ ...stateSB, openSB: true });                
           handleClose();
           setValueFromForm("");
         } else {
           const errors = res.data.errors;
-          setIsCreateChannel({ failed: [...errors].join(". ") });
+          setIsCreateChannel({ failed: [...errors].join(". ") })
         }
       })
       .catch((error) => {
@@ -352,6 +365,8 @@ const Hooks = () => {
     setIsCreateChannel,
     userInviteError,
     setUserInviteError,
+    stateSB,
+    setStateSB
   };
 };
 

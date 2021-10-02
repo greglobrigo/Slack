@@ -4,6 +4,7 @@ import Drawer from "@mui/material/Drawer";
 import SidebarComponent from "./SidebarComponent";
 import TopBarComponent from "./TopBarComponent";
 import ChatBodyComponent from "./ChatBodyComponent";
+import { useState } from "react";
 
 const MainChatComponent = ({
   headers,
@@ -37,11 +38,15 @@ const MainChatComponent = ({
   setIsCreateChannel,
   userInviteError,
   setUserInviteError,
+  stateSB,
+  setStateSB
 }) => {
   const drawerWidth = 300;
   //   const {window} = props;
   //   const container =
   //     window !== undefined ? () => window().document.body : undefined;
+  const [getChannel, setGetChannel] = useState('')
+  const [getEmail, setGetEmail] = useState('')
 
   return (
     <>
@@ -59,6 +64,7 @@ const MainChatComponent = ({
           currentDateAndTime={currentDateAndTime}
           userInviteError={userInviteError}
           setUserInviteError={setUserInviteError}
+          setGetEmail={setGetEmail}    
         />
         <Box
           component="nav"
@@ -99,7 +105,9 @@ const MainChatComponent = ({
                 }
                 channels={channels}
                 isCreateChannel={isCreateChannel}
-                setIsCreateChannel={setIsCreateChannel}
+                setIsCreateChannel={setIsCreateChannel}   
+                setGetChannel={setGetChannel}
+                         
               />
             }
           </Drawer>
@@ -133,6 +141,9 @@ const MainChatComponent = ({
                 channels={channels}
                 isCreateChannel={isCreateChannel}
                 setIsCreateChannel={setIsCreateChannel}
+                setGetChannel={setGetChannel}
+                          
+               
               />
             }
           </Drawer>
@@ -145,6 +156,10 @@ const MainChatComponent = ({
           selectedChannel={selectedChannel}
           selectedUser={selectedUser}
           createDirectMessageToAUser={createDirectMessageToAUser}
+          stateSB={stateSB}
+          setStateSB={setStateSB}
+          getChannel={getChannel}
+          getEmail={getEmail}
         />
       </Box>
     </>

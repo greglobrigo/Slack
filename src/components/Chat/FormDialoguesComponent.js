@@ -24,6 +24,9 @@ const FormDialoguesComponent = ({
   setIsCreateChannel,
   userInviteError,
   setUserInviteError,
+  setGetChannel,
+  setGetEmail
+  
 }) => {
   const [valueFromForm, setValueFromForm] = useState("");
 
@@ -123,6 +126,7 @@ const FormDialoguesComponent = ({
           {inviteUserToAChannel && (
             <Button
               onClick={() => {
+                setGetEmail(valueFromForm)
                 inviteUserToAChannel(valueFromForm, handleClose);
                 setValueFromForm("");
               }}
@@ -134,6 +138,7 @@ const FormDialoguesComponent = ({
             <Button
               sx={{ alignItems: "center" }}
               onClick={() => {
+                setGetChannel(valueFromForm)
                 createNewChannelWithUser(
                   valueFromForm,
                   handleClose,

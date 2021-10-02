@@ -21,6 +21,7 @@ const TopBarComponent = ({
   currentDateAndTime,
   userInviteError,
   setUserInviteError,
+  setGetEmail
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -111,6 +112,7 @@ const TopBarComponent = ({
         inviteUserToAChannel={inviteUserToAChannel}
         userInviteError={userInviteError}
         setUserInviteError={setUserInviteError}
+        setGetEmail={setGetEmail}
       />
     </>
   );
