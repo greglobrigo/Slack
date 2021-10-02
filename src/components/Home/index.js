@@ -15,7 +15,6 @@ import { HashLoader } from "react-spinners";
 import { Fade } from "react-reveal";
 import { CgSlack } from "react-icons/cg";
 import { Redirect } from "react-router-dom";
-import { Link as ReactLink } from "react-router-dom";
 
 const theme = createTheme();
 
@@ -167,18 +166,7 @@ export const SignIn = () => {
                           : "Don't have an account? Sign Up"}
                       </Link>
                     </Grid>
-                  </Grid>
-
-                  <ReactLink
-                    to="/chat"
-                    style={{
-                      marginTop: "1rem",
-                      cursor: "pointer",
-                      color: "#2C82D5",
-                    }}
-                  >
-                    Go to Chat App
-                  </ReactLink>
+                  </Grid>                
                 </Box>
                 <Typography
                   className="copyright"
