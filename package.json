@@ -1,5 +1,6 @@
 {
-  "name": "slack-app",
+  "homepage": "https://greglobrigo.github.io/slack-app",
+  "name": "slack-app",  
   "version": "0.1.0",
   "private": true,
   "dependencies": {
