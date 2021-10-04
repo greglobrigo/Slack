@@ -101,9 +101,7 @@ const MainChatComponent = ({
                 returnToHome={returnToHome}
                 sortByEmail={sortByEmail}
                 searchResults={searchResults}
-                intervalRetrieveMessagesWithUser={
-                  intervalRetrieveMessagesWithUser
-                }
+                intervalRetrieveMessagesWithUser={intervalRetrieveMessagesWithUser}
                 channels={channels}
                 isCreateChannel={isCreateChannel}
                 setIsCreateChannel={setIsCreateChannel}   
@@ -135,9 +133,7 @@ const MainChatComponent = ({
                 returnToHome={returnToHome}
                 sortByEmail={sortByEmail}
                 searchResults={searchResults}
-                intervalRetrieveMessagesWithUser={
-                  intervalRetrieveMessagesWithUser
-                }
+                intervalRetrieveMessagesWithUser={intervalRetrieveMessagesWithUser}
                 channels={channels}
                 isCreateChannel={isCreateChannel}
                 setIsCreateChannel={setIsCreateChannel}
@@ -146,7 +142,7 @@ const MainChatComponent = ({
             }
           </Drawer>
           </Box>
-          <RightSideBar/>        
+          <RightSideBar users={users}/>        
         <ChatBodyComponent
           allMessagesRetrieved={allMessagesRetrieved}
           setMessage={setMessage}

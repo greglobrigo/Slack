@@ -12,10 +12,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-
+import { ListItemButton } from '@mui/material';
+import ListSubheader from '@mui/material/ListSubheader';
 const drawerWidth = 240;
 
-const RightSideBar = () => {
+const RightSideBar = ({users}) => {
     return (
         <Drawer
         sx={{
@@ -31,27 +32,18 @@ const RightSideBar = () => {
       >
         <Toolbar style={{opacity: "0"}}/>
         <Divider />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+        
+        <List style={{ overflowX: "hidden" }}>
+        <ListSubheader>ALL USERS</ListSubheader>
+        {users.map((val) => {
+                return (
+                  <ListItem  key={val.id}>
+                    <ListItemText style={{ margin: 0, width: '100%',}} primary={`${val.uid}`} />
+                  </ListItem>
+                );
+              })}
         </List>
         <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
       </Drawer>
     )
 }
