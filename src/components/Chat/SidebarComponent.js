@@ -16,6 +16,8 @@ import FormDialoguesComponent from "./FormDialoguesComponent";
 import HomeIcon from "@mui/icons-material/Home";
 import SendIcon from "@mui/icons-material/Send";
 import GroupIcon from "@mui/icons-material/Group";
+import Typography from '@mui/material/Typography';
+
 
 const SidebarComponent = ({
   handleClickOpenChannel,
@@ -59,39 +61,61 @@ const SidebarComponent = ({
           sx={{bgcolor: "purple"}}
         />  
       <div className="sidebar-container">
-      <div className="side-navigation">
-        <p>item1</p>
-        <p>item1</p>
-        <p>item1</p>
-        <p>item1</p>
-        <p>item1</p>
-      </div>
 
-      <div className="main-sidebar">
-       
 
-        <List onClick={() => {returnToHome()}}>
-          <ListItemButton>
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary="Home" />
+      <div className="side-navigation"> 
+
+      <List>
+
+          <ListItemButton className="side-navigation-item" onClick={() => {returnToHome()}}>            
+          <HomeIcon />              
+          <span style={{fontSize:"0.75rem"}}>  
+          Home
+          </span>                
           </ListItemButton>
-        </List>
 
-        
+          <ListItemButton className="side-navigation-item" onClick={() => handleClickOpenForInviteUser()}>
+            <GroupAddIcon />                      
+            <span style={{fontSize:"0.75rem"}}>  
+            Add
+          </span> 
+          <span style={{fontSize:"0.75rem"}}>  
+            Channel
+          </span> 
+          </ListItemButton>
+          
+          <ListItemButton className="side-navigation-item" onClick={() => handleClickOpenSendDirectMessage()}>            
+              <ForumIcon />    
+          <span style={{fontSize:"0.75rem"}}>  
+          Direct
+          </span> 
+          <span style={{fontSize:"0.75rem"}}>  
+             Message
+          </span>        
+          </ListItemButton>
 
+     </List>
+
+       
+      
+
+        </div>
+
+
+
+
+      <div className="main-sidebar">    
         <List>
           <ListItemButton onClick={handleClickOpenChannel}>
             <ListItemIcon>
               <GroupIcon />
             </ListItemIcon>
             <ListItemText
-              primary={`My Channels (${channels ? channels.length : 0})`}
+              primary={`Channels (${channels ? channels.length : 0})`}
             />
-            {openChannel ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            {/* {openChannel ? <ExpandLessIcon /> : <ExpandMoreIcon />} */}
           </ListItemButton>
-          <Collapse in={openChannel} timeout="auto" unmountOnExit>
+          {/* <Collapse in={openChannel} timeout="auto" unmountOnExit> */}
             <List component="div" disablePadding>
               {channels ? (
                 channels.map((channel) => {
@@ -114,36 +138,21 @@ const SidebarComponent = ({
                 </ListItemButton>
               )}
             </List>
-          </Collapse>
+          {/* </Collapse> */}
         </List>
 
         
 
         <List>
-          <ListItemButton onClick={() => handleClickOpenForInviteUser()}>
-            <ListItemIcon>
-              <GroupAddIcon />
-            </ListItemIcon>
-            <ListItemText primary="Create New Channel..." />
-            <AddIcon />
-          </ListItemButton>
+         
         </List>
 
         
 
-        <List>
-          <ListItemButton onClick={() => handleClickOpenSendDirectMessage()}>
-            <ListItemIcon>
-              <ForumIcon />
-            </ListItemIcon>
-            <ListItemText primary="Send a Direct Message" />
-            <SendIcon />
-          </ListItemButton>
-        </List>
 
         
 
-        <List>
+        {/* <List>
           <ListItemButton onClick={handleClickOpenUsers}>
             <ListItemIcon>
               <ChatBubbleIcon />
@@ -164,7 +173,7 @@ const SidebarComponent = ({
               })}
             </List>
           </Collapse>
-        </List>
+        </List> */}
 
         
       </div>
