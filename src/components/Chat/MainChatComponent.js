@@ -40,7 +40,8 @@ const MainChatComponent = ({
   userInviteError,
   setUserInviteError,
   stateSB,
-  setStateSB
+  setStateSB,
+  retrieveChannelUsers 
 }) => {
   const drawerWidth = 320;
   //   const {window} = props;
@@ -105,7 +106,8 @@ const MainChatComponent = ({
                 channels={channels}
                 isCreateChannel={isCreateChannel}
                 setIsCreateChannel={setIsCreateChannel}   
-                setGetChannel={setGetChannel}                         
+                setGetChannel={setGetChannel} 
+                retrieveChannelUsers={retrieveChannelUsers}                        
               />
             }
           </Drawer>
@@ -137,7 +139,8 @@ const MainChatComponent = ({
                 channels={channels}
                 isCreateChannel={isCreateChannel}
                 setIsCreateChannel={setIsCreateChannel}
-                setGetChannel={setGetChannel}                  
+                setGetChannel={setGetChannel}     
+                retrieveChannelUsers={retrieveChannelUsers}                
               />
             }
           </Drawer>

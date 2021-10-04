@@ -139,7 +139,7 @@ const Hooks = () => {
         uid: headers.uid,
       },
     })
-      .then((res) => {setAllMessagesRetrieved(res.data.data); console.log(res)})
+      .then((res) => {setAllMessagesRetrieved(res.data.data); })
       .catch((error) => {
         console.log(error);
       });
@@ -249,7 +249,7 @@ const Hooks = () => {
     })
       .then((res) => {
         setAllMessagesRetrieved(res.data.data)
-        console.log(res);
+        // console.log(res);
       })
       .catch((error) => {
         console.log(error);
@@ -287,6 +287,29 @@ const Hooks = () => {
       console.log(error);
     });
   };
+
+  const retrieveChannelUsers = (id) => {
+    axios({
+      url: `http://206.189.91.54/api/v1/channels/${id}`,
+      method: "GET",
+      headers: {
+        "access-token": headers["access-token"],
+        expiry: headers.expiry,
+        client: headers.client,
+        uid: headers.uid,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+
+
+
 
   const returnToHome = () => {
     clearTimeout(req1);
@@ -363,7 +386,8 @@ const Hooks = () => {
     userInviteError,
     setUserInviteError,
     stateSB,
-    setStateSB
+    setStateSB,
+    retrieveChannelUsers 
   };
 };
 

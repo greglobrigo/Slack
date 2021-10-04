@@ -35,7 +35,8 @@ const SidebarComponent = ({
   intervalRetrieveMessagesWithUser,
   isCreateChannel,
   setIsCreateChannel,  
-  setGetChannel,  
+  setGetChannel,
+  retrieveChannelUsers   
 
 }) => {
   const [openForInviteUser, setOpenForInviteUser] = useState(false);
@@ -126,6 +127,7 @@ const SidebarComponent = ({
                       onClick={() => {
                         intervalRetrieveMessages(channel.id);
                         setSelectedChannel(channel);
+                        retrieveChannelUsers(channel.id)
                       }}
                     >
                       <ListItemText primary={`${channel.name}`} />

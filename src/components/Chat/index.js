@@ -39,7 +39,8 @@ const Index = () => {
     userInviteError,
     setUserInviteError,
     stateSB,
-    setStateSB
+    setStateSB,
+    retrieveChannelUsers 
   } = useHooks();
 
   return (
@@ -81,6 +82,7 @@ const Index = () => {
           setUserInviteError={setUserInviteError}
           stateSB={stateSB}
           setStateSB={setStateSB}
+          retrieveChannelUsers={retrieveChannelUsers}
         />
       )}
     </>
