@@ -33,8 +33,8 @@ const RightSideBar = ({users}) => {
         <Toolbar style={{opacity: "0"}}/>
         <Divider />
         
-        <List style={{ overflowX: "hidden" }}>
         <ListSubheader>ALL USERS</ListSubheader>
+        <List style={{ overflowX: "hidden" }}>
         {users.map((val) => {
                 return (
                   <ListItem  key={val.id}>
