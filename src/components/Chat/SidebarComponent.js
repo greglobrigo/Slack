@@ -130,7 +130,7 @@ const SidebarComponent = ({
                         retrieveChannelUsers(channel.id)
                       }}
                     >
-                      <ListItemText primary={`${channel.name}`} />
+                      <ListItemText primary={`# ${channel.name}`} />
                     </ListItemButton>
                   );
                 })

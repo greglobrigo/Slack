@@ -16,6 +16,11 @@ const Hooks = () => {
   const [mobileOpen, setMobileOpen] = useState(false);  
   const [searchResults, setSearchResults] = useState([]);
   const [selectedUser, setSelectedUser] = useState([]);
+  const [channelMembers, setChannelMembers] = useState([])
+  const [usersDisplayed, setUsersDisplayed] = useState({
+    home: false,
+    channels: false,
+  })
   
   const withoutCurrentUser = users.filter(
     (user) => !user.email.includes(headers.uid)
@@ -71,7 +76,7 @@ const Hooks = () => {
           uid: headers.uid,
         },
       })
-        .then((res) => {setUsers(res.data.data)})
+        .then((res) => {setUsers(res.data.data); console.log(res.data.data)})
         .catch((error) => {
           console.log(error);
         });
@@ -289,6 +294,7 @@ const Hooks = () => {
   };
 
   const retrieveChannelUsers = (id) => {
+
     axios({
       url: `http://206.189.91.54/api/v1/channels/${id}`,
       method: "GET",
@@ -299,8 +305,11 @@ const Hooks = () => {
         uid: headers.uid,
       },
     })
-      .then((res) => {
-        console.log(res);
+      .then((res) => {        
+        const channelMembers = res.data.data.channel_members.map(val=>val.user_id)        
+        const filteredChannelMembers = users.filter(user=>channelMembers.includes(user.id))        
+        setChannelMembers(filteredChannelMembers)
+        setUsersDisplayed({home: false, channel: true})      
       })
       .catch((error) => {
         console.log(error);
@@ -308,10 +317,9 @@ const Hooks = () => {
   };
 
 
-
-
-
   const returnToHome = () => {
+
+    setUsersDisplayed({home: true, channel: false})
     clearTimeout(req1);
     clearTimeout(req2);
     setAllMessagesRetrieved([]);
@@ -387,7 +395,8 @@ const Hooks = () => {
     setUserInviteError,
     stateSB,
     setStateSB,
-    retrieveChannelUsers 
+    retrieveChannelUsers,
+    channelMembers 
   };
 };
 
