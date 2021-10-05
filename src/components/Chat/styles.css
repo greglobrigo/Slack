@@ -1,6 +1,14 @@
-.profile-pic {
-  background-color: rgb(238, 238, 238);
-  min-height: 13rem;
+.channel-list {
+  overflow-y: auto;
+}
+
+.channel-list::-webkit-scrollbar {
+  width: 5px;  
+}
+
+.channel-list::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 5px;
 }
 
 .appbar {
@@ -27,7 +35,7 @@
  position: fixed;
  bottom: 0;
  height: 100px;
- width: calc(100vw - 360px);
+ width: calc(100vw - 750px);
  z-index: 1;
  background-color: white;
  display: flex;
@@ -37,8 +45,7 @@
 .greetings {
   position: fixed;
   bottom: 0;
-  padding-bottom: 100px;
-  padding-left: 300px;
+  padding-bottom: 100px;  
   padding-right: 240px;
 }
 
@@ -49,17 +56,16 @@
   display: flex;  
   flex-direction: column;
   align-items: center;
+  position: fixed;  
 }
 
 .side-navigation-item {
   display: flex;
   flex-direction: column;
-
 }
 
 .main-sidebar {
-  
-
+  margin-left: 120px;
 }
 
 .sidebar-container {

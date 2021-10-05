@@ -30,14 +30,13 @@ const ChatBodyComponent = ({
         setStateSB={setStateSB}
       />}
 
-      <Box component="main" sx={{flexGrow: 1, p: 3}}>
+      <Box component="main" sx={{flexGrow: 1, p: 3}} style={{padding: "0 20px 150px 360px",}}>
         <Toolbar />
         <Box
           style={{
             display: "flex",
-            flexDirection: "column",
-            padding: "0 20px 150px ",
-            width: '600px'
+            flexDirection: "column",            
+            width: '600px',            
           }}
         >
           {allMessagesRetrieved?.length >= 1
