@@ -2,6 +2,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import SnackBarComponent from "./SnackbarComponent";
+import Avatar from '@mui/material/Avatar';
 
 const ChatBodyComponent = ({
   allMessagesRetrieved,
@@ -30,7 +31,7 @@ const ChatBodyComponent = ({
         setStateSB={setStateSB}
       />}
 
-      <Box component="main" sx={{flexGrow: 1, p: 3}} style={{padding: "0 20px 150px 360px",}}>
+      <Box component="main" sx={{flexGrow: 1, p: 3}} style={{padding: "20px 20px 150px 360px",}}>
         <Toolbar />
         <Box
           style={{
@@ -43,10 +44,15 @@ const ChatBodyComponent = ({
             ? allMessagesRetrieved.map((val) => {
                 return (
                   <div key={val.id}>
-                    <span>
-                      {`${val.sender.email} says at ${val.created_at}: `}
-                    </span>
-                    <p>{val.body}</p>
+                  <div style={{display: 'flex', alignItems: 'center'}}>
+                    <div style={{padding: '20px 0'}}>
+                    <Avatar style={{marginRight: "10px", backgroundColor: "purple"}}>{val.sender.email.slice(0, 1).toUpperCase()}</Avatar>                     
+                    </div>
+                    <div>
+                    <p style={{margin: '0'}}> {`${val.sender.email.split("@")[0]} says: at ${val.created_at}: `}</p>
+                    <p style={{margin: '0'}}>{val.body}</p>
+                    </div>
+                  </div>                   
                   </div>
                 );
               })

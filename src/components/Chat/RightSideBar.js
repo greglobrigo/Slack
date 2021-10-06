@@ -41,11 +41,11 @@ const RightSideBar = ({users, channelMembers, usersDisplayed}) => {
         (<>
         <ListSubheader>ALL USERS</ListSubheader>
         <List style={{ overflowX: "hidden" }}>
-        {users.map((val) => {
+        {users.slice(0, 100).map((val) => {
                 return (
                   <ListItem  key={val.id}>
-                    <Avatar style={{marginRight: "5px", backgroundColor: "purple"}}>{val.email.slice(0, 1)}</Avatar>
-                    <ListItemText style={{ margin: 0, width: '100%',}} primary={`${val.uid}`} />
+                    <Avatar style={{marginRight: "10px", backgroundColor: "purple"}}>{val.email.slice(0, 1).toUpperCase()}</Avatar>
+                    <ListItemText style={{ margin: 0, width: '100%',}} primary={`${val.uid.split("@")[0]}`} />
                   </ListItem>
                 );
               })}
@@ -60,8 +60,8 @@ const RightSideBar = ({users, channelMembers, usersDisplayed}) => {
         {channelMembers.map((val) => {
                 return (
                   <ListItem key={val.id}>
-                     <Avatar style={{marginRight: "5px", backgroundColor: "purple"}}>{val.email.slice(0, 1)}</Avatar>
-                    <ListItemText style={{ margin: 0, width: '100%',}} primary={`${val.email}`} />
+                     <Avatar style={{marginRight: "10px", backgroundColor: "purple"}}>{val.email.slice(0, 1).toUpperCase()}</Avatar>
+                    <ListItemText style={{ margin: 0, width: '100%',}} primary={`${val.email.split("@")[0]}`} />
                   </ListItem>
                 );
               })}
