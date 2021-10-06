@@ -42,7 +42,8 @@ const MainChatComponent = ({
   stateSB,
   setStateSB,
   retrieveChannelUsers,
-  channelMembers 
+  channelMembers,
+  usersDisplayed
 }) => {
   const drawerWidth = 320;
   //   const {window} = props;
@@ -151,6 +152,7 @@ const MainChatComponent = ({
           <RightSideBar
             users={users}
             channelMembers={channelMembers}
+            usersDisplayed={usersDisplayed}
             />        
 
             

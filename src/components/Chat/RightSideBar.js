@@ -14,9 +14,11 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { ListItemButton } from '@mui/material';
 import ListSubheader from '@mui/material/ListSubheader';
+import Avatar from '@mui/material/Avatar';
+
 const drawerWidth = 240;
 
-const RightSideBar = ({users, channelMembers}) => {
+const RightSideBar = ({users, channelMembers, usersDisplayed}) => {
     return (
         <Drawer
         sx={{
@@ -33,27 +35,39 @@ const RightSideBar = ({users, channelMembers}) => {
         <Toolbar style={{opacity: "0"}}/>
         <Divider />
         
-        {/* <ListSubheader>ALL USERS</ListSubheader>
+
+        
+      { usersDisplayed.home &&
+        (<>
+        <ListSubheader>ALL USERS</ListSubheader>
         <List style={{ overflowX: "hidden" }}>
-        {users.slice(0, 20).map((val) => {
+        {users.map((val) => {
                 return (
                   <ListItem  key={val.id}>
+                    <Avatar style={{marginRight: "5px", backgroundColor: "purple"}}>{val.email.slice(0, 1)}</Avatar>
                     <ListItemText style={{ margin: 0, width: '100%',}} primary={`${val.uid}`} />
                   </ListItem>
                 );
               })}
-        </List> */}
+        </List>
+        </>)
+            }
 
+        {usersDisplayed.channel &&
+        (<>
         <ListSubheader>Channel Members</ListSubheader>
         <List style={{ overflowX: "hidden" }}>
         {channelMembers.map((val) => {
                 return (
-                  <ListItem  key={val.id}>
+                  <ListItem key={val.id}>
+                     <Avatar style={{marginRight: "5px", backgroundColor: "purple"}}>{val.email.slice(0, 1)}</Avatar>
                     <ListItemText style={{ margin: 0, width: '100%',}} primary={`${val.email}`} />
                   </ListItem>
                 );
               })}
         </List>
+        </>)
+        }
 
         <Divider />
       </Drawer>

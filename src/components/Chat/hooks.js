@@ -1,6 +1,7 @@
 import useSessionStorage from "../Home/useSessionStorage.js";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { TrendingUpRounded } from "@mui/icons-material";
 
 var req1;
 var req2;
@@ -17,10 +18,7 @@ const Hooks = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedUser, setSelectedUser] = useState([]);
   const [channelMembers, setChannelMembers] = useState([])
-  const [usersDisplayed, setUsersDisplayed] = useState({
-    home: false,
-    channels: false,
-  })
+  const [usersDisplayed, setUsersDisplayed] = useState({home: true, channel: false})
   
   const withoutCurrentUser = users.filter(
     (user) => !user.email.includes(headers.uid)
@@ -92,7 +90,8 @@ const Hooks = () => {
           uid: headers.uid,
         },
       })
-        .then((res) => {setUsers(res.data.data); console.log(res.data.data)})
+        .then((res) => {setUsers(res.data.data); 
+          console.log(res.data.data)})
         .catch((error) => {
           console.log(error);
         });
@@ -412,7 +411,8 @@ const Hooks = () => {
     stateSB,
     setStateSB,
     retrieveChannelUsers,
-    channelMembers 
+    channelMembers,
+    usersDisplayed
   };
 };
 
