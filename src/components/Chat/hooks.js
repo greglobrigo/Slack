@@ -16,16 +16,11 @@ const Hooks = () => {
   const [mobileOpen, setMobileOpen] = useState(false);  
   const [searchResults, setSearchResults] = useState([]);
   const [selectedUser, setSelectedUser] = useState([]);
-
-  // stores all the user id in a channel
-  const [channelUsersId, setChannelUsersId] = useState([]);
-
-  // stores all the user array in a channel
-  const [channelEmailsArray, setChannelEmailsArray] = useState([]);
-
-  // stores all the email in a channel
-  const [channelEmails, setChannelEmails] = useState([]);
-
+  const [channelMembers, setChannelMembers] = useState([])
+  const [usersDisplayed, setUsersDisplayed] = useState({
+    home: false,
+    channels: false,
+  })
   
   const withoutCurrentUser = users.filter(
     (user) => !user.email.includes(headers.uid)
@@ -315,6 +310,7 @@ const Hooks = () => {
   };
 
   const retrieveChannelUsers = (id) => {
+
     axios({
       url: `http://206.189.91.54/api/v1/channels/${id}`,
       method: "GET",
@@ -325,10 +321,11 @@ const Hooks = () => {
         uid: headers.uid,
       },
     })
-      .then((res) => {
-        collectChannelUsersId(res.data.data?.channel_members)
-        console.log()
-        console.log(res);
+      .then((res) => {        
+        const channelMembers = res.data.data.channel_members.map(val=>val.user_id)        
+        const filteredChannelMembers = users.filter(user=>channelMembers.includes(user.id))        
+        setChannelMembers(filteredChannelMembers)
+        setUsersDisplayed({home: false, channel: true})      
       })
       .catch((error) => {
         console.log(error);
@@ -336,31 +333,9 @@ const Hooks = () => {
   };
 
 
-  // gets the users id in a channel
-  const collectChannelUsersId = (members) => {
-    const channelUsers = members.map(member => member.user_id);
-    setChannelUsersId(channelUsers)
-    console.log(channelUsers)
-  }
-
-
-  // // retrieves the user's array in a channel
-  // const collectChannelEmailsArray = (userIds) => {
-  //   const channelEmailsArray = userIds.map(userid => users.filter(user => user.id === userid));
-  //   setChannelEmailsArray(channelEmailsArray);
-  // }
-
-  // const collectChannelEmails = (users) => {
-  //   const channelEmails= users.map((user) => user[0].email)
-  
-  //   setChannelEmails(channelEmails)
-  // }
-
-
-
-
-
   const returnToHome = () => {
+
+    setUsersDisplayed({home: true, channel: false})
     clearTimeout(req1);
     clearTimeout(req2);
     setAllMessagesRetrieved([]);
@@ -436,7 +411,8 @@ const Hooks = () => {
     setUserInviteError,
     stateSB,
     setStateSB,
-    retrieveChannelUsers 
+    retrieveChannelUsers,
+    channelMembers 
   };
 };
 

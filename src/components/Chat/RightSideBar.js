@@ -16,7 +16,7 @@ import { ListItemButton } from '@mui/material';
 import ListSubheader from '@mui/material/ListSubheader';
 const drawerWidth = 240;
 
-const RightSideBar = ({users}) => {
+const RightSideBar = ({users, channelMembers}) => {
     return (
         <Drawer
         sx={{
@@ -33,16 +33,28 @@ const RightSideBar = ({users}) => {
         <Toolbar style={{opacity: "0"}}/>
         <Divider />
         
-        <ListSubheader>ALL USERS</ListSubheader>
+        {/* <ListSubheader>ALL USERS</ListSubheader>
         <List style={{ overflowX: "hidden" }}>
-        {users.map((val) => {
+        {users.slice(0, 20).map((val) => {
                 return (
                   <ListItem  key={val.id}>
                     <ListItemText style={{ margin: 0, width: '100%',}} primary={`${val.uid}`} />
                   </ListItem>
                 );
               })}
+        </List> */}
+
+        <ListSubheader>Channel Members</ListSubheader>
+        <List style={{ overflowX: "hidden" }}>
+        {channelMembers.map((val) => {
+                return (
+                  <ListItem  key={val.id}>
+                    <ListItemText style={{ margin: 0, width: '100%',}} primary={`${val.email}`} />
+                  </ListItem>
+                );
+              })}
         </List>
+
         <Divider />
       </Drawer>
     )

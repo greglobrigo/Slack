@@ -41,7 +41,8 @@ const MainChatComponent = ({
   setUserInviteError,
   stateSB,
   setStateSB,
-  retrieveChannelUsers 
+  retrieveChannelUsers,
+  channelMembers 
 }) => {
   const drawerWidth = 320;
   //   const {window} = props;
@@ -145,7 +146,14 @@ const MainChatComponent = ({
             }
           </Drawer>
           </Box>
-          <RightSideBar users={users}/>        
+
+
+          <RightSideBar
+            users={users}
+            channelMembers={channelMembers}
+            />        
+
+            
         <ChatBodyComponent
           allMessagesRetrieved={allMessagesRetrieved}
           setMessage={setMessage}
