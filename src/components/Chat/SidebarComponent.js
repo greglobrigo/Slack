@@ -61,7 +61,7 @@ const SidebarComponent = ({
      <Toolbar 
           sx={{bgcolor: "purple"}}
         />  
-      <div className="sidebar-container">
+      <div className="sidebar-container channel-list">
 
 
       <div className="side-navigation"> 
@@ -106,24 +106,21 @@ const SidebarComponent = ({
 
 
       <div className="main-sidebar">    
-        <List>
-          <ListItemButton onClick={handleClickOpenChannel}>
-            <ListItemIcon>
-              <GroupIcon />
-            </ListItemIcon>
+        <List>   
+            <div style={{display: 'flex'}}>                   
+              <GroupIcon sx={{mt: 0.5, mr: 1}} />            
             <ListItemText
-              primary={`Channels (${channels ? channels.length : 0})`}
-            />
-            {/* {openChannel ? <ExpandLessIcon /> : <ExpandMoreIcon />} */}
-          </ListItemButton>
-          {/* <Collapse in={openChannel} timeout="auto" unmountOnExit> */}
-            <List component="div" disablePadding>
+              primary={`Channels (${channels ? channels.length : 0})`}/>    
+              </div>
+              
+            <List component="div" disablePadding>           
               {channels ? (
                 channels.map((channel) => {
-                  return (
-                    <ListItemButton
+                  return (<div key={channel.id}>
+                    
+                    <ListItemButton 
                       sx={{ pl: 4 }}
-                      key={channel.id}
+                     
                       onClick={() => {
                         intervalRetrieveMessages(channel.id);
                         setSelectedChannel(channel);
@@ -132,14 +129,17 @@ const SidebarComponent = ({
                     >
                       <ListItemText primary={`# ${channel.name}`} />
                     </ListItemButton>
-                  );
+                    
+                    </div> );
                 })
               ) : (
                 <ListItemButton sx={{ pl: 4 }}>
                   <ListItemText primary={`No users Available`} />
                 </ListItemButton>
-              )}
+              )}              
             </List>
+           
+              
           {/* </Collapse> */}
         </List>
 

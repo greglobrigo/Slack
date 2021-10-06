@@ -62,41 +62,49 @@ const TopBarComponent = ({
           {selectedChannel.name ? (
             <Box onClick={() => handleClickOpen()}>
               <ListItemButton>
-                <PersonAddIcon sx={{ mr: 1 }} />
-                <Typography variant="h7" noWrap component="div">
+                <PersonAddIcon style={{fontSize: '1.5rem', marginRight: '0.5rem'}} />
+                <span style={{fontSize: '0.75rem'}}>
                   {`Invite`}
-                </Typography>
+                </span>
               </ListItemButton>
             </Box>
           ) : (
-            <Box>
-              {`${currentDateAndTime.currentDate}, ${currentDateAndTime.currentTime}`}
+            <Box style={{display: "flex", flexDirection: 'column'}}>
+            <span style={{fontSize: '0.75rem'}}>
+              {`${currentDateAndTime.currentDate}`}
+              </span>
+              <span style={{fontSize: '0.75rem'}}>
+              {`${currentDateAndTime.currentTime}`}
+              </span>
             </Box>
           )}
 
           {selectedChannel.name || selectedUser.email ? (
             <Box>
               <ListItemButton>
-                <Typography variant="h7" noWrap component="div">
+              <span style={{fontSize: '0.9rem'}}>
                   {selectedChannel.name && `Channel: ${selectedChannel.name}`}{" "}
                   {selectedUser.email && `Chat with ${selectedUser.email}`}
-                </Typography>
+                  </span>
               </ListItemButton>
             </Box>
           ) : (
             <Box>
               <ListItemButton>
-                <Typography variant="h7" noWrap component="div">
+              <span style={{fontSize: '1rem'}}>
                   {"Avion Slack App"}
-                </Typography>
+                  </span>
               </ListItemButton>
             </Box>
           )}
 
-          <Box style={{ textAlign: "end" }}>
-            <Typography variant="h12" component="div">
-              {`${headers.uid} ID: ${userID}`}
-            </Typography>
+          <Box style={{ textAlign: "center", display: 'flex', flexDirection: 'column'}}>
+            <span style={{fontSize: '0.75rem'}}>
+              {`${headers.uid}`}
+              </span>
+              <span style={{fontSize: '0.75rem'}}>
+              {`ID: ${userID}`}
+              </span>
           </Box>
         </Toolbar>
       </AppBar>
