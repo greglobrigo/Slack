@@ -16,6 +16,16 @@ const Hooks = () => {
   const [mobileOpen, setMobileOpen] = useState(false);  
   const [searchResults, setSearchResults] = useState([]);
   const [selectedUser, setSelectedUser] = useState([]);
+
+  // stores all the user id in a channel
+  const [channelUsersId, setChannelUsersId] = useState([]);
+
+  // stores all the user array in a channel
+  const [channelEmailsArray, setChannelEmailsArray] = useState([]);
+
+  // stores all the email in a channel
+  const [channelEmails, setChannelEmails] = useState([]);
+
   
   const withoutCurrentUser = users.filter(
     (user) => !user.email.includes(headers.uid)
@@ -50,6 +60,22 @@ const Hooks = () => {
     horizontal: "center"
   });
 
+
+// stores all the email in a channel
+  // useEffect(() => {
+  //   collectChannelEmailsArray(channelUsersId)
+  // }, [channelUsersId]);
+
+  // useEffect(() => {
+  //   collectChannelEmails(channelEmailsArray);
+  //   console.log(channelEmailsArray)
+  // }, [channelEmailsArray]);
+
+  // useEffect(() => {
+  //   console.log(channelEmails)
+  // }, [channelEmails]);
+  
+
   useEffect(() => {
     
     setLoading(true);
@@ -71,7 +97,7 @@ const Hooks = () => {
           uid: headers.uid,
         },
       })
-        .then((res) => {setUsers(res.data.data)})
+        .then((res) => {setUsers(res.data.data); console.log(res.data.data)})
         .catch((error) => {
           console.log(error);
         });
@@ -300,12 +326,35 @@ const Hooks = () => {
       },
     })
       .then((res) => {
+        collectChannelUsersId(res.data.data?.channel_members)
+        console.log()
         console.log(res);
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
+
+  // gets the users id in a channel
+  const collectChannelUsersId = (members) => {
+    const channelUsers = members.map(member => member.user_id);
+    setChannelUsersId(channelUsers)
+    console.log(channelUsers)
+  }
+
+
+  // // retrieves the user's array in a channel
+  // const collectChannelEmailsArray = (userIds) => {
+  //   const channelEmailsArray = userIds.map(userid => users.filter(user => user.id === userid));
+  //   setChannelEmailsArray(channelEmailsArray);
+  // }
+
+  // const collectChannelEmails = (users) => {
+  //   const channelEmails= users.map((user) => user[0].email)
+  
+  //   setChannelEmails(channelEmails)
+  // }
 
 
 

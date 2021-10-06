@@ -22,7 +22,7 @@ const ChatBodyComponent = ({
         stateSB={stateSB}
         messageSB={`Successfully Created Channel: ${getChannel}!`}
         setStateSB={setStateSB}
-      />}
+      />} 
 
     { getEmail && <SnackBarComponent
         stateSB={stateSB}
