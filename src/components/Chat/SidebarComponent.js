@@ -64,7 +64,7 @@ const SidebarComponent = ({
       <div className="sidebar-container channel-list">
 
 
-      <div className="side-navigation"> 
+      <div className="side-navigation" style={{backgroundColor:"#b491c8"}}> 
 
       <List>
 
