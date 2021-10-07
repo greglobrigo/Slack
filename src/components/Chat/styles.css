@@ -1,12 +1,25 @@
 .channel-list {
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
 .channel-list::-webkit-scrollbar {
-  width: 5px;  
+  width: 5px;    
 }
 
 .channel-list::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 5px;
+}
+
+body {
+  overflow-y: scroll;
+}
+
+body::-webkit-scrollbar {
+  width: 7.5px;  
+}
+
+body::-webkit-scrollbar {
   background-color: gray;
   border-radius: 5px;
 }

@@ -40,7 +40,7 @@ const RightSideBar = ({users, channelMembers, usersDisplayed}) => {
       { usersDisplayed.home &&
         (<>
         <ListSubheader>ALL USERS</ListSubheader>
-        <List style={{ overflowX: "hidden" }}>
+        <List style={{ overflowX: "hidden" }} className="channel-list">
         {users.slice(0, 100).map((val) => {
                 return (
                   <ListItem  key={val.id}>
@@ -56,7 +56,7 @@ const RightSideBar = ({users, channelMembers, usersDisplayed}) => {
         {usersDisplayed.channel &&
         (<>
         <ListSubheader>Channel Members</ListSubheader>
-        <List style={{ overflowX: "hidden" }}>
+        <List style={{ overflowX: "hidden" }} className="channel-list">
         {channelMembers.map((val) => {
                 return (
                   <ListItem key={val.id}>
