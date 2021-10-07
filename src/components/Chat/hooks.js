@@ -80,7 +80,7 @@ const Hooks = () => {
   useEffect(() => {
     const getAllUsers = () => {
       axios({
-        url: "http://206.189.91.54/api/v1/users",
+        url: "https://slackapi.avionschool.com/api/v1/users",
         data: {},
         method: "GET",
         headers: {
@@ -100,7 +100,7 @@ const Hooks = () => {
 
     const retrieveChannels = () => {
       axios({
-        url: "http://206.189.91.54/api/v1/channels",
+        url: "https://slackapi.avionschool.com/api/v1/channels",
         data: {},
         method: "GET",
         headers: {
@@ -121,7 +121,7 @@ const Hooks = () => {
 
   const retrieveChannels = () => {
     axios({
-      url: "http://206.189.91.54/api/v1/channels",
+      url: "https://slackapi.avionschool.com/api/v1/channels",
       data: {},
       method: "GET",
       headers: {
@@ -149,7 +149,7 @@ const Hooks = () => {
 
   const retrieveAllMessagesInAChannel = (id) => {
     axios({
-      url: `http://206.189.91.54/api/v1/messages?receiver_id=${id}&receiver_class=Channel`,
+      url: `https://slackapi.avionschool.com/api/v1/messages?receiver_id=${id}&receiver_class=Channel`,
       data: {},
       method: "GET",
       headers: {
@@ -171,7 +171,7 @@ const Hooks = () => {
     const extractedId = users.filter(user=>user.email===userEmail) 
 
     axios({
-      url: "http://206.189.91.54/api/v1/channel/add_member",
+      url: "https://slackapi.avionschool.com/api/v1/channel/add_member",
       data: {
         id: `${selectedChannel.id}`,
         member_id: `${extractedId[0]?.id}`,
@@ -204,7 +204,7 @@ const Hooks = () => {
   //CREATE NEW CHANNEL
    const createNewChannelWithUser = (channelName, handleClose, setValueFromForm) => {
     axios({
-      url: "http://206.189.91.54/api/v1/channels",
+      url: "https://slackapi.avionschool.com/api/v1/channels",
       data: {
         name: `${channelName}`,
         user_ids: [userID],
@@ -236,7 +236,7 @@ const Hooks = () => {
 
   const createMessageInAChannel = (message) => {
     axios({
-      url: `http://206.189.91.54/api/v1/messages`,
+      url: `https://slackapi.avionschool.com/api/v1/messages`,
       data: {
         receiver_id: `${selectedChannel.id}`,
         receiver_class: "Channel",
@@ -258,7 +258,7 @@ const Hooks = () => {
 
   const retrieveAllMessagesWithUser = (userData) => {
     axios({
-      url: `http://206.189.91.54/api/v1/messages?receiver_id=${userData.id}&receiver_class=User`,
+      url: `https://slackapi.avionschool.com/api/v1/messages?receiver_id=${userData.id}&receiver_class=User`,
       method: "GET",
       headers: {
         "access-token": headers["access-token"],
@@ -290,7 +290,7 @@ const Hooks = () => {
 
   const createDirectMessageToAUser = (message) => {
     axios({
-      url: `http://206.189.91.54/api/v1/messages`,
+      url: `https://slackapi.avionschool.com/api/v1/messages`,
       data: {
         receiver_id: `${selectedUser.id}`,
         receiver_class: "User",
@@ -311,7 +311,7 @@ const Hooks = () => {
   const retrieveChannelUsers = (id) => {
 
     axios({
-      url: `http://206.189.91.54/api/v1/channels/${id}`,
+      url: `https://slackapi.avionschool.com/api/v1/channels/${id}`,
       method: "GET",
       headers: {
         "access-token": headers["access-token"],
