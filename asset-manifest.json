@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/slack-app/static/css/main.8acf4e8f.chunk.css",
-    "main.js": "/slack-app/static/js/main.78c47966.chunk.js",
-    "main.js.map": "/slack-app/static/js/main.78c47966.chunk.js.map",
+    "main.js": "/slack-app/static/js/main.d0704c26.chunk.js",
+    "main.js.map": "/slack-app/static/js/main.d0704c26.chunk.js.map",
     "runtime-main.js": "/slack-app/static/js/runtime-main.7a9ae541.js",
     "runtime-main.js.map": "/slack-app/static/js/runtime-main.7a9ae541.js.map",
     "static/js/2.15feeb1c.chunk.js": "/slack-app/static/js/2.15feeb1c.chunk.js",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.7a9ae541.js",
     "static/js/2.15feeb1c.chunk.js",
     "static/css/main.8acf4e8f.chunk.css",
-    "static/js/main.78c47966.chunk.js"
+    "static/js/main.d0704c26.chunk.js"
   ]
 }
