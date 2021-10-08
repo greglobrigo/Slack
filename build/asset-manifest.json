@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/slack-app/static/css/main.e66ef563.chunk.css",
+    "main.js": "/slack-app/static/js/main.915c1d48.chunk.js",
+    "main.js.map": "/slack-app/static/js/main.915c1d48.chunk.js.map",
+    "runtime-main.js": "/slack-app/static/js/runtime-main.6e69fc39.js",
+    "runtime-main.js.map": "/slack-app/static/js/runtime-main.6e69fc39.js.map",
+    "static/js/2.7b312fe8.chunk.js": "/slack-app/static/js/2.7b312fe8.chunk.js",
+    "static/js/2.7b312fe8.chunk.js.map": "/slack-app/static/js/2.7b312fe8.chunk.js.map",
+    "static/js/3.e04b7bec.chunk.js": "/slack-app/static/js/3.e04b7bec.chunk.js",
+    "static/js/3.e04b7bec.chunk.js.map": "/slack-app/static/js/3.e04b7bec.chunk.js.map",
+    "index.html": "/slack-app/index.html",
+    "static/css/main.e66ef563.chunk.css.map": "/slack-app/static/css/main.e66ef563.chunk.css.map",
+    "static/js/2.7b312fe8.chunk.js.LICENSE.txt": "/slack-app/static/js/2.7b312fe8.chunk.js.LICENSE.txt",
+    "static/media/styles.css": "/slack-app/static/media/bg768.e6902437.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6e69fc39.js",
+    "static/js/2.7b312fe8.chunk.js",
+    "static/css/main.e66ef563.chunk.css",
+    "static/js/main.915c1d48.chunk.js"
+  ]
+}

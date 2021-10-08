@@ -67,9 +67,9 @@ const SidebarComponent = ({
   return (
     <>   
     {userStatus.signedOut && <Redirect to="/" />}
-     <Toolbar 
-          sx={{bgcolor: "purple"}}
-        />  
+     <Toolbar sx={{bgcolor: "purple"}}>
+          <span style={{color: 'white'}}>Avion Slack App</span>
+     </Toolbar>  
       <div className="sidebar-container channel-list">
 
 
