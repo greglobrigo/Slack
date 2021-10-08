@@ -16,7 +16,7 @@ const ChatBodyComponent = ({
   stateSB,
   setStateSB,
   getChannel,
-  getEmail,
+  getEmail,  
 }) => {
   return (
     <>
@@ -32,7 +32,7 @@ const ChatBodyComponent = ({
         setStateSB={setStateSB}
       />}
 
-      <Box component="main" sx={{flexGrow: 1, p: 3}} style={{padding: "20px 20px 150px 360px",}}>
+      <Box component="main" sx={{flexGrow: 1, p: 3}} style={{padding: "0 20px 150px 360px",}}>
         <Toolbar />
         <Box
           style={{
@@ -46,7 +46,7 @@ const ChatBodyComponent = ({
                 return (
                   <div key={val.id}>
                   <div style={{display: 'flex', alignItems: 'center'}}>
-                    <div style={{padding: '20px 0', marginRight: "25px"}}>
+                    <div style={{padding: '15px 0', marginRight: "25px"}}>
                     <Avatar style={{backgroundColor: "purple"}}>{val.sender.email.slice(0, 1).toUpperCase()}</Avatar>                     
                     <p style={{paddingTop: '10px', margin: '0', fontSize: "12px"}}>{`${moment(val.created_at).fromNow()}`}</p>
                     </div>

@@ -10,13 +10,13 @@ import Chat from '../Chat'
 import useLocalStorage from "../Home/useLocalStorage";
 
 const Routes = () => {
-  const [isLoggedIn] = useLocalStorage('logged-in', false)
+  const [userStatus] = useLocalStorage('status')
 
     return (
       <>
       <Router>              
            <Switch>           
-            <Route exact path="/" component={()=> isLoggedIn ?  <Redirect to='/chat'/> : <Home/>}/>                         
+            <Route exact path="/" component={()=> userStatus?.isLoggedIn ? <Redirect to='/chat'/> : <Home/>}/>                         
             <Route exact path="/chat" component={Chat}>
               <Chat />
             </Route>          

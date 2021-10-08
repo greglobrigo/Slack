@@ -20,7 +20,10 @@ const Hooks = () => {
     const [email, setEmail] = useState('')    
     const [isRegistering, setIsRegistering] = useState(false)
     const [route, setRoute] = useState(false)   
-    const [isLoggedIn, setIsLoggedIn] = useLocalStorage('logged-in', false)
+    const [userStatus, setUserStatus] = useLocalStorage('status', {
+      isLoggedIn: false,
+      signedOut: false,
+    })
     const [validInfo, setValidInfo] = useState({
             passwordsDoNotMatch: false,
             invalidEmailFormat: false,
@@ -118,7 +121,7 @@ const Hooks = () => {
    const transition = () => {
     setLoading(true)
     setTimeout(() => {setLoading(false); setRoute(true)}, 2000)
-    setIsLoggedIn(true)    
+    setUserStatus({isLoggedIn: true, signedOut: false})
    }
 
     return {               
