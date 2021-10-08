@@ -94,10 +94,53 @@ body::-webkit-scrollbar {
   background-color: green;
 }
 
+.greetings {
+  padding-left: 350px;
+}
+
+.chat-body {
+  padding: 20px 20px 150px 360px;
+}
+
+.top-toolbar {
+    justify-content: space-between;
+    padding-right: 250px;
+}
+
+
 @media screen and (max-width: 600px) {
   
   .message-area-container { 
   width: 90vw;
 
+  }
+}
+
+
+@media screen and (max-width: 900px) {
+  
+  .right-sidebar {
+    display:none;
+  }
+
+  .chat-body {
+    padding: 20px 20px 150px 0px;
+    margin-bottom: 100px;
+  }
+
+  .greetings {
+    padding-right: 20px;
+  }
+}
+
+@media screen and (max-width: 690px) {
+  .greetings {
+    padding-left: 0px;
+    padding-right: 20px;
+  }
+  
+  .top-toolbar {
+    padding-right: 0px;
+    justify-content: flex-start;
   }
 }

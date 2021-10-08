@@ -32,7 +32,7 @@ const ChatBodyComponent = ({
         setStateSB={setStateSB}
       />}
 
-      <Box component="main" sx={{flexGrow: 1, p: 3}} style={{padding: "20px 20px 150px 360px",}}>
+      <Box component="main" sx={{flexGrow: 1, p: 3}} className="chat-body">
         <Toolbar />
         <Box
           style={{

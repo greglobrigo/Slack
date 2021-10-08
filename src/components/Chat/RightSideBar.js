@@ -21,6 +21,7 @@ const drawerWidth = 240;
 const RightSideBar = ({users, channelMembers, usersDisplayed}) => {
     return (
         <Drawer
+        className="right-drawer"
         sx={{
           width: drawerWidth,
           flexShrink: 0,

@@ -8,6 +8,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import FormDialoguesComponent from "./FormDialoguesComponent";
+import "./styles.css"
+
 
 const TopBarComponent = ({
   drawerWidth,
@@ -43,12 +45,11 @@ const TopBarComponent = ({
           ml: { sm: `${drawerWidth}px` },
         }}
       >
-        <Toolbar
+        <Toolbar 
+          className="top-toolbar" 
           style={{
-            backgroundColor: "purple",
-            justifyContent: "space-between",
-            paddingRight: "250px"}}
-        >
+            backgroundColor: "purple"}} >
+
           <IconButton
             color="inherit"
             aria-label="open drawer"
