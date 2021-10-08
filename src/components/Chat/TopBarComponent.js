@@ -80,20 +80,12 @@ const TopBarComponent = ({
             </Box>
           )}
 
-          {selectedChannel.name || selectedUser.email ? (
+          {(selectedChannel.name || selectedUser.email) && (
             <Box>
               <ListItemButton>
               <span style={{fontSize: '0.9rem'}}>
                   {selectedChannel.name && `Channel: ${selectedChannel.name}`}{" "}
                   {selectedUser.email && `Chat with ${selectedUser.email}`}
-                  </span>
-              </ListItemButton>
-            </Box>
-          ) : (
-            <Box>
-              <ListItemButton>
-              <span style={{fontSize: '1rem'}}>
-                  {"Avion Slack App"}
                   </span>
               </ListItemButton>
             </Box>

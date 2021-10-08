@@ -6,6 +6,7 @@ import TopBarComponent from "./TopBarComponent";
 import ChatBodyComponent from "./ChatBodyComponent";
 import RightSideBar from "./RightSideBar";
 import { useState } from "react";
+import {Redirect} from "react-router-dom";
 
 const MainChatComponent = ({
   headers,
@@ -43,7 +44,9 @@ const MainChatComponent = ({
   setStateSB,
   retrieveChannelUsers,
   channelMembers,
-  usersDisplayed
+  usersDisplayed,
+  userStatus,
+  signOut
 }) => {
   const drawerWidth = 320;
   //   const {window} = props;
@@ -54,6 +57,7 @@ const MainChatComponent = ({
 
   return (
     <>
+    
       <Box>
         <CssBaseline />
         <TopBarComponent
@@ -109,7 +113,10 @@ const MainChatComponent = ({
                 isCreateChannel={isCreateChannel}
                 setIsCreateChannel={setIsCreateChannel}   
                 setGetChannel={setGetChannel} 
-                retrieveChannelUsers={retrieveChannelUsers}                        
+                retrieveChannelUsers={retrieveChannelUsers}                  
+                userStatus={userStatus}
+                headers={headers}
+                signOut={signOut}                   
               />
             }
           </Drawer>
@@ -142,7 +149,10 @@ const MainChatComponent = ({
                 isCreateChannel={isCreateChannel}
                 setIsCreateChannel={setIsCreateChannel}
                 setGetChannel={setGetChannel}     
-                retrieveChannelUsers={retrieveChannelUsers}                
+                retrieveChannelUsers={retrieveChannelUsers}                  
+                userStatus={userStatus}        
+                headers={headers}    
+                signOut={signOut}                   
               />
             }
           </Drawer>

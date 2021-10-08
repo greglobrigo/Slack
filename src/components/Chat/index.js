@@ -42,7 +42,9 @@ const Index = () => {
     setStateSB,
     retrieveChannelUsers,
     channelMembers,
-    usersDisplayed
+    usersDisplayed,
+    userStatus,
+    signOut
   } = useHooks();
 
   return (
@@ -87,6 +89,8 @@ const Index = () => {
           retrieveChannelUsers={retrieveChannelUsers}
           channelMembers={channelMembers}
           usersDisplayed={usersDisplayed}
+          userStatus={userStatus}
+          signOut={signOut}
         />
       )}
     </>

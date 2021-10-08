@@ -1,14 +1,13 @@
-import useSessionStorage from "../Home/useSessionStorage.js";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { TrendingUpRounded } from "@mui/icons-material";
+import useLocalStorage from "../Home/useLocalStorage.js";
 
 var req1;
 var req2;
 
 const Hooks = () => {
-  const [headers] = useSessionStorage("headers", []);
-  const [userID] = useSessionStorage("userID", []);
+  const [headers] = useLocalStorage("headers", []);
+  const [userID] = useLocalStorage("userID", []);
   const [users, setUsers] = useState([]);
   const [channels, setChannels] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -18,7 +17,11 @@ const Hooks = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedUser, setSelectedUser] = useState([]);
   const [channelMembers, setChannelMembers] = useState([])
-  const [usersDisplayed, setUsersDisplayed] = useState({home: true, channel: false})
+  const [usersDisplayed, setUsersDisplayed] = useState({home: true, channel: false})  
+  const [userStatus, setUserStatus] = useLocalStorage('status', {
+    isLoggedIn: false,
+    signedOut: false,
+  })
   
   const withoutCurrentUser = users.filter(
     (user) => !user.email.includes(headers.uid)
@@ -90,8 +93,7 @@ const Hooks = () => {
           uid: headers.uid,
         },
       })
-        .then((res) => {setUsers(res.data.data); 
-          console.log(res.data.data)})
+        .then((res) => {setUsers(res.data.data)})
         .catch((error) => {
           console.log(error);
         });
@@ -333,7 +335,6 @@ const Hooks = () => {
 
 
   const returnToHome = () => {
-
     setUsersDisplayed({home: true, channel: false})
     clearTimeout(req1);
     clearTimeout(req2);
@@ -341,6 +342,16 @@ const Hooks = () => {
     setSelectedChannel([]);
     setSelectedUser([]);
   };
+
+  const signOut = () => {    
+    setUsersDisplayed({home: true, channel: false})      
+    clearTimeout(req1);
+    clearTimeout(req2);
+    setAllMessagesRetrieved([]);
+    setSelectedChannel([]);
+    setSelectedUser([]);    
+    setUserStatus({isLoggedIn: false, signedOut: true})    
+  }
 
   const sortByEmail = (val) => {
     // setTimeout(() => {
@@ -412,7 +423,9 @@ const Hooks = () => {
     setStateSB,
     retrieveChannelUsers,
     channelMembers,
-    usersDisplayed
+    usersDisplayed,
+    signOut,
+    userStatus
   };
 };
 

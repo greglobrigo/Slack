@@ -1,22 +1,18 @@
 import React, { useState } from "react";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import Toolbar from "@mui/material/Toolbar";
-import Collapse from "@mui/material/Collapse";
-import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import AddIcon from "@mui/icons-material/Add";
-import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import ForumIcon from "@mui/icons-material/Forum";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import FormDialoguesComponent from "./FormDialoguesComponent";
 import HomeIcon from "@mui/icons-material/Home";
-import SendIcon from "@mui/icons-material/Send";
 import GroupIcon from "@mui/icons-material/Group";
-import Typography from '@mui/material/Typography';
+import LogoutIcon from '@mui/icons-material/Logout';
+import SignOutComponent from './SignOutComponent'
+import Avatar from '@mui/material/Avatar';
+import {Redirect} from "react-router-dom";
+
 
 
 const SidebarComponent = ({
@@ -36,8 +32,10 @@ const SidebarComponent = ({
   isCreateChannel,
   setIsCreateChannel,  
   setGetChannel,
-  retrieveChannelUsers   
-
+  retrieveChannelUsers,  
+  userStatus,
+  headers,
+  signOut
 }) => {
   const [openForInviteUser, setOpenForInviteUser] = useState(false);
   const handleClickOpenForInviteUser = () => {
@@ -55,12 +53,23 @@ const SidebarComponent = ({
   const handleCloseForSendDirectMessage = () => {
     setOpenForSendDirectMessage(false);
   };
+  //sign-out
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <>   
-     <Toolbar 
-          sx={{bgcolor: "purple"}}
-        />  
+    {userStatus.signedOut && <Redirect to="/" />}
+     <Toolbar sx={{bgcolor: "purple"}}>
+          <span style={{color: 'white'}}>Avion Slack App</span>
+     </Toolbar>  
       <div className="sidebar-container channel-list">
 
 
@@ -94,6 +103,18 @@ const SidebarComponent = ({
              Message
           </span>        
           </ListItemButton>
+
+     </List>
+
+     <List>
+
+     <ListItemButton className="side-navigation-item sign-out-button" onClick={() => {setOpen(true)}}>            
+          <LogoutIcon />              
+          <span>
+          Sign Out
+          </span>                
+          </ListItemButton>
+
 
      </List>
 
@@ -205,6 +226,18 @@ const SidebarComponent = ({
         searchResults={searchResults}
         intervalRetrieveMessagesWithUser={intervalRetrieveMessagesWithUser}
       />
+      <SignOutComponent
+      open={open}
+      setOpen={setOpen}
+      handleClickOpen={handleClickOpen}
+      handleClose={handleClose}
+      Avatar={Avatar}
+      userStatus={userStatus}
+      headers={headers}
+      signOut={signOut}      
+      />
+
+
     </>
   );
 };
