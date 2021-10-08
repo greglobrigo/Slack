@@ -1,14 +1,14 @@
-import useSessionStorage from "../Home/useSessionStorage.js";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { TrendingUpRounded } from "@mui/icons-material";
+import useLocalStorage from "../Home/useLocalStorage.js";
 
 var req1;
 var req2;
 
 const Hooks = () => {
-  const [headers] = useSessionStorage("headers", []);
-  const [userID] = useSessionStorage("userID", []);
+  const [headers] = useLocalStorage("headers", []);
+  const [userID] = useLocalStorage("userID", []);
   const [users, setUsers] = useState([]);
   const [channels, setChannels] = useState([]);
   const [loading, setLoading] = useState(false);

@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
-import useSessionStorage from './useSessionStorage'
 import axios from 'axios';
+import useLocalStorage from './useLocalStorage';
 
 const Hooks = () => {
 
@@ -13,13 +13,14 @@ const Hooks = () => {
     }, 3000);
   }, [])
 
-    const [headers, setHeaders] = useSessionStorage('headers', [])
-    const [userID, setUserID] = useSessionStorage('userID', []);
+    const [headers, setHeaders] = useLocalStorage('headers', [])
+    const [userID, setUserID] = useLocalStorage('userID', []);
     const [password, setPassword] = useState('')
     const [secondPassword, setSecondPassword] = useState('')    
     const [email, setEmail] = useState('')    
     const [isRegistering, setIsRegistering] = useState(false)
     const [route, setRoute] = useState(false)   
+    const [isLoggedIn, setIsLoggedIn] = useLocalStorage('logged-in', false)
     const [validInfo, setValidInfo] = useState({
             passwordsDoNotMatch: false,
             invalidEmailFormat: false,
@@ -117,6 +118,7 @@ const Hooks = () => {
    const transition = () => {
     setLoading(true)
     setTimeout(() => {setLoading(false); setRoute(true)}, 2000)
+    setIsLoggedIn(true)    
    }
 
     return {               

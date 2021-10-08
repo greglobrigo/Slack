@@ -47,7 +47,7 @@ const TopBarComponent = ({
           style={{
             backgroundColor: "purple",
             justifyContent: "space-between",
-            paddingRight: "250px"}}
+            }}
         >
           <IconButton
             color="inherit"
