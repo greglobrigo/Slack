@@ -32,11 +32,7 @@ const ChatBodyComponent = ({
         setStateSB={setStateSB}
       />}
 
-<<<<<<< HEAD
-      <Box component="main" sx={{flexGrow: 1, p: 3}} className="chat-body">
-=======
-      <Box component="main" sx={{flexGrow: 1, p: 3}} style={{padding: "0 20px 150px 360px",}}>
->>>>>>> main
+      <Box component="main"  className="chat-body">
         <Toolbar />
         <Box
           style={{
@@ -54,7 +50,7 @@ const ChatBodyComponent = ({
                     <Avatar style={{backgroundColor: "purple"}}>{val.sender.email.slice(0, 1).toUpperCase()}</Avatar>                     
                     <p style={{paddingTop: '10px', margin: '0', fontSize: "12px"}}>{`${moment(val.created_at).fromNow()}`}</p>
                     </div>
-                    <div>
+                    <div style={{paddingBottom: "20px"}}>
                     <p style={{margin: '0'}}> {`${val.sender.email.split("@")[0]} says:`}</p>
                     <p style={{margin: '0'}}>{val.body}</p>                    
                     </div>

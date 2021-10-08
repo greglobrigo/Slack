@@ -83,7 +83,7 @@ const TopBarComponent = ({
           {(selectedChannel.name || selectedUser.email) && (
             <Box>
               <ListItemButton>
-              <span style={{fontSize: '0.9rem'}}>
+              <span style={{fontSize: '0.9rem'}} className="topbar-small">
                   {selectedChannel.name && `Channel: ${selectedChannel.name}`}{" "}
                   {selectedUser.email && `Chat with ${selectedUser.email}`}
                   </span>

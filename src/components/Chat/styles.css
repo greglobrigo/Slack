@@ -130,14 +130,17 @@ body::-webkit-scrollbar {
 
 
 @media screen and (max-width: 900px) {
-  
-  .right-sidebar {
-    display:none;
-  }
+
+  .message-area-container {
+    width: 400px;
+  } 
 
   .chat-body {
-    padding: 20px 20px 150px 0px;
-    margin-bottom: 100px;
+    overflow-x: hidden;
+  }
+
+  .right-side-bar {
+    display:none;
   }
 
   .greetings {
@@ -145,7 +148,7 @@ body::-webkit-scrollbar {
   }
 }
 
-@media screen and (max-width: 690px) {
+@media screen and (max-width: 600px) {
   .greetings {
     padding-left: 0px;
     padding-right: 20px;
@@ -155,4 +158,18 @@ body::-webkit-scrollbar {
     padding-right: 0px;
     justify-content: flex-start;
   }
+
+  .chat-body {
+    padding: 20px 20px 150px 20px;
+    margin-bottom: 100px;
+  }
+
+  .message-area-container {
+    width: 320px;
+  } 
+
+  .topbar-small {
+    padding-left: 0
+  }
+
 }
