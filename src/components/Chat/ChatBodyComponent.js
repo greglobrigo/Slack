@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import SnackBarComponent from "./SnackbarComponent";
 import Avatar from '@mui/material/Avatar';
+import moment from 'moment';
 
 const ChatBodyComponent = ({
   allMessagesRetrieved,
@@ -45,12 +46,13 @@ const ChatBodyComponent = ({
                 return (
                   <div key={val.id}>
                   <div style={{display: 'flex', alignItems: 'center'}}>
-                    <div style={{padding: '20px 0'}}>
-                    <Avatar style={{marginRight: "10px", backgroundColor: "purple"}}>{val.sender.email.slice(0, 1).toUpperCase()}</Avatar>                     
+                    <div style={{padding: '20px 0', marginRight: "25px"}}>
+                    <Avatar style={{backgroundColor: "purple"}}>{val.sender.email.slice(0, 1).toUpperCase()}</Avatar>                     
+                    <p style={{paddingTop: '10px', margin: '0', fontSize: "12px"}}>{`${moment(val.created_at).fromNow()}`}</p>
                     </div>
                     <div>
-                    <p style={{margin: '0'}}> {`${val.sender.email.split("@")[0]} says: at ${val.created_at}: `}</p>
-                    <p style={{margin: '0'}}>{val.body}</p>
+                    <p style={{margin: '0'}}> {`${val.sender.email.split("@")[0]} says:`}</p>
+                    <p style={{margin: '0'}}>{val.body}</p>                    
                     </div>
                   </div>                   
                   </div>
