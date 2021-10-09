@@ -44,7 +44,8 @@ const Index = () => {
     channelMembers,
     usersDisplayed,
     userStatus,
-    signOut
+    signOut,
+    setMobileOpen
   } = useHooks();
 
   return (
@@ -91,6 +92,7 @@ const Index = () => {
           usersDisplayed={usersDisplayed}
           userStatus={userStatus}
           signOut={signOut}
+          setMobileOpen={setMobileOpen}
         />
       )}
     </>

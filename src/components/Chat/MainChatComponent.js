@@ -46,7 +46,8 @@ const MainChatComponent = ({
   channelMembers,
   usersDisplayed,
   userStatus,
-  signOut
+  signOut,
+  setMobileOpen
 }) => {
   const drawerWidth = 320;
   //   const {window} = props;
@@ -79,8 +80,7 @@ const MainChatComponent = ({
           sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
           aria-label="mailbox folders"
         >
-          <Drawer
-            // container={container}
+          <Drawer            
             variant="temporary"
             open={mobileOpen}
             onClose={handleDrawerToggle}
@@ -116,7 +116,8 @@ const MainChatComponent = ({
                 retrieveChannelUsers={retrieveChannelUsers}                  
                 userStatus={userStatus}
                 headers={headers}
-                signOut={signOut}                   
+                signOut={signOut} 
+                setMobileOpen={setMobileOpen}                  
               />
             }
           </Drawer>
@@ -152,7 +153,8 @@ const MainChatComponent = ({
                 retrieveChannelUsers={retrieveChannelUsers}                  
                 userStatus={userStatus}        
                 headers={headers}    
-                signOut={signOut}                   
+                signOut={signOut}         
+                setMobileOpen={setMobileOpen}                            
               />
             }
           </Drawer>

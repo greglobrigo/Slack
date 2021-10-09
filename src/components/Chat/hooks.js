@@ -425,7 +425,8 @@ const Hooks = () => {
     channelMembers,
     usersDisplayed,
     signOut,
-    userStatus
+    userStatus,
+    setMobileOpen
   };
 };
 

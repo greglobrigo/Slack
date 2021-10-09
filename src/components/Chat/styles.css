@@ -42,13 +42,16 @@ body::-webkit-scrollbar {
   background-color: white;
   border-radius: 5px;
   resize: none;
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  display: none;
 }
 
 .message-area-container {   
  position: fixed;
  bottom: 0;
  height: 100px;
- width: calc(100vw - 750px);
+ width: calc(100vw - 625px);
  z-index: 1;
  background-color: white;
  display: flex;
@@ -59,7 +62,7 @@ body::-webkit-scrollbar {
   position: fixed;
   bottom: 0;
   padding-bottom: 100px;  
-  padding-right: 240px;
+  padding-right: 350px;
 }
 
 .side-navigation {
@@ -93,7 +96,6 @@ body::-webkit-scrollbar {
 }
 
 .sign-out-button {
-  /* style={{fontSize:"0.75rem", paddingBottom: '10px'}}>  */
   font-size: 0.75rem;
   transform: translateY(-10px);
 }
@@ -106,12 +108,8 @@ body::-webkit-scrollbar {
   background-color: green;
 }
 
-.greetings {
-  padding-left: 350px;
-}
-
 .chat-body {
-  padding: 20px 20px 150px 360px;
+  padding: 0 20px 150px 360px;
 }
 
 .top-toolbar {
@@ -119,20 +117,36 @@ body::-webkit-scrollbar {
     padding-right: 250px;
 }
 
-
-@media screen and (max-width: 600px) {
-  
-  .message-area-container { 
-  width: 90vw;
-
-  }
+.top-bar-email {  
+  text-align: center;
+  display: flex;
+  /* flex-direction: column; */
 }
 
+.invite {
+  font-size: 0.75rem;
+}
 
-@media screen and (max-width: 900px) {
+.toolbar-close-button {
+  background-color: white;
+  display: none
+}
+
+.send-message-button {    
+  background-color: purple;
+  height: 55px;
+  display: flex;  
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  width: 60px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 920px) {
 
   .message-area-container {
-    width: 400px;
+    width: 55vw   
   } 
 
   .chat-body {
@@ -146,17 +160,54 @@ body::-webkit-scrollbar {
   .greetings {
     padding-right: 20px;
   }
+
+   .top-bar-channel {
+    display: none
+  }
 }
 
-@media screen and (max-width: 600px) {
-  .greetings {
-    padding-left: 0px;
-    padding-right: 20px;
+@media screen and (max-width: 800px) {
+  .top-bar-email {      
+    flex-direction: column;
   }
+
+  .message-area-container {
+    width: 50vw   
+  } 
+}
+
+@media screen and (max-width: 700px) {
+
+  .message-area-container { 
+    width: 90vw;
+    }
+
+  .invite {
+    display: none
+  }
+  .top-bar-email {      
+    display: none
+  }
+}
+
+
+@media screen and (max-width: 600px) {
+
+  .message-area-container { 
+    width: 90vw;
+    }
   
   .top-toolbar {
     padding-right: 0px;
-    justify-content: flex-start;
+    justify-content: space-between;
+  }
+
+  .invite {
+    display: block
+  }
+
+  .invite-button {
+    transform: translateX(-100px);
   }
 
   .chat-body {
@@ -164,12 +215,32 @@ body::-webkit-scrollbar {
     margin-bottom: 100px;
   }
 
-  .message-area-container {
-    width: 320px;
-  } 
-
   .topbar-small {
     padding-left: 0
   }
 
 }
+
+@media screen and (max-width: 420px) {
+  .invite-button {
+    transform: translateX(-70px);
+  }
+  .toolbar-close-button {    
+    display: block
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .invite-button {
+    transform: translateX(-50px);
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .invite-button {
+    transform: translateX(-30px);
+  }
+}
+
+
+

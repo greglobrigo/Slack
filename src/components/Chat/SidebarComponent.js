@@ -12,6 +12,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import SignOutComponent from './SignOutComponent'
 import Avatar from '@mui/material/Avatar';
 import {Redirect} from "react-router-dom";
+import {GrClose} from 'react-icons/gr'
 
 
 
@@ -35,7 +36,8 @@ const SidebarComponent = ({
   retrieveChannelUsers,  
   userStatus,
   headers,
-  signOut
+  signOut,
+  setMobileOpen
 }) => {
   const [openForInviteUser, setOpenForInviteUser] = useState(false);
   const handleClickOpenForInviteUser = () => {
@@ -67,8 +69,9 @@ const SidebarComponent = ({
   return (
     <>   
     {userStatus.signedOut && <Redirect to="/" />}
-     <Toolbar sx={{bgcolor: "purple"}}>
+     <Toolbar style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}} sx={{bgcolor: "purple"}}>
           <span style={{color: 'white'}}>Avion Slack App</span>
+           <GrClose className="toolbar-close-button" onClick={()=>setMobileOpen(false)}/>
      </Toolbar>  
       <div className="sidebar-container channel-list">
 

@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import SnackBarComponent from "./SnackbarComponent";
 import Avatar from '@mui/material/Avatar';
 import moment from 'moment';
+import {RiSendPlaneFill} from 'react-icons/ri'
 
 const ChatBodyComponent = ({
   allMessagesRetrieved,
@@ -46,13 +47,13 @@ const ChatBodyComponent = ({
                 return (
                   <div key={val.id}>
                   <div style={{display: 'flex', alignItems: 'center'}}>
-                    <div style={{padding: '15px 0', marginRight: "25px"}}>
-                    <Avatar style={{backgroundColor: "purple"}}>{val.sender.email.slice(0, 1).toUpperCase()}</Avatar>                     
-                    <p style={{paddingTop: '10px', margin: '0', fontSize: "12px"}}>{`${moment(val.created_at).fromNow()}`}</p>
+                    <div style={{padding: '12.5px 0', marginRight: "25px"}}>
+                    <Avatar style={{backgroundColor: "purple"}}>{val.sender.email.slice(0, 1).toUpperCase()}</Avatar>           
                     </div>
-                    <div style={{paddingBottom: "20px"}}>
+                    <div style={{padding: '15px 0 12.5px 0'}}>
                     <p style={{margin: '0'}}> {`${val.sender.email.split("@")[0]} says:`}</p>
-                    <p style={{margin: '0'}}>{val.body}</p>                    
+                    <p style={{margin: '0'}}>{val.body}</p>     
+                    <p style={{margin: '0', fontSize: "12px"}}>{`${moment(val.created_at).fromNow()}`}</p>               
                     </div>
                   </div>                   
                   </div>
@@ -65,7 +66,7 @@ const ChatBodyComponent = ({
               )) ||
               (selectedUser.email && (
                 <span className="greetings">
-                  You have no chat history with {selectedUser.email}. Send
+                  You have no chat history with {selectedUser.email.split("@")[0]}. Send
                   him/her a message!
                 </span>
               )) || (
@@ -96,6 +97,14 @@ const ChatBodyComponent = ({
               onChange={(e) => setMessage(e.target.value)}
               value={message}
             />
+            <div className="send-message-button"
+             onClick={(e) => {
+              e.preventDefault();
+              createMessageInAChannel(message);
+              setMessage("");
+            }}>
+            <RiSendPlaneFill size={40}/>
+            </div>
           </Box>
         )}
 
@@ -119,6 +128,15 @@ const ChatBodyComponent = ({
               onChange={(e) => setMessage(e.target.value)}
               value={message}
             />
+            <div className="send-message-button"
+              onClick={(e) => {
+              e.preventDefault();
+              createDirectMessageToAUser(message);
+              setMessage("");
+            }}>
+            <RiSendPlaneFill size={40}/>
+            </div>
+
           </Box>
         )}
       </Box>

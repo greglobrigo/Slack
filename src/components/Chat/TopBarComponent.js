@@ -2,7 +2,6 @@ import { useState } from "react";
 import ListItemButton from "@mui/material/ListItemButton";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
@@ -59,12 +58,11 @@ const TopBarComponent = ({
           >
             <MenuIcon />
           </IconButton>
-
           {selectedChannel.name ? (
             <Box onClick={() => handleClickOpen()}>
-              <ListItemButton>
+              <ListItemButton className="invite-button">
                 <PersonAddIcon style={{fontSize: '1.5rem', marginRight: '0.5rem'}} />
-                <span style={{fontSize: '0.75rem'}}>
+                <span className="invite">
                   {`Invite`}
                 </span>
               </ListItemButton>
@@ -84,15 +82,15 @@ const TopBarComponent = ({
             <Box>
               <ListItemButton>
               <span style={{fontSize: '0.9rem'}} className="topbar-small">
-                  {selectedChannel.name && `Channel: ${selectedChannel.name}`}{" "}
+                  {selectedChannel.name && <span><span className="top-bar-channel">Channel:</span> <span>{selectedChannel.name}</span></span>}{" "}
                   {selectedUser.email && `Chat with ${selectedUser.email}`}
                   </span>
               </ListItemButton>
             </Box>
           )}
 
-          <Box style={{ textAlign: "center", display: 'flex', flexDirection: 'column'}}>
-            <span style={{fontSize: '0.75rem'}}>
+          <Box className="top-bar-email">         
+            <span style={{fontSize: '0.75rem', paddingRight: '2px'}}>
               {`${headers.uid}`}
               </span>
               <span style={{fontSize: '0.75rem'}}>
