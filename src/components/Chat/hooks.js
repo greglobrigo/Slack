@@ -353,14 +353,24 @@ const Hooks = () => {
     setUserStatus({isLoggedIn: false, signedOut: true})    
   }
 
+  let timeOutId  
   const sortByEmail = (val) => {
-    // setTimeout(() => {
+    if (val.length > 0) {  
+    timeOutId = setTimeout(() => {
+    if(timeOutId) {
+      clearTimeout(timeOutId)      
+    }
       const sortedUsers = withoutCurrentUser.filter((value) =>
         value.email.includes(val)
       );
       setSearchResults(sortedUsers);
-    // }, 500);
-  };
+    }, 1000);
+  } else {    
+    setSearchResults(null)    
+  }
+}
+
+
 
   const [currentDateAndTime, setCurrentDateAndTime] = useState({
     currentTime: "",

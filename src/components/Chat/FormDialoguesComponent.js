@@ -54,7 +54,7 @@ const FormDialoguesComponent = ({
 
           {searchResults && (
             <List className="list-results">
-              {searchResults.map((val) => {
+              {searchResults.slice(0, 10).map((val) => {
                 return (
                   <ListItemButton
                     sx={{ pl: 4 }}

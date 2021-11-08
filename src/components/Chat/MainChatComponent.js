@@ -6,7 +6,6 @@ import TopBarComponent from "./TopBarComponent";
 import ChatBodyComponent from "./ChatBodyComponent";
 import RightSideBar from "./RightSideBar";
 import { useState } from "react";
-import {Redirect} from "react-router-dom";
 
 const MainChatComponent = ({
   headers,
