@@ -14,9 +14,7 @@ import Avatar from '@mui/material/Avatar';
 import {Redirect} from "react-router-dom";
 import {GrClose} from 'react-icons/gr'
 
-
-
-const SidebarComponent = ({
+const LeftSidebar = ({
   handleClickOpenChannel,
   openChannel,
   channels,
@@ -37,7 +35,8 @@ const SidebarComponent = ({
   userStatus,
   headers,
   signOut,
-  setMobileOpen
+  setMobileOpen,  
+  setHasScrolledUp,
 }) => {
   const [openForInviteUser, setOpenForInviteUser] = useState(false);
   const handleClickOpenForInviteUser = () => {
@@ -56,7 +55,7 @@ const SidebarComponent = ({
     setOpenForSendDirectMessage(false);
   };
   //sign-out
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -74,13 +73,10 @@ const SidebarComponent = ({
            <GrClose className="toolbar-close-button" onClick={()=>setMobileOpen(false)}/>
      </Toolbar>  
       <div className="sidebar-container channel-list">
-
-
       <div className="side-navigation" style={{backgroundColor:"#b491c8"}}> 
-
       <List>
 
-          <ListItemButton className="side-navigation-item" onClick={() => {returnToHome()}}>            
+          <ListItemButton className="side-navigation-item" onClick={() => {returnToHome();}}>            
           <HomeIcon />              
           <span style={{fontSize:"0.75rem"}}>  
           Home
@@ -117,17 +113,9 @@ const SidebarComponent = ({
           Sign Out
           </span>                
           </ListItemButton>
-
-
-     </List>
-
-       
-      
+     </List>      
 
         </div>
-
-
-
 
       <div className="main-sidebar">    
         <List>   
@@ -140,15 +128,14 @@ const SidebarComponent = ({
             <List component="div" disablePadding>           
               {channels ? (
                 channels.map((channel) => {
-                  return (<div key={channel.id}>
-                    
+                  return (<div key={channel.id}>                    
                     <ListItemButton 
-                      sx={{ pl: 4 }}
-                     
+                      sx={{ pl: 4 }}                     
                       onClick={() => {
                         intervalRetrieveMessages(channel.id);
                         setSelectedChannel(channel);
                         retrieveChannelUsers(channel.id)
+                        setHasScrolledUp(false)
                       }}
                     >
                       <ListItemText primary={`# ${channel.name}`} />
@@ -161,47 +148,10 @@ const SidebarComponent = ({
                   <ListItemText primary={`No users Available`} />
                 </ListItemButton>
               )}              
-            </List>
-           
-              
-          {/* </Collapse> */}
+            </List>          
         </List>
-
-        
-
-        <List>
-         
-        </List>
-
-        
-
-
-        
-
-        {/* <List>
-          <ListItemButton onClick={handleClickOpenUsers}>
-            <ListItemIcon>
-              <ChatBubbleIcon />
-            </ListItemIcon>
-            <ListItemText
-              primary={`All Users (reduced to ${users.slice(0, 20).length})`}
-            />
-            {openUsers ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </ListItemButton>
-          <Collapse in={openUsers} timeout="auto" unmountOnExit>
-            <List>
-              {users.slice(0, 20).map((val) => {
-                return (
-                  <ListItemButton sx={{ pl: 4 }} key={val.id}>
-                    <ListItemText primary={`${val.uid}`} />
-                  </ListItemButton>
-                );
-              })}
-            </List>
-          </Collapse>
-        </List> */}
-
-        
+        <List>         
+        </List>        
       </div>
       </div>
 
@@ -239,10 +189,8 @@ const SidebarComponent = ({
       headers={headers}
       signOut={signOut}      
       />
-
-
     </>
   );
 };
 
-export default SidebarComponent;
+export default LeftSidebar;

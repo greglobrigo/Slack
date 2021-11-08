@@ -15,14 +15,14 @@ body {
   overflow-y: scroll;
 }
 
-body::-webkit-scrollbar {
+/* body::-webkit-scrollbar {
   width: 7.5px;  
 }
 
 body::-webkit-scrollbar {
   background-color: gray;
   border-radius: 5px;
-}
+} */
 
 .appbar {
   z-index: 100;
@@ -141,6 +141,27 @@ body::-webkit-scrollbar {
   border-radius: 5px;
   width: 60px;
   cursor: pointer;
+}
+
+.home-img {
+  width: 300px;
+  height: 300px;    
+  background-image: url('../../assets/chat.svg');  
+}
+
+.no-chat-img {
+  width: 300px;
+  height: 300px;    
+  background-image: url('../../assets/no-chat.svg');
+  background-repeat: no-repeat;
+  background-size: auto;
+}
+.chat-dm {
+  width: 200px;
+  height: 150px;    
+  background-image: url('../../assets/chat-dm.svg');
+  background-repeat: no-repeat;
+  background-size: auto;
 }
 
 @media screen and (max-width: 920px) {

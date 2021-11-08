@@ -17,7 +17,7 @@ const Hooks = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedUser, setSelectedUser] = useState([]);
   const [channelMembers, setChannelMembers] = useState([])
-  const [usersDisplayed, setUsersDisplayed] = useState({home: true, channel: false})  
+  const [usersDisplayed, setUsersDisplayed] = useState({home: true, channel: false, directMessage: false})  
   const [userStatus, setUserStatus] = useLocalStorage('status', {
     isLoggedIn: false,
     signedOut: false,
@@ -56,24 +56,7 @@ const Hooks = () => {
     horizontal: "center"
   });
 
-
-// stores all the email in a channel
-  // useEffect(() => {
-  //   collectChannelEmailsArray(channelUsersId)
-  // }, [channelUsersId]);
-
-  // useEffect(() => {
-  //   collectChannelEmails(channelEmailsArray);
-  //   console.log(channelEmailsArray)
-  // }, [channelEmailsArray]);
-
-  // useEffect(() => {
-  //   console.log(channelEmails)
-  // }, [channelEmails]);
-  
-
-  useEffect(() => {
-    
+  useEffect(() => {    
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -139,7 +122,7 @@ const Hooks = () => {
       });
   };
 
-  const intervalRetrieveMessages = (id) => {
+  const intervalRetrieveMessages = (id) => {    
     clearTimeout(req1);
     clearTimeout(req2);    
     setSelectedUser([]);
@@ -279,6 +262,7 @@ const Hooks = () => {
   };
 
   const intervalRetrieveMessagesWithUser = (userData) => {
+    setUsersDisplayed({home: false, channel: false, directMessage: true})
     clearTimeout(req1);
     clearTimeout(req2);
     setSelectedChannel([]);
@@ -326,7 +310,7 @@ const Hooks = () => {
         const channelMembers = res.data.data.channel_members.map(val=>val.user_id)        
         const filteredChannelMembers = users.filter(user=>channelMembers.includes(user.id))        
         setChannelMembers(filteredChannelMembers)
-        setUsersDisplayed({home: false, channel: true})      
+        setUsersDisplayed({home: false, channel: true, directMessage: false})      
       })
       .catch((error) => {
         console.log(error);
@@ -335,7 +319,7 @@ const Hooks = () => {
 
 
   const returnToHome = () => {
-    setUsersDisplayed({home: true, channel: false})
+    setUsersDisplayed({home: true, channel: false, directMessage: false})
     clearTimeout(req1);
     clearTimeout(req2);
     setAllMessagesRetrieved([]);
@@ -344,7 +328,7 @@ const Hooks = () => {
   };
 
   const signOut = () => {    
-    setUsersDisplayed({home: true, channel: false})      
+    setUsersDisplayed({home: true, channel: false, directMessage: false})      
     clearTimeout(req1);
     clearTimeout(req2);
     setAllMessagesRetrieved([]);

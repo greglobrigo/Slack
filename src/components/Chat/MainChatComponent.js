@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Drawer from "@mui/material/Drawer";
-import SidebarComponent from "./SidebarComponent";
+import LeftSidebar from "./LeftSidebar";
 import TopBarComponent from "./TopBarComponent";
 import ChatBodyComponent from "./ChatBodyComponent";
 import RightSideBar from "./RightSideBar";
@@ -54,6 +54,7 @@ const MainChatComponent = ({
   //     window !== undefined ? () => window().document.body : undefined;
   const [getChannel, setGetChannel] = useState('')
   const [getEmail, setGetEmail] = useState('')
+  const [hasScrolledUp, setHasScrolledUp] = useState(false);
 
   return (
     <>
@@ -95,7 +96,7 @@ const MainChatComponent = ({
             }}
           >
             {
-              <SidebarComponent
+              <LeftSidebar
                 handleClickOpenChannel={handleClickOpenChannel}
                 openChannel={openChannel}
                 createNewChannelWithUser={createNewChannelWithUser}
@@ -116,7 +117,8 @@ const MainChatComponent = ({
                 userStatus={userStatus}
                 headers={headers}
                 signOut={signOut} 
-                setMobileOpen={setMobileOpen}                  
+                setMobileOpen={setMobileOpen}                 
+                setHasScrolledUp={setHasScrolledUp}
               />
             }
           </Drawer>
@@ -132,7 +134,7 @@ const MainChatComponent = ({
             open
           >
             {
-              <SidebarComponent
+              <LeftSidebar
                 handleClickOpenChannel={handleClickOpenChannel}
                 openChannel={openChannel}
                 createNewChannelWithUser={createNewChannelWithUser}
@@ -153,19 +155,19 @@ const MainChatComponent = ({
                 userStatus={userStatus}        
                 headers={headers}    
                 signOut={signOut}         
-                setMobileOpen={setMobileOpen}                            
+                setMobileOpen={setMobileOpen}                       
+                setHasScrolledUp={setHasScrolledUp}                     
               />
             }
           </Drawer>
-          </Box>
-
-
+          </Box>           
+           
           <RightSideBar
             users={users}
             channelMembers={channelMembers}
             usersDisplayed={usersDisplayed}
-            />        
-
+            selectedUser={selectedUser}
+            />       
             
         <ChatBodyComponent
           allMessagesRetrieved={allMessagesRetrieved}
@@ -179,6 +181,8 @@ const MainChatComponent = ({
           setStateSB={setStateSB}          
           getChannel={getChannel}
           getEmail={getEmail}
+          hasScrolledUp={hasScrolledUp}
+          setHasScrolledUp={setHasScrolledUp}
         />
       </Box>
     </>

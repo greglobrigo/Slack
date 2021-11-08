@@ -5,6 +5,8 @@ import SnackBarComponent from "./SnackbarComponent";
 import Avatar from '@mui/material/Avatar';
 import moment from 'moment';
 import {RiSendPlaneFill} from 'react-icons/ri'
+import { useRef, useEffect } from "react";
+
 
 const ChatBodyComponent = ({
   allMessagesRetrieved,
@@ -17,10 +19,24 @@ const ChatBodyComponent = ({
   stateSB,
   setStateSB,
   getChannel,
-  getEmail,  
+  getEmail,
+  hasScrolledUp,
+  setHasScrolledUp,  
 }) => {
+  const lastMessage = useRef();  
+  window.onscroll = () => {
+    setHasScrolledUp(true)
+  }
+  useEffect(() => {     
+    if(!hasScrolledUp){ 
+      if (allMessagesRetrieved?.length >= 1) {
+      lastMessage.current.scrollIntoView({ behavior: "smooth" });
+      }  
+    } 
+  }, [allMessagesRetrieved, hasScrolledUp]);  
+  
   return (
-    <>
+    <>    
     { getChannel && <SnackBarComponent
         stateSB={stateSB}
         messageSB={`Successfully Created Channel: ${getChannel}!`}
@@ -33,7 +49,7 @@ const ChatBodyComponent = ({
         setStateSB={setStateSB}
       />}
 
-      <Box component="main"  className="chat-body">
+      <Box component="main"  className="chat-body">      
         <Toolbar />
         <Box
           style={{
@@ -42,10 +58,11 @@ const ChatBodyComponent = ({
             width: '600px',            
           }}
         >
+        
           {allMessagesRetrieved?.length >= 1
-            ? allMessagesRetrieved.map((val) => {
-                return (
-                  <div key={val.id}>
+            ? allMessagesRetrieved.map((val, idx) => {
+                return (                  
+                  <div key={val.id} ref={idx+1 === allMessagesRetrieved.length ? lastMessage : undefined}>                         
                   <div style={{display: 'flex', alignItems: 'center'}}>
                     <div style={{padding: '12.5px 0', marginRight: "25px"}}>
                     <Avatar style={{backgroundColor: "purple"}}>{val.sender.email.slice(0, 1).toUpperCase()}</Avatar>           
@@ -60,23 +77,28 @@ const ChatBodyComponent = ({
                 );
               })
             : (selectedChannel.name && (
-                <span className="greetings">
+                <div className="greetings">
+                <div className="no-chat-img"/> 
+                <span>
                   Channel: {selectedChannel.name} has no messages.
                 </span>
+                </div>
               )) ||
               (selectedUser.email && (
                 <span className="greetings">
                   You have no chat history with {selectedUser.email.split("@")[0]}. Send
                   him/her a message!
                 </span>
-              )) || (
-                <span className="greetings">
+              )) || (                                      
+                <div className="greetings">                 
+                <div className="home-img"/>    
+                <span >
                   Welcome to Avion Slack App! Hop on a channel or send a DM to
                   get started!👀
-                </span>
+                </span>                
+                </div>                
               )}
-        </Box>
-
+        </Box>        
         {selectedChannel.name && (
           <Box
             className="message-area-container"
@@ -85,9 +107,11 @@ const ChatBodyComponent = ({
             autoComplete="off"
             onSubmit={(e) => {
               e.preventDefault();
+              setHasScrolledUp(false)
               createMessageInAChannel(message);
-              setMessage("");
-            }}
+              setMessage("");    
+              
+            }}                        
           >
             <TextField
               className="message-area"
@@ -100,8 +124,10 @@ const ChatBodyComponent = ({
             <div className="send-message-button"
              onClick={(e) => {
               e.preventDefault();
+              setHasScrolledUp(false)
               createMessageInAChannel(message);
               setMessage("");
+              
             }}>
             <RiSendPlaneFill size={40}/>
             </div>
@@ -116,6 +142,7 @@ const ChatBodyComponent = ({
             autoComplete="off"
             onSubmit={(e) => {
               e.preventDefault();
+              setHasScrolledUp(false)
               createDirectMessageToAUser(message);
               setMessage("");
             }}
@@ -131,6 +158,7 @@ const ChatBodyComponent = ({
             <div className="send-message-button"
               onClick={(e) => {
               e.preventDefault();
+              setHasScrolledUp(false)
               createDirectMessageToAUser(message);
               setMessage("");
             }}>
