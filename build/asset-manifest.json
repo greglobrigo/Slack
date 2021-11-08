@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/slack-app/static/css/main.7cefadaa.chunk.css",
-    "main.js": "/slack-app/static/js/main.2c78296e.chunk.js",
-    "main.js.map": "/slack-app/static/js/main.2c78296e.chunk.js.map",
+    "main.css": "/slack-app/static/css/main.5dc0a56d.chunk.css",
+    "main.js": "/slack-app/static/js/main.d2b81a32.chunk.js",
+    "main.js.map": "/slack-app/static/js/main.d2b81a32.chunk.js.map",
     "runtime-main.js": "/slack-app/static/js/runtime-main.b2e62c33.js",
     "runtime-main.js.map": "/slack-app/static/js/runtime-main.b2e62c33.js.map",
-    "static/js/2.6f532489.chunk.js": "/slack-app/static/js/2.6f532489.chunk.js",
-    "static/js/2.6f532489.chunk.js.map": "/slack-app/static/js/2.6f532489.chunk.js.map",
+    "static/js/2.034a57d2.chunk.js": "/slack-app/static/js/2.034a57d2.chunk.js",
+    "static/js/2.034a57d2.chunk.js.map": "/slack-app/static/js/2.034a57d2.chunk.js.map",
     "static/js/3.97ecc1cf.chunk.js": "/slack-app/static/js/3.97ecc1cf.chunk.js",
     "static/js/3.97ecc1cf.chunk.js.map": "/slack-app/static/js/3.97ecc1cf.chunk.js.map",
     "index.html": "/slack-app/index.html",
-    "static/css/main.7cefadaa.chunk.css.map": "/slack-app/static/css/main.7cefadaa.chunk.css.map",
-    "static/js/2.6f532489.chunk.js.LICENSE.txt": "/slack-app/static/js/2.6f532489.chunk.js.LICENSE.txt",
-    "static/media/styles.css": "/slack-app/static/media/bg768.e6902437.svg"
+    "static/css/main.5dc0a56d.chunk.css.map": "/slack-app/static/css/main.5dc0a56d.chunk.css.map",
+    "static/js/2.034a57d2.chunk.js.LICENSE.txt": "/slack-app/static/js/2.034a57d2.chunk.js.LICENSE.txt",
+    "static/media/styles.css": "/slack-app/static/media/no-chat.d9648f3b.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.b2e62c33.js",
-    "static/js/2.6f532489.chunk.js",
-    "static/css/main.7cefadaa.chunk.css",
-    "static/js/main.2c78296e.chunk.js"
+    "static/js/2.034a57d2.chunk.js",
+    "static/css/main.5dc0a56d.chunk.css",
+    "static/js/main.d2b81a32.chunk.js"
   ]
 }
