@@ -24,6 +24,7 @@ const ChatBodyComponent = ({
   setHasScrolledUp,  
 }) => {
   const lastMessage = useRef();  
+  const endOfChat = useRef();
   window.onscroll = () => {
     setHasScrolledUp(true)
   }
@@ -98,6 +99,7 @@ const ChatBodyComponent = ({
                 </span>                
                 </div>                
               )}
+              <div style={{paddingBottom: "50px"}} ref={endOfChat}></div>
         </Box>        
         {selectedChannel.name && (
           <Box
@@ -106,9 +108,9 @@ const ChatBodyComponent = ({
             noValidate
             autoComplete="off"
             onSubmit={(e) => {
-              e.preventDefault();
-              setHasScrolledUp(false)
+              e.preventDefault();              
               createMessageInAChannel(message);
+              endOfChat.current.scrollIntoView({ behavior: "smooth" });
               setMessage("");    
               
             }}                        
@@ -123,9 +125,9 @@ const ChatBodyComponent = ({
             />
             <div className="send-message-button"
              onClick={(e) => {
-              e.preventDefault();
-              setHasScrolledUp(false)
+              e.preventDefault();              
               createMessageInAChannel(message);
+              endOfChat.current.scrollIntoView({ behavior: "smooth" });
               setMessage("");
               
             }}>
@@ -141,9 +143,9 @@ const ChatBodyComponent = ({
             noValidate
             autoComplete="off"
             onSubmit={(e) => {
-              e.preventDefault();
-              setHasScrolledUp(false)
+              e.preventDefault();              
               createDirectMessageToAUser(message);
+              endOfChat.current.scrollIntoView({ behavior: "smooth" });
               setMessage("");
             }}
           >
@@ -157,9 +159,9 @@ const ChatBodyComponent = ({
             />
             <div className="send-message-button"
               onClick={(e) => {
-              e.preventDefault();
-              setHasScrolledUp(false)
+              e.preventDefault();              
               createDirectMessageToAUser(message);
+              endOfChat.current.scrollIntoView({ behavior: "smooth" });
               setMessage("");
             }}>
             <RiSendPlaneFill size={40}/>
