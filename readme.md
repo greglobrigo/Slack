@@ -1,5 +1,7 @@
 # React Slack Application  
 
+*A messaging application where users can sign-up / sign-in, create and send messages via a channel or direct message*
+
 <h4> Demo: https://greglobrigo.github.io/slack-app/ </h4>
 
 ## Features
